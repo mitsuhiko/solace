@@ -58,7 +58,6 @@ setup(
     version='0.1',
     url='http://opensource.plurk.com/solace/',
     license='BSD',
-    long_description='::\n\n' + read('README'),
     author='Plurk Inc.',
     author_email='opensource@plurk.com',
     description='Multilangual User Support Platform',

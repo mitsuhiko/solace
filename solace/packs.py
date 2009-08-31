@@ -13,7 +13,9 @@ from webdepcompress import PackManager
 
 
 def _url_for(*args, **kwargs):
-    """Replaces itself on first call with the real URL for."""
+    """Replaces itself on first call with the real URL for.  This ugly
+    hack exists because of circular dependencies at startup time.
+    """
     global _url_for
     from solace.application import url_for as _url_for
     return _url_for(*args, **kwargs)
