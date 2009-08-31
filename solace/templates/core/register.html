@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% set page_title = _('Register new Account') %}
+{% block body %}
+  <h1>{{ page_title }}</h1>
+  {% call form() %}
+    {{ form.as_dl() }}
+    {{ form.captcha or '' }}
+    <div class="buttons">
+      <input type="submit" value="{{ _('Register') }}">
+    </div>
+  {% endcall %}
+{% endblock %}

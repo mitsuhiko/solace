@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% from 'kb/_boxes.html' import render_topic %}
+{% set page_title = _('Sections') %}
+{% block body %}
+  <h1>{{ _('Sections') }}</h1>
+  <p>{% trans %}
+    Got a problem?  Then let us know.  But make sure to post it
+    in the correct section.  The one in bold is the one you are
+    probably most interested in:
+  {% endtrans %}
+  <ul class="sections">
+  {%- for key, locale in languages %}
+    <li{% if locale == request.locale %} class="highlight"{% endif
+      %}><a href="{{ url_for('kb.overview', lang_code=key) }}">{{
+        locale.display_name|e }}</a>
+  {%- endfor %}
+  </ul>
+  <p>{% trans %}
+    Your language is not here?  Help us out and make it happen.
+    Contact our <a href="#">translation guys</a> and we will try
+    to get your language in as quickly as possible.
+  {% endtrans %}
+{% endblock %}

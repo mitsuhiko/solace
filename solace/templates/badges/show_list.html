@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% from '_helpers.html' import render_badge %}
+{% set page_title = _('Badges') %}
+{% block body %}
+  <h1>{{ page_title }}</h1>
+  <p class="explanation">
+  {% trans %}
+    Here you can see all badges that you can earn.  Some of them even
+    multiple times.
+  {% endtrans %}
+  <ul class="badges">
+  {%- for badge in badges %}
+    <li{% if request.user %} class="{{ 'earned' if badge in request.user.badges
+    else 'not_earned' }}"{% endif %}><span class="badgewrapper">{{ render_badge(badge) }}
+        <span class="description">— {{ badge.description|e
+        }}{% if not badge.single_awarded %} <small class="multibadge">{{
+          _('(awarded multiple times)')
+        }}</small>{% endif %}</span></span>
+  {%- endfor %}
+  </ul>
+{% endblock %}

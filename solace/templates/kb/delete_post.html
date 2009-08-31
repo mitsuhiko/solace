@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% from '_helpers.html' import render_user %}
+{% set page_title = _('Delete Post') %}
+{% block body %}
+  <h1>{{ page_title }}</h1>
+  <div class="explanation">
+  {% trans %}
+    <p>Do you want to delete the post?
+  {% endtrans %}
+  </div>
+  {% call form() %}
+    <div class="buttons">
+      <input type="submit" value="{{ _('Yes') }}" name="yes">
+      <input type="submit" value="{{ _('No') }}" name="no">
+    </div>
+  {% endcall %}
+{% endblock %}

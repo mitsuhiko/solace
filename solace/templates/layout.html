@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+{%- from '_helpers.html' import render_user %}
+{%- block html_head -%}
+<title>{% if page_title %}{{ page_title }} | {% endif %}{{ settings.WEBSITE_TITLE|e }}</title>
+{{ packs.default }}
+<script type="text/javascript" src="{{ url_for('core.get_translations', lang=request.locale) }}"></script>
+<!--[if IE]><link rel="stylesheet" type="text/css" href="{{ url_for('static', file='ie.css') }}"><![endif]-->
+<!--[if lt IE 7]><link rel="stylesheet" type="text/css" href="{{ url_for('static', file='ie6.css') }}"><![endif]-->
+{%- endblock %}
+<script type="text/javascript">
+Solace.URL_ROOT = "{{ url_for('core.language_redirect') }}";
+{%- if request.user %}
+Solace.USER_ID = {{ request.user.id }};
+{%- endif %}
+{%- if request.view_lang %}
+Solace.CONTEXT_LANG = "{{ request.view_lang }}";
+{%- endif %}
+{%- if request.timezone_known %}
+Solace.notifyUTCOffset();
+{%- endif %}
+</script>
+<div class="header">
+  <p class="title"><strong>{{ settings.WEBSITE_TITLE|e }}</strong>
+  <p class="subtitle"><small>{{ settings.WEBSITE_TAGLINE|e }}</small>
+  {%- if settings.LANGUAGE_SECTIONS|length > 1 %}
+  <ul class="language_selection css_language_selection">
+    <li class="title">{{ _('Language') }}
+  {%- for lang in request.list_languages() %}
+    <li class="lang_{{ lang.key }}{% if lang.selected %} active{% endif
+      %}"><a href="{{ lang.select_url }}">{{ lang.name|e }}</a>
+  {%- endfor %}
+  </ul>
+  {%- endif %}
+  <div class="metanavigation">
+    <p class="links">
+    {%- if request.is_logged_in %}
+      {{ render_user(request.user, with_avatar=false) }} |
+      <a href="{{ url_for('core.logout') }}">{{ _('Logout') }}</a>
+    {%- else %}
+      <a href="{{ url_for('core.register') }}">{{ _('Register') }}</a> |
+      <a href="{{ url_for('core.login') }}">{{ _('Login') }}</a>
+    {%- endif %} |
+    <a href="{{ url_for('core.about') }}">{{ _('About Solace') }}</a>
+  </div>
+</div>
+<ul class="navigation{% if not request.view_lang and settings.LANGUAGE_SECTIONS|length > 1
+  %} localeless_navigation{% endif %}">
+{%- for endpoint, with_lang, caption in [
+    ('kb.new', true, _('Ask')),
+    ('kb.overview', true, _('Overview')),
+    ('kb.unanswered', true, _('Unanswered')),
+    ('kb.tags', true, _('Tags')),
+    (('kb.userlist', true, _('Users')) if request.view_lang and settings.LANGUAGE_SECTIONS|length > 1
+     else ('users.userlist', false, _('Users'))),
+    ('badges.show_list', false, _('Badges'))]  %}
+  <li class="item{% if endpoint == page_navigation_item or endpoint == request.endpoint
+    %} active{% endif %}{% if with_lang and not request.view_lang %} faded{% endif
+    %}"><a href="{{ url_for(endpoint) }}">{{ caption }}</a>
+{%- endfor %}
+{%- if request.view_lang and settings.LANGUAGE_SECTIONS|length > 1 %}
+  <li class="view_lang">
+    <a href="{{ url_for('kb.sections') }}">
+      <small>{{ _('Section') }}</small>
+      <big>{{ request.view_lang.display_name }}</big>
+    </a>
+{%- endif %}
+</ul>
+{%- if request %}
+  {%- set messages = request.pull_flash_messages() %}
+  {%- if messages %}
+    <div id="flash_message">
+      {# inject some javascript to directly hide the flash message
+         if JavaScript is available. #}
+      <script type="text/javascript">
+        document.getElementById('flash_message').style.display = 'none';
+      </script>
+    {%- for message in messages %}
+      <p>{{ message }}
+    {%- endfor %}
+    </div>
+  {%- endif %}
+{%- endif -%}
+<div class="contents">
+{% block body %}{% endblock %}
+</div>
+<div class="footer">
+  &copy; Copyright 2009 by <a href="http://plurk.com/">Plurk Inc.</a><br>
+  {{ settings.WEBSITE_TITLE|e }} is powered by <a href="http://opensource.plurk.com/solace/">Solace</a>,
+  our open source support software | <a href="{{ url_for('api.help') }}">API</a>
+</div>

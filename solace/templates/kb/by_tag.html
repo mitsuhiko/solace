@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% from 'kb/_boxes.html' import render_topics, render_topic_tabs %}
+{% set page_title = _('Questions Tagged “%s”') % tag.name|e %}
+{% set page_navigation_item = 'kb.tags' %}
+{% block html_head %}
+{{ super() }}
+<link rel="alternate" href="{{ url_for('kb.by_tag_feed', name=tag.name, order_by=order_by)
+  }}" type="application/atom+xml">
+{%- endblock %}
+{% block body %}
+  <h1>{{ page_title }}</h1>
+  <div class="explanation">
+    <p>{% trans tag='<a class="tag" href="%s">%s</a>' % (url_for(tag), tag.name|e)-%}
+      Questions are grouped and flagged by tags. By using the right tags you
+      make it easier for others to find questions again. The following topics
+      are topics tagged {{ tag }}.
+    {%- endtrans %}
+  </div>
+  {{ render_topic_tabs('kb.by_tag', order_by, {'name': tag.name}) }}
+  {{ render_topics(topics) }}
+  {{ pagination }}
+{% endblock %}

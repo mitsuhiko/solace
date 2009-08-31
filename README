@@ -1,0 +1,170 @@
+
+
+                               // SOLACE //
+
+                    ~ a multilingual support system ~
+
+
+    ~ INTRODUCTION ~
+
+        Solace is a multilingual support system developed at Plurk
+        for end user support.  The application design is heavily
+        influenced by bulletin boards like phpBB and the new
+        stackoverflow programming community site.
+
+    ~ INSTALLING ~
+
+        For a four-step quickstart have a look at the end of the
+        file.  It explains how to quickly test Solace on your
+        local box.
+
+        Solace is developed in Python as a standard conforming WSGI
+        application with the help of the following libraries:
+
+            -   Werkzeug
+            -   Jinja2
+            -   SQLAlchemy
+            -   Babel
+            -   creoleparser
+            -   simplejson
+	    -	webdepcompress
+
+        If you want to hack on Solace on your own the best way to get
+        started is using the all-mygthy `setup.py` script in a virtual
+        Python environment.
+
+        If you're not familiar with virtualenv, be sure to have it
+        installed and run it like this in the solace folder:
+
+            $ virtualenv env
+
+        Aferwards you can activate it.  On linux or OS X you can use
+        the following command:
+
+            $ source env/bin/activate
+
+        If you're working on a Windows box, use the activate batch
+        file instead:
+
+            $ env\Scripts\activate.bat
+
+        After you have activated the environment you can use the
+        `develop` command from the setup script to start working on
+        Solace:
+
+            $ python setup.py develop
+
+        If you want to install it into a virtual environment (or
+        system wide, which we however do not recommend) you can use
+        the `install` command
+
+            $ python setup.py install
+
+        Both `develop` and `install` will take care of dependencies
+        for you.
+
+    ~ THE CONFIGURATION ~
+
+        Where does Solace get the settings from?  It comes with some
+        default settings that unless overridden will be the ones it
+        uses.  The defaults are intended for development purposes only
+        have *have to be changed* if you want to use Solace in
+        production.
+
+        WHen Solace initializes it checks for a `SOLACE_SETTINGS_FILE`
+        environment variable.  If it finds one, it will execute the
+        file set as a Python script and overrides the assigned variables
+        in that script in the config.
+
+        Example configuration:
+
+            DATABASE_URI = 'mysql://root@localhost/my_database'
+            SECRET_KEY = 'a-super-secret-and-random-key'
+
+    ~ SERVER SETUP ~
+
+        As mentioned before Solace is a WSGI application.  The WSGI
+        application object is know as `solace.application.application`.
+        For example if you want to use `mod_wsgi` all you have to do
+        is to create a `solace.wsgi` file with the following contents:
+
+            from solace.application import application
+
+        This however would require that the `SOLACE_SETTINGS_FILE`
+        variable is set in the server config.  If you don't want to
+        do that, you can also set it in the `.wsgi` file or tell
+        the settings system to load the config from a file:
+
+            from solace import settings
+            settings.configure_from_file('/var/www/solace/solace.cfg')
+            from solace.application import application
+
+        Be sure to use absolute paths for the configuration!
+
+    ~ LOCAL TEST SERVER ~
+
+        If you want to test Solace locally or hack on it, you can use
+        the `runserver` command of the setup script:
+
+            $ python setup.py runserver
+
+        This will start a development server on `localhost:3000`.
+
+    ~ DATABASE INITIALIZATION ~
+
+        Solace uses a database for testing.  Currently the following
+        database systems are supported:
+
+        - sqlite3
+        - MySQL
+        - Postgres
+
+        We recommend sqlite3 for testing (which incidentally is the
+        defualt) and Postgres for production.
+
+        To initialize the database make sure to have the database
+        URI set in a config, the `SOLACE_SETTINGS_FILE` environment
+        variable exported and then run the following command:
+
+            $ python setup.py initdb
+
+        This will create the database tables for you.
+
+        If you also want a administrator user to be created you
+        can sue the `reset` command instead:
+
+            $ python setup.py reset
+
+        This is especially handy during development.
+
+    ~ TESTING ~
+
+        Solace is using standard Python unittests which you can run
+        from the `setup.py` script
+
+            $ python setup.py test
+
+        If you want to fill the database with data for testing you can
+        use the setup script as well:
+
+            $ python setup.py make_testdata
+
+	Warning on tests: For tests make sure to have a newer version
+	than 0.5.1 in your venv (at the time of this writing this means
+	installing a development version) due to a bug in the redirect
+	support and path quoting of the test client in 0.5.1.
+
+    ~ QUICKSTART ~
+
+        - make sure to have virtualenv installed
+        - run "virtualenv env" in the folder that contains this file.
+        - depending on your operating system run:
+          Windows: "env\Scripts\activate.bat"
+          Linux / OS X: "source env/bin/activate"
+        - run "python setup.py develop"
+        - run "python setup.py reset"
+        - run "python setup.py runserver"
+
+        The server will then run on `localhost:3000`.  The database
+        is stored in a temporary folder unless you provide a config.
+        This is fine for development and testing.

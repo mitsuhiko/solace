@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% from 'kb/_boxes.html' import render_topics, render_topic_tabs %}
+{% set page_title = _('Overview') %}
+{% block html_head %}
+{{ super() }}
+<link rel="alternate" href="{{ url_for('kb.overview_feed', order_by=order_by)
+  }}" type="application/atom+xml">
+{%- endblock %}
+{% block body %}
+  <h1>{{ page_title }}</h1>
+  <div class="explanation">
+    <p>{% trans -%}
+      This is an overview of some of the newest topics here on Solace. You can view other topics grouped by activity, votes and hotness. 
+    {%- endtrans %}
+  </div>
+  {{ render_topic_tabs('kb.overview', order_by) }}
+  {{ render_topics(topics) }}
+  {{ pagination }}
+{% endblock %}

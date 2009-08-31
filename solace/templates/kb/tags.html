@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% set page_title = _('Tags') %}
+{% block body %}
+  <h1>{{ _('Tags') }}</h1>
+  <p>{% trans %}
+    Questions are grouped and flagged by tags. By using the right tags you
+    make it easier for others to find questions again. The following tags
+    are the most common:
+  {% endtrans %}
+  {% if tags %}
+  <ul class="tagcloud">
+  {%- for tag in tags %}
+    <li><a href="{{ url_for(tag) }}" style="font-size: {{ tag.size }}%">{{ tag.name|e }}</a>
+        <span class="count">{{ tag.tagged }}×</span>
+  {%- endfor %}
+  </ul>
+  {% endif %}
+{% endblock %}

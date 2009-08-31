@@ -1,0 +1,28 @@
+{% macro render_badge_summary(user) -%}
+  {%- for level in 'bronce', 'silver', 'gold', 'platin' %}
+    {%- set value = user[level ~ '_badges'] %}
+    {%- if value %}
+      <span class="badge {{ level }}_badge"><span class="bullet">●</span>{{ value }}</span>
+    {%- endif %}
+  {%- endfor %}
+{%- endmacro %}
+
+{% macro render_badge(badge) -%}
+  <span class="badge {{ badge.level }}_badge {{ badge.identifier.replace('-', '_')
+    }}_badge_type"><span class="bullet">●</span> <a href="{{ url_for(badge) }}" title="{{ badge.description|e }}"><em>{{ badge.name|e }}</em></a></span>
+{%- endmacro %}
+
+{% macro render_user(user, with_reputation=true, with_badges=true,
+                     with_avatar=true, avatar_size=12) %}<span class="user">
+  {%- set url = url_for(user) %}
+  {%- if with_avatar %}
+  <a href="{{ url }}"><img src="{{ user.get_avatar_url(avatar_size)|e
+    }}" alt="" class="avatar"></a>
+  {%- endif -%}
+  <span class="textual"><a href="{{ url }}" class="userlink">{{
+    user.display_name|e }}</a>{% if with_reputation
+    %} <span class="reputation">({{
+    user.reputation|numberformat }})</span>{% endif %}
+    {%- if with_badges %}{{ render_badge_summary(user) }}{% endif -%}
+  </span></span>
+{%- endmacro %}

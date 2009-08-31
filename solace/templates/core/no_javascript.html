@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}
+{% set page_title = _('JavaScript not Available') %}
+{% block body %}
+  <h1>{{ _('JavaScript not Available') }}</h1>
+  <p>{% trans %}
+    Hey buddy! It seems like your browser is not capable of JavaScript
+    or you have disabled it. This website requires it however for some
+    functions so you should enable it.
+  {% endtrans %}
+{% endblock %}

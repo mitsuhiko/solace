@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% from '_helpers.html' import render_badge %}
+{% from '_helpers.html' import render_user %}
+{% set page_navigation_item = 'badges.show_list' %}
+{% set page_title = _('%s-Badge') % badge.name %}
+{% block body %}
+  <h1>{{ page_title }}</h1>
+  <div class="badgedisplay">
+    <div class="badge">{{ render_badge(badge) }}</div>
+    <div class="explanation">
+      {{ badge.description|e }}
+      {% if not badge.single_awarded %}
+        <small class="multibadge">{{
+          _('This badge can be earned multiple times.') }}</small>
+      {% endif %}
+    </div>
+  </div>
+  {% if user_badges %}
+  <p>{{ _('This badge was recently awarded to:') }}
+  <ul class="userlist">
+  {%- for user_badge in user_badges %}
+    <li>{{ render_user(user_badge.user, avatar_size=26) }}
+        <span class="awarded">{{ _('awarded %s') %
+          user_badge.awarded|datetimeformat }}</span>
+  {%- endfor %}
+  </ul>
+  {% else %}
+  <p>{{ _('This badge was not yet awarded.  Be the first') }}
+  {% endif %}
+{% endblock %}

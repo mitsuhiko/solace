@@ -1,0 +1,10 @@
+/* fixes for internet explorer.  These include fixes for IE6 and IE7 */
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* IE seems to have different ideas about these paddings, fix them */
+ul.errors li {
+    padding: 1px 7px;
+}

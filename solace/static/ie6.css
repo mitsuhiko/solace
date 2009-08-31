@@ -1,0 +1,9 @@
+/* ie6 has tons of problems with relative, revert to something else */
+ul.errors {
+    position: static;
+}
+
+/* ie6 does not support position: fixed */
+#flash_message {
+    position: absolute;
+}

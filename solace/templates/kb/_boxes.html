@@ -1,0 +1,168 @@
+{% from '_helpers.html' import render_user %}
+
+{% macro render_tags(tags) %}
+  <p class="tags">
+  {%- for tag in tags %}
+    <a href="{{ url_for(tag) }}">{{ tag.name|e }}</a>
+  {%- endfor %}
+{%- endmacro %}
+
+{% macro render_topic(topic) %}
+  <div class="topic{% if topic.is_deleted %} deleted_topic{% endif %}">
+    <div class="numbers">
+      <div class="votes">
+        <h4>{{ topic.votes }}</h4>
+        <p>{{ ngettext('vote', 'votes', topic.reply_count) }}
+      </div>
+      <div class="replies {{ "answered" if topic.is_answered else "unanswered" }}">
+        <h4>{{ topic.reply_count }}</h4>
+        <p>{{ ngettext('reply', 'replies', topic.reply_count) }}
+      </div>
+    </div>
+    <div class="text">
+      <h2><a href="{{ url_for(topic) }}">{{ topic.title|e }}</a></h2>
+      <p class="meta">
+        {{ _("By %s") % render_user(topic.author) }},
+        {{ topic.date|datetimeformat }}
+      {{ render_tags(topic.tags) }}
+    </div>
+    <div class="clearer"><!-- ie sucks --></div>
+  </div>
+{% endmacro %}
+
+{% macro render_topics(topics, standalone=false) %}
+  <div class="topics{% if standalone %} topics_standalone{% endif %}">
+  {%- for topic in topics %}
+    {{ render_topic(topic) }}
+  {%- endfor %}
+  </div>
+{%- endmacro %}
+
+{% macro render_topic_tabs(endpoint, current_sort, extra_args={}) %}
+  <div class="tabs">
+    <ul>
+    {%- for order_by, title in [
+      ('newest', _('Newest')),
+      ('hot', _('Hot')),
+      ('votes', _('Votes')),
+      ('activity', _('Activity'))
+    ] %}
+      <li{% if order_by == current_sort %} class="active"{% endif
+        %}><a href="{{ url_for(endpoint, order_by=order_by, **extra_args)
+        }}">{{ title }}</a>
+    {%- endfor %}
+    </ul>
+  </div>
+{%- endmacro %}
+
+{% macro render_reply(post, user) %}
+  <div class="reply{% if post.is_answer %} answer{% endif
+    %}{% if post.is_deleted %} deleted_reply{% endif %}" id="reply-{{ post.id }}">
+    {{ render_accept_box(post, user) }}
+    {{ render_vote_box(post, user) }}
+    <div class="text">
+      {{ post.rendered_text }}
+    </div>
+    {{ render_actions_box(post, user) }}
+    {{ render_plain_comment_box(post) }}
+    {{ render_meta_box(post) }}
+  </div>
+{% endmacro %}
+
+{% macro render_meta_box(post) %}
+  <div class="meta">
+    <p>{% trans date=post.created|datetimeformat, user=render_user(post.author) -%}
+      Created {{ date }} by {{ user }}.
+    {%- endtrans %}
+    {% if post.was_edited %}
+    <p>{% trans date=post.updated|datetimeformat, user=render_user(post.editor) -%}
+      Last change {{ date }} by {{ user }}.
+    {%- endtrans %}
+    <p>{{ ngettext('This post was edited %d time.',
+                   'This post was edited %d times.', post.edits) % post.edits }}
+       <a href="{{ url_for('kb.post_revisions', id=post.id)
+        }}">{{ _('Show revisions') }}</a>
+    {% endif %}
+  </div>
+{% endmacro %}
+
+{% macro render_vote_box(post, user) %}
+  {%- macro button(direction, val, text) -%}
+    <p class="{{ direction }}vote">
+      {%- if user and user['has_' ~ direction ~ 'voted'](post) -%}
+        <a href="{{ url_for('kb.vote', post=post.id, val=0) }}" class="active">
+      {%- else -%}
+        <a href="{{ url_for('kb.vote', post=post.id, val=val) }}">
+      {%- endif -%}
+      <span>{{ text }}</span></a>
+  {%- endmacro %}
+  <div class="votebox">
+    {{ button('up', 1, _('Up')) }}
+    <h4>{{ post.votes }}</h4>
+    {{ button('down', -1, _('Down')) }}
+  </div>
+{%- endmacro %}
+
+{% macro render_accept_box(post, user) %}
+  {%- set can_accept = user and user.can_accept_as_answer(post) %}
+  {%- set can_unaccept = user and user.can_unaccept_as_answer(post) %}
+  {%- if can_accept or post.is_answer %}
+  <div class="acceptbox">
+    {%- if post.is_answer %}
+      {%- if can_unaccept -%}
+        <a class="tick" href="{{ url_for('kb.accept', post=post.id)
+          }}"><span>{{ _('Unaccept as answer') }}</span></a>
+      {%- else -%}
+        <span class="tick"><span>{{ _('Accepted Answer') }}</span></span>
+      {%- endif %}
+    {%- elif can_accept -%}
+      <a class="tick" href="{{ url_for('kb.accept', post=post.id)
+        }}"><span>{{ _('Accept as answer') }}</span></a>
+    {%- endif %}
+  </div>
+  {%- endif %}
+{%- endmacro %}
+
+{% macro render_comment_link(post) %}
+  <a href="{{ url_for('core.no_javascript') }}">
+  {%- if post.comment_count -%}
+    {{ ngettext('%d comment', '%d comments', post.comment_count) %
+      post.comment_count }}
+  {%- else -%}
+    {{ _('Add comment') }}
+  {% endif %}</a>
+{%- endmacro %}
+
+{% macro render_plain_comment_box(post) %}
+  <div class="comments" id="comments-{{ post.id }}">
+    <p class="link">{{ render_comment_link(post) }}
+  </div>
+{%- endmacro %}
+
+{% macro render_comment(comment) %}
+  <div class="comment">
+    <div class="text">
+      {{ comment.rendered_text }}
+      <span class="meta">
+        — {{ render_user(comment.author) }} &nbsp;
+        {{ comment.date|datetimeformat }}
+      </span>
+    </div>
+  </div>
+{%- endmacro %}
+
+{% macro render_actions_box(post, user) -%}
+  {%- set sep = joiner(' | ') %}
+  <div class="actions">
+    {%- if user and user.can_edit(post) %}{{ sep() }}
+    <a href="{{ url_for(post, action='edit') }}">{{ _('Edit') }}</a>
+    {%- endif %}
+    {%- if not post.is_answer and user and user.is_moderator %}{{ sep() }}
+      {%- if post.is_deleted %}
+      <a href="{{ url_for(post, action='restore') }}">{{ _('Restore') }}</a>
+      {%- else %}
+      <a href="{{ url_for(post, action='delete') }}">{{ _('Delete') }}</a>
+      {%- endif %}
+    {%- endif %}
+  </div>
+{%- endmacro %}

@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+{% from '_helpers.html' import render_user, render_badge %}
+{% from 'kb/_boxes.html' import render_topics %}
+{% set page_navigation_item = 'users.userlist' %}
+{% set page_title = user.display_name|e %}
+{% block body %}
+  <h1>{{ page_title }}</h1>
+  {%- if user == request.user %}
+  <div class="this_is_you">
+    <p class="text">{{ _('This is you') }}
+    <p class="meta"><a href="{{
+      url_for('users.edit_profile') }}">{{ _('Edit profile') }}</a>
+  </div>
+  {%- endif %}
+  <p class="sideavatar">
+    <img src="{{ user.get_avatar_url(120)|e }}" alt="{{ _('The user\'s avatar') }}">
+  <dl class="profiledetails">
+    {%- if user.real_name %}
+    <dt>{{ _('Name') }}:
+    <dd>{{ user.real_name|e }}
+    {%- endif %}
+    <dt>{{ _('Username') }}:
+    <dd>{{ user.username|e }}
+    {%- if active_in %}
+      <dt>{{ _('Active in') }}:
+      <dd>{% for key, activity in active_in %}
+        {%- if not loop.first %}, {% endif -%}
+        <a href="{{ url_for('kb.overview', lang_code=key)
+          }}">{{ activity.locale.display_name|e }}</a>
+        {%- endfor %}
+        {%- if active_in|length > 1 %}
+        <br><small>{{ _('Ordered by activity, most active first') }}</small>
+        {%- endif %}
+    {%- endif %}
+  </dl>
+  <h2>{{ _('Reputation') }}</h2>
+  <p class="reputation">
+    {{ user.reputation|numberformat }}
+  <h2>{{ _('Votes') }}</h2>
+  <div class="votecomp">
+    <div class="votebox votebox_up">
+      <p class="upvote"><em class="active"><span>{{ _('Up') }}</span></em>
+      <h4>{{ user.upvotes }}</h4>
+      <p class="downvote"><em><span>{{ _('Down') }}</span></em>
+    </div>
+    <div class="votebox votebox_down">
+      <p class="upvote"><em><span>{{ _('Up') }}</span></em>
+      <h4>{{ user.downvotes }}</h4>
+      <p class="downvote"><em class="active"><span>{{ _('Down') }}</span></em>
+    </div>
+  </div>
+  {%- if badges %}
+  <h2>{{ _('Badges') }}</h2>
+  <ul class="badges">
+  {%- for badge, count in badges %}
+    <li><span class="badgewrapper">{{ render_badge(badge) }}
+      {%- if count > 1 %} <span class="count">{{ count }}×</span>{% endif %}</span>
+        <span class="description">— {{ badge.description|e }}</span>
+  {%- endfor %}
+  </ul>
+  {%- endif %}
+  {%- if topics %}
+  <h2>{{ _('Most Popular Questions') }}</h2>
+  {{ render_topics(topics, standalone=true) }}
+  {%- endif %}
+  {%- if replies %}
+  <h2>{{ _('Most Popular Replies') }}</h2>
+  <ul class="replylist">
+  {%- for reply in replies %}
+    <li{% if reply.is_answer %} class="answer"{% endif %}><span class="votes">{{
+      reply.votes }}</span> <a href="{{ url_for(reply) }}">{{
+      reply.topic.title|e }}</a>
+  {%- endfor %}
+  </ul>
+  {%- endif %}
+{% endblock %}

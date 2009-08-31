@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% from 'kb/_editor.html' import render_editor %}
+{% set page_title = _('New Question') %}
+{% block body %}
+  <h1>{{ _('New Question') }}</h1>
+  <div class="explanation">
+    {% trans username=request.user.display_name|e -%}
+    <p>Hey {{ username }}!
+    <p>
+      Stumble across a problem while using Plurk? Have a suggestion to share with us? Ask away.
+    {%- endtrans %}
+  </div>
+  {{ render_editor(form, _('Submit question')) }}
+{% endblock %}

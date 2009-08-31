@@ -1,0 +1,234 @@
+/**
+ * The default colors for Solace.
+ *
+ * Copyright (c) 2009 by Plurk Inc.
+ */
+
+/* standard elements */
+body                        { background: #fff; }
+a                           { color: #2a606d; }
+a:hover                     { color: #0e3640; }
+h2, h3                      { color: #0e3640; }
+
+/* forms */
+input, select, textarea     { border-color: #ccc; }
+input[type="submit"],
+input[type="button"]        { background: #2a606d; color: white; border: 1px solid #559bac;
+                              border-bottom-color: #20515d; border-right-color: #20515d; }
+input[type="submit"]:active,
+input[type="button"]:active { background: #458696; border-color: #20515d;
+                              border-left-color: #20515d; border-top-color: #20515d; }
+ul.errors                   { background: #a32424; -moz-border-radius: 2px;
+                              -webkit-border-radius: 2px; }
+ul.errors li                { color: white; }
+
+/* header and meta navigation */
+div.header                  { background: #2a606d; border-color: #0e3640; color: white; }
+div.metanavigation          { color: #84b9c9; }
+div.metanavigation a        { color: #d8eaf0; }
+div.metanavigation a:hover  { color: white; }
+div.metanavigation span.user span.badge
+                            { color: #d8eaf0; }
+
+/* language selection */
+ul.language_selection       { border-color: #1d515e; }
+ul.language_selection li.title,
+ul.language_selection li a  { background: #367281; color: white; }
+ul.css_language_selection:hover li,
+ul.language_selection.hovered li
+                            { background: #5E9BAA; }
+ul.css_language_selection:hover li.title,
+ul.language_selection.hovered li.title
+                            { background: #367281; }
+ul.language_selection li a:hover
+                            { background: #4A808D; color: white; }
+ul.css_language_selection:hover li.title,
+ul.language_selection.hovered li.title
+                            { border-color: #1D515E; }
+
+/* navigation bar */
+ul.navigation               { background: #0e3640; border-color: #0e3640; }
+ul.navigation li a          { color: white; }
+ul.localeless_navigation li.faded a
+                            { color: #88BDCE; }
+ul.navigation li a:hover    { background: #2b6a7a; }
+ul.navigation li.active a   { background: #eee; border-color: #333; color: #333; }
+ul.navigation li.view_lang a
+                            { color: white; }
+
+/* footer */
+div.footer                  { background: #eee; color: #555; border-color: #ccc; }
+div.footer a                { color: #555; font-weight: bold; }
+
+/* flash message */
+#flash_message              { background: #2b6a7a; border-color: #0E3640; color: white; }
+#flash_message div.close a  { border-color: #42899b;
+                              background: #297385 url(flashtick.png) no-repeat; }
+#flash_message div.close a:hover
+                            { background-color: #54a4b8; }
+
+/* contents */
+div.contents                { border-color: #ccc; }
+div.contents h1             { background: #eee; border-bottom: 1px solid #ccc; color: #666; }
+
+/* topic list */
+div.topics_standalone,
+div.topic                   { border-color: #aaa; }
+div.topic div.votes         { background: #c2dde3; color: #375e67; border-color: #86aeb7; }
+div.topic div.answered      { background: #81be8b; color: #235432; border-color: #4e9259; }
+div.topic div.unanswered    { background: #d47979; color: #680000; border-color: #a22727; }
+div.topic div.text          { color: #777; }
+div.topic div.text p.meta   { background: white; }
+div.deleted_topic div.text p.meta
+                            { opacity: 0.8; }
+div.deleted_topic:hover div.text p.meta
+                            { opacity: 1; }
+div.deleted_question p.tags a,
+div.deleted_topic p.tags a  { color: #333; background: #ccc; }
+div.topic div.text p.meta a { color: #777; }
+div.topic div.text p.meta a:hover
+                            { color: black; }
+div.topic div.text h2 a     { color: #2A606D; }
+div.deleted_topic           { background: #eee url(recycle.png) no-repeat 680px center; }
+div.deleted_topic:hover     { background-color: #fafafa; }
+div.deleted_topic div.text h2 a,
+div.deleted_question a,
+div.deleted_topic a         { color: #555; }
+div.deleted_topic div.text h2 a:hover,
+div.deleted_question a:hover,
+div.deleted_topic a:hover   { color: #000; }
+
+/* topic tabs */
+div.tabs, div.tabs ul, div.tabs li
+                            { border-color: #ccc; }
+div.tabs li                 { background: #eee; }
+div.tabs li a               { color: #999; }
+div.tabs li a:hover         { background: #fafafa; }
+div.tabs li.active          { background: white; }
+div.tabs li.active a        { color: #111; background: white; }
+
+/* post form */
+div.post_form div.title input
+                            { color: #0e3640; }
+div.post_form div.title     { border-color: #B5DDE6; }
+div.post_form div.editor textarea,
+div.post_form div.editor input,
+div.post_form div.editor    { background: #EEF8FA; }
+div.post_form div.editor    { border-color: #b5dde6; }
+div.post_form div.editor div.help
+                            { color: #69a9b8; }
+div.post_form div.preview   { border-color: #ccc; background: #fafafa; }
+
+/* vote box */
+div.votebox p a,
+div.votebox p em            { background-image: url(arrows.png); }
+
+/* topic rendering */
+div.deleted_question        { background: #fafafa url(recycle_big.png) no-repeat 650px 10px;
+                              border-color: #ccc; color: #555; }
+div.meta                    { color: #777; }
+div.meta a                  { color: #777; }
+div.no_replies              { background: #eee; border-color: #ccc; }
+div.no_replies h3           { color: #555; }
+
+/* reply rendering */
+div.replies, div.reply      { border-color: #ccc; }
+div.deleted_reply           { background: #fafafa url(recycle.png) no-repeat 680px 10px; }
+div.reply div.acceptbox .tick
+                            { background-image: url(tick.png); }
+div.answer                  { background: #E5F5E1; }
+
+/* comment rendering */
+div.comments div.commentlist
+                            { background: #F7FBFC; border-color: #ccc; }
+div.deleted_question div.comments div.commentlist,
+div.deleted_reply div.comments div.commentlist
+                            { background: #e9e9e9; }
+div.comments div.comment    { border-color: #ccc; }
+div.comments div.comment span.meta
+                            { color: #888; }
+div.answer div.commentlist  { background: #FAFFF8; }
+
+/* revisions */
+div.revisions               { background: #eee; border-color: #2A606D; }
+div.revisions div.revision p.title
+                            { background: #2a606d; color: white; }
+div.revisions div.revision p.title a
+                            { color: white; }
+div.revisions div.revision div.text
+                            { background: white; border-color: #ccc; }
+div.revisions div.diffwrapper
+                            { background: #eef6f8; }
+div.revisions div.difftoggle a
+                            { background: #c2dde3; color: #222; }
+div.revisions div.difftoggle a:hover
+                            { background: #DEEFF5; }
+div.revisions span.user span.badge
+                            { color: white; }
+
+/* text rendering */
+div.text table              { background: white; }
+div.text table td,
+div.text table th           { border-color: #aaa; }
+div.text pre                { color: #10404B; background: #E9F7FA; border-color: #a4d0da; }
+
+/* tags */
+a.tag, p.tags a, ul.tagcloud li a
+                            { color: #2c6c7b; background: #F3FBFC; text-decoration: none; }
+a.tag:hover, p.tags a:hover, ul.tagcloud li a:hover
+                            { background: #e1edf0; color: #174752; }
+
+/* pagination */
+div.pagination a, div.pagination strong
+                            { border-color: #ccc; }
+div.pagination strong       { background: #eee; }
+div.pagination a:hover      { background: #c2dde3; }
+
+/* user list */
+ul.userlist span.awarded    { color: #555; }
+p.userfilter                { background: #fafafa; border-color: #ccc; }
+p.reputation                { color: #333; }
+dl.profiledetails dt        { color: #0e4640; }
+ul.replylist li span.votes  { background: #eee; border-color: #bbb; }
+ul.replylist li.answer span.votes
+                            { background: #81BE8B; color: #235432; border-color: #4E9259; }
+div.this_is_you             { border-color: #BCF0A8; background: #FAFFF8; }
+div.this_is_you a           { color: #5AA73C; }
+
+/* badge list */
+div.badgedisplay            { background: #eee; border-color: #ccc; }
+ul.badges span.description,
+ul.badges span.count        { color: #555; }
+ul.badges li.earned,
+ul.badges li.not_earned     { background: url(badge_not_earned.png) no-repeat 0 2px;
+                              padding: 0 0 0 18px; }
+ul.badges li.earned         { background-image: url(badge_earned.png); }
+
+/* badge rendering */
+span.badge a                { background: #333; color: white; }
+span.badge a:hover          { background: #222; color: #aaa; }
+
+/* autocomplete */
+.ac_results                 { border-color: #2c6c7b; background-color: white; }
+.ac_odd                     { background-color: #F3FBFC; }
+.ac_over                    { background-color: #69A9B8; color: white; }
+
+/* api debug page */
+div.apidump                 { background: #eef8fa; }
+div.apidump pre             { border-color: #B5DDE6; background: white; }
+ul.apimethods li.method     { border: 1px solid #b5dde6; background: #eef8fa; }
+ul.apimethods li.method h3  { color: #0E3640; background: #B5DDE6; }
+ul.apimethods li.method h3.toggler:hover
+                            { background: #88bbc6; }
+div.apidump dl dt, ul.apimethods dl dt
+                            { color: #0E3640; }
+div.apihelp pre             { border-color: #B5DDE6; background: #EEF8FA; }
+div.apihelp table           { background: white; }
+div.apihelp table td, div.apihelp table th
+                            { border-color: #aaa; }
+div.apihelp dl              { border-color: #B5DDE6; }
+
+/* recaptcha */
+#recaptcha_table, .recaptcha_image_cell
+                            { background: #eee!important; }
+#recaptcha_response_field   { border-color: #ccc!important; }

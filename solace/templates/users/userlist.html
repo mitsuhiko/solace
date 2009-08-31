@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+{% from '_helpers.html' import render_user %}
+{% set page_title = _('All Users') if not locale
+  else (_('Users active in Section “%s”') % locale.display_name|e) %}
+{% block body %}
+  {% if not locale %}
+    <h1>{{ page_title }}</h1>
+    {% trans %}
+    <p>
+      Here you can see a complete list of all users on Solace.
+    {% endtrans %}
+  {% else %}
+    {% set locale_link='<a href="%s">%s</a>' % (
+      url_for('kb.overview', lang_code=locale),
+      locale.display_name|e) %}
+    <h1>{{ _('Users active in Section “%s”') % locale_link }}</h1>
+    {% trans %}
+    <p>
+      Here you can see the list of all users that are active in
+      the “{{ locale_link }}” section of the Solace.
+    {% endtrans %}
+  {% endif %}
+  {% if settings.LANGUAGE_SECTIONS|length > 1 %}
+  <p class="userfilter">{{ _('Filter by section') }}:
+    <a href="{{ url_for('users.userlist') }}">{{ _('All') }}</a>
+    {% for key, locale in sections %}
+      | <a href="{{ url_for('kb.userlist', lang_code=key)
+        }}">{{ locale.display_name|e }}</a>
+    {% endfor %}
+  {% endif %}
+  <ul class="userlist">
+  {%- for user in users %}
+    <li>{{ render_user(user, avatar_size=26) }}
+  {%- endfor %}
+  </ul>
+  {{ pagination }}
+{% endblock %}

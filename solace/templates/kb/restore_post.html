@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% from '_helpers.html' import render_user %}
+{% set page_title = _('Restore old Revision') if revision
+                    else _('Restore deleted Post') %}
+{% block body %}
+  <h1>{{ page_title }}</h1>
+  <div class="explanation">
+  {% if revision %}{% trans %}
+    <p>Do you want to restore an old revision of the post?
+  {% endtrans %}{% else %}{% trans %}
+    <p>Do you want to restore the deleted post?
+  {% endtrans %}{% endif %}
+  </div>
+  {% call form() %}
+    <div class="buttons">
+      <input type="submit" value="{{ _('Yes') }}" name="yes">
+      <input type="submit" value="{{ _('No') }}" name="no">
+    </div>
+  {% endcall %}
+  {% if revision %}
+  <div class="revisions">
+    <div class="revision">
+      <p class="title">{{ _('Preview') }}</p>
+      <div class="text">{{ revision.rendered_text }}</div>
+    </div>
+  </div>
+  {% endif %}
+{% endblock %}

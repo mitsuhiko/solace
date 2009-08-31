@@ -1,0 +1,106 @@
+{% extends 'layout.html' %}
+{% set page_title = 'API Help' %}
+{% block body %}
+  <h1>{{ page_title }}</h1>
+  <div class="apihelp">
+    <p>
+      Welcome to the Solace API.  Currently this API is limited to read-only
+      access to Solace.
+    <h2>API Usage</h2>
+    <p>
+      The Solace API is accessed via HTTP on the API URL (the URL of the page
+      you're looking at right now).  The method you want to access is then
+      appended to the URL.  For example to use the <code>get_user</code>
+      method you would open a connection to the following URL:
+    <pre>{{ request.url }}users/username</pre>
+    <p>
+      The format of the data returned can be one of the following:
+    <ul>
+      <li>json <small>application/json</small>
+      <li>xml <small>application/xml</small>
+      <li>debug <small>text/html</small>
+    </ul>
+    <p>
+      The format is selected based on the <code>Accept</code> HTTP header or
+      can be provided as URL parameter:
+    <pre>{{ request.url }}badges/?format=xml</pre>
+    <p>
+      The language of the response is selected from the <code>Accept-Language</code>
+      header or the <code>lang</code> URL parameter:
+    <pre>{{ request.url }}badges/?lang=de</pre>
+    <p>
+      It is strongly recommended to use the HTTP headers instead of the URL
+      parameters.  The headers allow you to provide multiple values and let
+      the server pick the ones that are available.
+    <p>
+      For debugging you can use your web browser and open the URL with it.  The
+      default headers of a web browser will return the response in debug HTML
+      format which shows you the data right in your browser in a human readable
+      fashion.
+    <h2>General Rules</h2>
+    <p>
+      The API follows REST semantics as closely as possible without causing
+      too much troubles for server and client.  Make sure to follow the
+      following rules:
+    <ul>
+      <li>If a resource URL is documented with a trailing slash you
+          <strong>must</strong> connect to it with a trailing slash
+      <li>For valid requests the server will never return a redirect
+          you have to handle.
+      <li>All data returned, except for data that is HTML, is not
+          preprocessed.  If you intend to embedd it on a webpage make
+          sure to properly escape the data!
+      <li>Rendered HTML is only valid in HTML 4 and HTML 5, not in
+          any version of XHTML!  If you are using XHTML and want to
+          embedd rendered data you <strong>must</strong> parse it as
+          HTML and dump into XML.
+      <li>The encoding used for requests and responses to and from
+          Solace are always utf-8.
+      <li>The API responds with HTTP error codes.  Make sure to be able
+          to handle <strong>every</strong> error code the RFC specifies.
+    </ul>
+    <h2>XML Format</h2>
+    <p>
+      If you don't want (or can) use the JSON format which is strongly
+      recommended you can also use our XML representation of the data.
+    <p>
+      The following rules apply for the XML format:
+    <ul>
+      <li><p>All elements returned from the API belong to the
+          <code>{{ xmlns }}</code> XML namespace.
+      <li><p>If an object in JSON has a <code>#type</code> key and the value
+          starts with <code>solace.</code> the value after <code>solace.</code>
+          is used as tag:
+          <pre>{'#type': 'solace.foo', 'bar': 'bar'}</pre>
+          <p>becomes in XML
+          <pre>{{ '<foo><bar>baz</bar></foo>'|e }}</pre>
+      <li><p>Otherwise the object is returned as dict and the type is
+          stored as attribute:
+          <pre>{'foo': 'bar', '#type': 'special'}</pre>
+          <p>becomes in XML
+          <pre>{{ '<dict type="special"><foo>bar</foo></dict>'|e }}</pre>
+          <p>If no <code>#type</code> key exists that attribute is missing.
+      <li><p>List items are wrapped in a <code>list</code> tag:
+          <pre>[1, 2, {'foo': 'bar'}]</pre>
+          <p>becomes in XML
+          <pre>{{ '<list><item>1</item><item>2</item><dict><foo>bar</foo></dict></list>'|e }}</pre>
+    </ul>
+    <h2>Methods</h2>
+    <p>
+      The following API methods exist:
+    <ul class="apimethods">
+    {% for method in methods %}
+      <li class="method"><h3>{{ method.handler.replace('_', ' ').title() }}</h3>
+        <div class="inner">
+          <div class="description">{{ method.doc }}</div>
+          <dl>
+            <dt>URL
+            <dd>{{ method.url|e }}
+            <dt>Allowed methods
+            <dd>{{ method.valid_methods|join(', ') }}
+          </dl>
+        </div>
+    {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

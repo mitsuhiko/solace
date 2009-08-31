@@ -1,0 +1,6 @@
+{% block body %}{% endblock %}
+{%- if settings.MAIL_SIGNATURE %}
+
+{{ '-- ' }}
+{{ settings.MAIL_SIGNATURE }}
+{%- endif %}

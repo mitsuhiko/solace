@@ -1,0 +1,13 @@
+{% extends 'mails/layout.txt' -%}
+{% block body %}{% trans user=user.display_name,
+                         site=settings.WEBSITE_TITLE -%}
+Hi {{ user }}!
+
+You have signed up on {{ site }} but your account
+is not yet activated.  You have to follow the following link to
+finish the registration and activate your account:
+
+{{ confirmation_url }}
+
+See you soon on {{ site }}
+{%- endtrans %}{% endblock %}

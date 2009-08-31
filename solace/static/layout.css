@@ -1,0 +1,1188 @@
+/**
+ * The Solace UI layout definitions.  This file only specifies defaults for
+ * layout, fonts and borders.  The colors are then specified in a separate
+ * file.
+ *
+ * Copyright (c) 2009 by Plurk Inc.
+ */
+
+body {
+    font-family: 'Lucida Grande', 'Tahoma', 'Verdana', sans-serif;
+    font-size: 13px;
+    margin: 50px 0;
+    padding: 0;
+}
+
+pre {
+    font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    font-size: 13px;
+}
+
+img {
+    border: none;
+}
+
+form {
+    display: block;
+    position: relative;
+}
+
+/* defintion datas and divs inside forms may contain ul.errors that are
+   styled to float over the control that preceed it. */
+form dd, form div {
+    position: relative;
+}
+
+div.clearer {
+    clear: both;
+}
+
+h2 {
+    margin: 18px 0 10px 0;
+}
+
+pre {
+    font-family: 'Consolas', 'Bitstream Vera Sans', 'Monaco', monospace;
+    font-size: 13px;
+    white-space: pre-wrap;       /* css-3 should we be so lucky... */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 ?? */
+    white-space: -o-pre-wrap;    /* Opera 7 ?? */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    _white-space: pre;           /* IE only hack to re-specify in
+                                    addition to word-wrap  */
+}
+
+/* :::: FORMS :::: */
+
+input, select, textarea {
+    font-family: 'Lucida Grande', 'Tahoma', 'Verdana', sans-serif;
+    font-size: 13px;
+    border: 1px solid;
+    padding: 2px;
+}
+
+ul.errors {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    bottom: -14px;
+    left: 20px;
+    z-index: 2000;
+    list-style: none;
+}
+
+ul.errors li {
+    padding: 3px 7px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+form > ul.errors {
+    position: static;
+    margin: 0;
+}
+
+/* :::: LAYOUT :::: */
+
+div.header {
+    position: relative;
+    width: 740px;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid;
+    border-bottom: none;
+}
+
+div.header p {
+    margin: 0;
+    padding: 0;
+}
+
+div.header p.title {
+    font-size: 24px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+div.header p.subtitle small {
+    font-size: 11px;
+}
+
+/* :::: META NAVIGATION :::: */
+div.metanavigation {
+    position: absolute;
+    width: 740px;
+    top: 35px;
+    height: 28px;
+    line-height: 28px;
+    text-align: right;
+}
+
+div.metanavigation p {
+    margin: 0;
+    font-size: 11px;
+}
+
+div.metanavigation span.user span.badge {
+    font-weight: normal;
+}
+
+ul.language_selection {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    margin: 0;
+    list-style: none;
+    width: 120px;
+    padding: 0;
+    border: 1px solid;
+    text-align: center;
+    z-index: 20;
+}
+
+ul.language_selection li {
+    display: none;
+}
+
+ul.language_selection li a,
+ul.language_selection li.title {
+    display: block;
+    padding: 0 7px;
+    line-height: 22px;
+    height: 22px;
+}
+
+ul.language_selection li.title {
+    display: block;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+ul.css_language_selection:hover li,
+ul.language_selection.hovered li {
+    display: block;
+}
+
+ul.language_selection li a {
+    text-decoration: none;
+    font-size: 11px;
+}
+
+ul.language_selection li.active a {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+ul.css_language_selection:hover li.title,
+ul.language_selection.hovered li.title {
+    border-bottom: 1px solid;
+}
+
+/* :::: NAVIGATION :::: */
+
+ul.navigation {
+    width: 760px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid;
+}
+
+ul.navigation li {
+    display: block;
+    float: left;
+}
+
+ul.navigation li a {
+    display: block;
+    float: left; /* this one is needed for ie6 */
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 10px;
+}
+
+ul.navigation li.active a {
+    border: 1px solid;
+    border-bottom: none;
+    border-top: none;
+    padding: 0 9px;
+    height: 31px;
+}
+
+ul.navigation li.view_lang {
+    float: right;
+    text-align: center;
+}
+
+ul.navigation li.view_lang a {
+    line-height: 1;
+    padding: 0 15px;
+}
+
+ul.navigation li.view_lang a small {
+    padding-top: 4px;
+    display: block;
+    font-size: 10px;
+    font-weight: normal;
+}
+
+ul.navigation li.view_lang a big {
+    margin-top: -2px;
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* :::: CONTENTS :::: */
+
+div.contents {
+    width: 740px;
+    margin: 0 auto;
+    padding: 10px;
+    border: 1px solid;
+    border-top: none;
+    border-bottom: none;
+}
+
+div.footer {
+    width: 740px;
+    margin: 0 auto;
+    padding: 4px 10px;
+    border: 1px solid;
+    border-top: none;
+    font-size: 10px;
+    text-align: right;
+}
+
+div.contents h1 {
+    margin: -10px -10px 10px -10px;
+    padding: 7px 10px;
+    font-size: 24px;
+}
+
+#flash_message {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    z-index: 100000;
+    border-bottom: 1px solid;
+}
+
+#flash_message p {
+    margin: 0;
+    padding: 5px 10px;
+}
+
+#flash_message div.close {
+    float: right;
+    padding: 5px 10px;
+}
+
+#flash_message div.close a {
+    display: block;
+    color: white;
+    padding: 0;
+    height: 14px;
+    width: 14px;
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: bold;
+    border: 1px solid;
+}
+
+#flash_message div.close a span {
+    display: none;
+}
+
+form dl dt {
+    font-weight: bold;
+    font-size: 11px;
+    padding: 4px 0;
+}
+
+form dl dd {
+    margin: 2px 0 2px 30px;
+}
+
+/* :::: TOPIC LIST :::: */
+div.topics {
+    margin: 10px 0;
+}
+
+div.topics_standalone {
+    border-top: 1px dotted;
+}
+
+div.topic {
+    margin: 0;
+    padding: 8px;
+    border-bottom: 1px dotted;
+}
+
+div.topic div.numbers {
+    float: left;
+    width: 160px;
+}
+
+div.topic div.votes,
+div.topic div.replies {
+    margin: 0 5px 0 0;
+    padding: 5px;
+    width: 60px;
+    float: left;
+    text-align: center;
+}
+
+div.topic div.votes,
+div.topic div.answered,
+div.topic div.unanswered {
+    border: 1px solid;
+}
+
+div.topic div.votes h4,
+div.topic div.replies h4 {
+    padding: 0;
+    margin: 0;
+    font-size: 22px;
+}
+
+div.topic div.votes p,
+div.topic div.replies p {
+    margin: 0;
+    padding: 0;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+div.topic div.text h2 {
+    margin: 0 0 4px 0;
+    padding: 0;
+    font-size: 20px;
+}
+
+div.topic div.text {
+    width: 560px;
+    float: left;
+}
+
+div.topic div.text p.meta {
+    margin: 5px -4px 0 0;
+    padding: 0 4px 2px;
+    float: right;
+    font-size: 11px;
+}
+
+div.topic div.text h2 a {
+    text-decoration: none;
+}
+
+div.topic div.text h2 a:hover {
+    text-decoration: underline;
+}
+
+/* :::: TOPIC TABS :::: */
+div.tabs {
+    height: 26px;
+    margin: 10px 0 -10px 0;
+    padding: 0 5px 0 0;
+    border-bottom: 1px solid;
+}
+
+div.tabs ul {
+    float: right;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    height: 26px;
+    border-right: 1px solid;
+}
+
+div.tabs li {
+    float: left;
+    height: 25px;
+    border: 1px solid;
+    border-right: none;
+    border-bottom: none;
+}
+
+div.tabs li a {
+    display: block;
+    float: left; /* this one is needed for ie6 */
+    height: 25px;
+    line-height: 26px;
+    padding: 0 10px;
+    font-size: 11px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+div.tabs li.active {
+    height: 26px;
+}
+
+/* :::: POST FORM :::: */
+div.post_form div {
+    margin: 5px 0;
+}
+
+div.post_form div.title input {
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    width: 99%;
+}
+
+div.post_form div.title {
+    border-bottom: 2px solid;
+}
+
+div.post_form textarea {
+    width: 99%;
+    border: none;
+}
+
+div.post_form div.editor {
+    padding: 0 4px;
+    border: 1px dashed;
+}
+
+div.post_form div.editor div.help {
+    display: none;
+    margin: 3px 0 0 4px;
+    position: absolute;
+    font-size: 18px;
+    z-index: 10000;
+}
+
+div.post_form textarea {
+    height: 16em;
+}
+
+/* get rid of safari's blue boxes */
+div.post_form div.title input:focus,
+div.post_form div.text textarea:focus {
+    outline: none;
+}
+
+div.post_form div.tags,
+div.post_form div.submit {
+    margin: 10px 0;
+}
+
+div.post_form input.tags {
+    width: 260px;
+}
+
+div.post_form div.preview {
+    border: 1px dashed;
+    padding: 0 10px;
+}
+
+/* :::: VOTE BOX :::: */
+div.votebox {
+    width: 45px;
+    padding: 0 5px;
+    text-align: center;
+}
+
+div.votebox p {
+    margin: 0;
+    padding: 0;
+}
+
+div.votebox h4 {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+}
+
+div.votebox p a,
+div.votebox p em {
+    display: block;
+    width: 32px;
+    height: 24px;
+    margin: 0 auto;
+    font-style: normal;
+    background: url(arrows_gray.png) no-repeat;
+}
+
+div.votebox p.downvote a,
+div.votebox p.downvote em        { background-position: 0 0; }
+div.votebox p.downvote a:hover   { background-position: 0 -24px; }
+div.votebox p.downvote a.active,
+div.votebox p.downvote em.active { background-position: 0 -48px; }
+div.votebox p.upvote a,
+div.votebox p.upvote em          { background-position: -32px 0; }
+div.votebox p.upvote a:hover     { background-position: -32px -24px; }
+div.votebox p.upvote a.active,
+div.votebox p.upvote em.active   { background-position: -32px -48px; }
+
+div.votebox p a span,
+div.votebox p em span {
+    display: none;
+}
+
+/* :::: TOPIC RENDERING :::: */
+div.deleted_question {
+    margin: -10px -10px 10px -10px;
+    padding: 10px;
+    border-bottom: 1px solid;
+}
+
+div.question div.votebox {
+    float: left;
+    margin-bottom: 10px;
+}
+
+div.question div.text {
+    margin: 0 0 15px 60px;
+}
+
+div.question div.comments {
+    margin: 0 0 0 60px;
+}
+
+div.meta {
+    clear: both;
+    margin: 0;
+    padding: 10px 10px 0 0;
+    text-align: right;
+    font-size: 11px;
+}
+
+div.meta p {
+    margin: 0;
+    line-height: 15px;
+}
+
+div.question div.meta {
+    padding-right: 5px;
+}
+
+div.question p.tags {
+    margin: 15px 0 15px 60px;
+}
+
+h2#replies,
+h2#new_reply {
+    margin: 20px 0 10px 0;
+}
+
+div.no_replies {
+    border: 1px solid;
+    padding: 5px 10px;
+    border-left: none;
+    border-right: none;
+}
+
+div.no_replies h3 {
+    margin: 0;
+    font-size: 13px;
+    text-align: center;
+}
+
+div.no_replies p {
+    margin: 0;
+    font-weight: bold;
+    font-size: 11px;
+    text-align: center;
+}
+
+div.actions {
+    margin: 0 5px 0 0;
+    float: right;
+}
+
+div.reply div.actions {
+    margin-right: 10px;
+}
+
+/* :::: REPLY RENDERING :::: */
+div.replies {
+    border-top: 1px solid;
+}
+
+div.reply {
+    margin: 0;
+    padding: 0 0 10px 0;
+    border-bottom: 1px solid;
+}
+
+div.reply div.votebox {
+    float: left;
+    padding: 10px 5px 0 5px;
+}
+
+div.reply div.text {
+    margin: 0 0 15px 60px;
+    padding: 10px 10px 0 0;
+}
+
+div.reply div.text p {
+    margin: 5px 0;
+}
+
+div.reply div.acceptbox {
+    float: right;
+}
+
+div.reply div.acceptbox .tick span {
+    display: none;
+}
+
+div.reply div.acceptbox .tick {
+    margin: 10px;
+    display: block;
+    background: url(tick_gray.png);
+    width: 32px;
+    height: 32px;
+}
+
+div.comments p.link {
+    margin: 0;
+}
+
+div.reply div.comments {
+    margin: 0 0 0 60px;
+}
+
+div.comments form p {
+    margin: 0;
+}
+
+div.reply div.acceptbox a:hover {
+    background-position: 0 -64px;
+}
+
+div.answer div.acceptbox .tick {
+    background-position: 0 -32px!important;
+}
+
+/* :::: COMMENT RENDERING :::: */
+div.comments div.commentlist {
+    border-top: 1px dotted;
+    margin: 10px 0;
+}
+
+div.comments div.comment {
+    border-bottom: 1px dotted;
+}
+
+div.comments div.comment span.meta {
+    font-size: 11px;
+}
+
+div.comments div.comment div.text {
+    margin: 0;
+    padding: 5px 10px;
+}
+
+div.comments div.comment div.text p {
+    margin: 5px 0;
+}
+
+div.comments form {
+    display: block;
+    margin: 0;
+}
+
+/* :::: REVISION LIST RENDERING :::: */
+div.revisions {
+    margin: 10px 0;
+    border: 1px solid;
+}
+
+div.revisions div.revision p.title {
+    margin: 0;
+    padding: 7px;
+}
+
+div.revisions div.revision div.text {
+    margin: 10px;
+    padding: 0 10px;
+    border: 1px solid;
+}
+
+div.revisions p.actions {
+    margin: 10px 0 0 10px;
+}
+
+div.revisions ins,
+div.diffhelp ins {
+    background: #A8DFAA;
+    text-decoration: none;
+}
+
+div.revisions del,
+div.diffhelp del {
+    background: #FDF5F5;
+    color: #EB4040;
+}
+
+div.revisions .tagdiff_replaced,
+div.diffhelp span.changed {
+    background: #F5F2D7;
+}
+
+div.revisions div.diffwrapper {
+    margin: 0 -10px;
+    padding: 2px 10px;
+}
+
+div.revisions div.difftoggle {
+    margin: 0 -10px;
+}
+
+div.revisions div.difftoggle a {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+}
+
+/* :::: TEXT RENDERING :::: */
+div.text table {
+    margin: 10px 0;
+    border-collapse: collapse;
+}
+
+div.text table td,
+div.text table th {
+    border: 1px solid;
+    padding: 3px 8px;
+}
+
+div.text pre {
+    margin: 10px 0;
+    padding: 4px;
+    border: 1px dashed;
+}
+
+/* :::: SECTION LIST :::: */
+ul.sections {
+    list-style: none;
+    margin: 15px 0;
+    padding: 0 10px;
+}
+
+ul.sections li {
+    display: inline;
+    font-size: 20px;
+    padding: 5px 10px;
+}
+
+ul.sections li a {
+    text-decoration: none;
+}
+
+ul.sections li.highlight a {
+    font-weight: bold;
+}
+
+/* :::: THE TAGCLOUD :::: */
+ul.tagcloud {
+    list-style: none;
+    margin: 20px 0;
+    padding: 0;
+    font-size: 11px;
+    line-height: 2;
+}
+
+ul.tagcloud li {
+    display: inline;
+    padding: 5px;
+}
+
+p.tags {
+    font-size: 11px;
+    margin: 8px 0 5px 0;
+}
+
+a.tag {
+    padding: 1px 3px;
+    font-size: 11px;
+}
+
+ul.tagcloud li span.count {
+    font-weight: bold;
+    color: #888;
+}
+
+/* :::: PAGINATION :::: */
+div.pagination {
+    margin: 20px 0 10px 0;
+    text-align: right;
+}
+
+div.pagination .sep,
+div.pagination .commata {
+    display: none;
+}
+
+div.pagination a, div.pagination strong {
+    padding: 4px;
+    margin: 0 1px;
+    border: 1px solid;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+div.pagination .next {
+    font-weight: normal;
+}
+
+/* :::: THE USER LIST :::: */
+ul.userlist {
+    margin: 10px;
+    padding: 0;
+    list-style: none;
+}
+
+ul.userlist li {
+    padding: 0;
+    margin: 8px 0;
+    height: 26px;
+}
+
+ul.userlist li img.avatar {
+    float: left;
+}
+
+ul.userlist li span.user span.textual {
+    display: block;
+    float: left;
+    line-height: 26px;
+    padding: 0 0 0 15px;
+}
+
+ul.userlist li span.user a.userlink {
+    font-weight: bold;
+}
+
+ul.userlist span.awarded {
+    font-size: 11px;
+    padding: 7px 0 0 10px;
+    float: left;
+}
+
+p.userfilter {
+    margin: 10px 0;
+    padding: 4px;
+    border: 1px solid;
+    border-left: none;
+    border-right: none;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+p.userfilter a {
+    font-weight: normal;
+}
+
+/* :::: THE USER PROFILE :::: */
+p.sideavatar {
+    margin: 0 0 10px 10px;
+    float: right;
+}
+
+p.reputation {
+    margin: -5px 0 10px 10px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+dl.profiledetails {
+    margin: 10px 0;
+}
+
+dl.profiledetails dt {
+    font-weight: bold;
+}
+
+div.votecomp {
+    height: 80px;
+}
+
+div.votecomp div.votebox_up,
+div.votecomp div.votebox_down {
+    float: left;
+}
+
+ul.replylist {
+    margin: 10px;
+    padding: 0;
+    list-style: none;
+}
+
+ul.replylist li {
+    margin: 5px 0;
+    line-height: 28px;
+}
+
+ul.replylist li span.votes {
+    display: block;
+    float: left;
+    width: 30px;
+    border: 1px solid;
+    text-align: center;
+    margin: 0 10px 0 0;
+    font-weight: bold;
+}
+
+ul.replylist li a {
+    font-weight: bold;
+    text-decoration: none;
+}
+
+ul.replylist li a:hover {
+    text-decoration: underline;
+}
+
+div.this_is_you {
+    font-weight: bold;
+    margin: -10px -10px 10px -10px;
+    height: 25px;
+    border-bottom: 1px solid;
+}
+
+div.this_is_you p.text {
+    line-height: 25px;
+    float: left;
+    padding: 0 10px;
+}
+
+div.this_is_you p.meta {
+    line-height: 25px;
+    float: right;
+    padding: 0 10px;
+}
+
+div.this_is_you p {
+    margin: 0;
+}
+
+div.this_is_you p.meta {
+    font-size: 11px;
+}
+
+/* :::: DEDICATED BADGE LIST :::: */
+
+div.badgedisplay {
+    margin: 10px 0;
+    height: 30px;
+    padding: 10px 0 0 8px;
+    border: 1px solid;
+    border-left: none;
+    border-right: none;
+}
+
+div.badgedisplay div.badge {
+    float: left;
+    padding: 0 10px 0 0;
+}
+
+ul.badges {
+    margin: 10px;
+    padding: 0;
+    list-style: none;
+}
+
+ul.badges li {
+    margin: 11px 0;
+    padding: 0;
+}
+
+ul.badges li span.badge,
+div.badgedisplay div.badge span.badge {
+    font-size: 15px;
+    padding: 4px 8px;
+}
+
+ul.badges span.description {
+    font-weight: bold;
+}
+
+ul.badges span.count {
+    padding: 0 3px 0 7px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+ul.badges small.multibadge,
+div.badgedisplay small.multibadge {
+    padding-left: 7px;
+    font-weight: normal;
+}
+
+/* :::: USERLINK RENDERING :::: */
+span.user img.avatar {
+    margin: 0 3px -3px 0;
+}
+
+span.user span.badge {
+    color: #777;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+span.user span.badge span.bullet {
+    padding-right: 2px;
+}
+
+/* :::: BADGE RENDERING :::: */
+span.badge a {
+    padding: 2px 5px;
+    background: black;
+    font-weight: bold;
+    text-decoration: none;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+
+span.badge a em {
+    font-style: normal;
+}
+
+span.badge span.bullet {
+    padding-right: 5px;
+}
+
+.bronce_badge .bullet   { color: #D48E44; }
+.silver_badge .bullet   { color: #aaa; }
+.gold_badge .bullet     { color: #FFCC00; }
+.platin_badge .bullet   { color: #ddd; }
+
+/* :::: THE FEED LINK :::: */
+h1 a.feedlink span {
+    display: none;
+}
+
+h1 a.feedlink {
+    float: right;
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin-top: 5px;
+    background: url(feed.png) no-repeat;
+}
+
+/* :::: AUTOCOMPLETE :::: */
+.ac_results {
+    padding: 0px;
+    border: 1px solid;
+    overflow: hidden;
+    z-index: 99999;
+}
+
+.ac_results ul {
+    width: 100%;
+    list-style-position: outside;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ac_results li {
+    margin: 0px;
+    padding: 3px 6px;
+    cursor: default;
+    display: block;
+    font-size: 13px;
+    line-height: 16px;
+    overflow: hidden;
+}
+
+/* :::: API DEBUG PAGE :::: */
+div.apidump {
+    margin: -10px;
+    padding: 10px;
+}
+
+div.apidump p {
+    margin: 0;
+}
+
+div.apidump pre {
+    border: 1px solid;
+    padding: 10px;
+    margin: 0;
+}
+
+ul.apimethods {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul.apimethods li.method {
+    margin: 10px 0;
+    padding: 0;
+    border: 1px solid;
+}
+
+ul.apimethods li.method h3 {
+    margin: 0;
+    font-size: 13px;
+    margin: 0;
+    padding: 5px 10px;
+}
+
+ul.apimethods li.method h3.toggler:hover {
+    cursor: pointer;
+}
+
+ul.apimethods li.method div.inner {
+    padding: 10px;
+}
+
+div.apidump dl dt,
+ul.apimethods dl dt {
+    font-size: 11px;
+    font-weight: bold;
+    margin: 5px 0 2px 0;
+}
+
+div.apihelp pre {
+    border: 1px solid;
+    padding: 5px;
+    margin: 10px 0;
+}
+
+div.apihelp table {
+    margin: 10px 0;
+    border-collapse: collapse;
+}
+
+div.apihelp table td,
+div.apihelp table th {
+    border: 1px solid;
+    padding: 3px 8px;
+}
+
+div.apihelp p {
+    margin: 5px 0;
+}
+
+div.apihelp dl {
+    border-top: 1px solid;
+    margin-top: 10px;
+    padding-top: 7px;
+}
+
+div.apihelp h4 {
+    margin: 15px 0 10px 0;
+}
+
+/* :::: REEEE CAPTCHA!!! :::: */
+#recaptcha_area {
+    margin: 10px 0;
+}

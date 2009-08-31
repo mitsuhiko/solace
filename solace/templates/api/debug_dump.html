@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% set page_title = 'API Response Dump' %}
+{% block body %}
+  <h1>{{ page_title }}</h1>
+  <div class="apidump">
+    <p>This is a debug dump of the data exported from this API
+    <dl>
+      <dt>API Request
+      <dd><code>{{ request.method|e }}</code>: {{ request.path|e }}
+      <dt>Internal API handler
+      <dd><code>{{ request.endpoint }}</code>
+    </dl>
+    <pre>{{ dump|e }}</pre>
+  </div>
+{% endblock %}

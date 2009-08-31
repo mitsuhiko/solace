@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+{% from '_helpers.html' import render_user %}
+{% from 'kb/_editor.html' import render_editor %}
+{% from 'kb/_boxes.html' import render_reply, render_vote_box, render_tags,
+                                render_meta_box, render_actions_box,
+                                render_plain_comment_box %}
+{% set page_title = topic.title %}
+{% block html_head %}
+{{ super() }}
+<link rel="alternate" href="{{ url_for(topic, action='feed') }}" type="application/atom+xml">
+{%- endblock %}
+{% block body %}
+  <h1>{{ topic.title|e }}</h1>
+  <div class="question{% if topic.is_deleted %} deleted_question{% endif %}">
+    {{ render_vote_box(topic.question, request.user) }}
+    <div class="text">
+      {{ topic.question.rendered_text }}
+    </div>
+    {{ render_tags(topic.tags) }}
+    {{ render_actions_box(topic.question, request.user) }}
+    {{ render_plain_comment_box(topic.question) }}
+    {{ render_meta_box(topic.question) }}
+  </div>
+  {%- set replies = topic.replies %}
+  {%- set reply_count = replies|length %}
+  <h2 id="replies">{% if not replies %}{{ _('Replies') }}{%
+    else %}{{ ngettext('%d Reply', '%d Replies', reply_count)
+    % reply_count }}{% endif %}</h2>
+  {% if not replies %}
+    <div class="no_replies">
+      <h3>{{ _('Nobody has replied yet') }}</h3>
+      {% if topic.author != request.user %}
+      <p>{{ _('Why not be the first?') }}
+      {% endif %}
+    </div>
+  {% else %}
+    <div class="replies">
+    {%- for reply in replies %}
+      {{ render_reply(reply, request.user) }}
+    {%- endfor %}
+    </div>
+  {% endif %}
+  {%- if request.is_logged_in %}
+    <h2 id="new_reply">{{ _('New Reply') }}</h2>
+    {{ render_editor(reply_form, _('Add Reply')) }}
+  {%- endif %}
+{% endblock %}

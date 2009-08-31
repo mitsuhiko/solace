@@ -1,0 +1,1214 @@
+# German translations for Solace.
+# Copyright (C) 2009 Plurk Inc.
+# This file is distributed under the same license as the Solace project.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Solace 0.1\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2009-08-14 12:14+0200\n"
+"PO-Revision-Date: 2009-08-31 02:34+0200\n"
+"Last-Translator: Armin Ronacher <armin.ronacher@active-4.com>\n"
+"Language-Team: de <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.4\n"
+
+#: solace/application.py:293 solace/application.py:306
+msgid "You have to login in order to visit this page."
+msgstr "Du musst dich anmelden um diese Seite zu sehen."
+
+#: solace/auth.py:95 solace/auth.py:133
+msgid "Registration Confirmation"
+msgstr "Registrierungsbestätigung"
+
+#: solace/auth.py:99 solace/auth.py:137
+#, python-format
+msgid "A mail was sent to %s with a link to finish the registration."
+msgstr "Eine E-Mail mit einem Bestätigungslink wurde an %s gesendet."
+
+#: solace/auth.py:102 solace/auth.py:140
+msgid "You're registered.  You can login now."
+msgstr "Du bist nun registriert und kannst dich anmelden."
+
+#: solace/auth.py:221
+#, python-format
+msgid "No user named %s"
+msgstr "Kein Benutzer namens %s"
+
+#: solace/auth.py:223
+msgid "The user is not yet activated."
+msgstr "Der Benutzer ist noch nicht aktiviert."
+
+#: solace/auth.py:225
+msgid "Invalid password"
+msgstr "Ungültiges Passwort"
+
+#: solace/badges.py:41
+#, python-format
+msgid "You earned the “%s” badge"
+msgstr "Du hast die “%s” Plakette erhalten"
+
+#: solace/badges.py:135
+msgid "Critic"
+msgstr "Kritiker"
+
+#: solace/badges.py:136
+msgid "First down vote"
+msgstr "Erster Down-Vote"
+
+#: solace/badges.py:142
+msgid "Self-Critic"
+msgstr "Selbstkritiker"
+
+#: solace/badges.py:143
+msgid "First downvote on own reply or question"
+msgstr "Erster Down-Vote auf einer eigenen Antwort oder Frage"
+
+#: solace/badges.py:149
+msgid "Editor"
+msgstr "Editor"
+
+#: solace/badges.py:150
+msgid "First edited post"
+msgstr "Erster bearbeiter Beitrag"
+
+#: solace/badges.py:155
+msgid "Inquirer"
+msgstr "Fragesteller"
+
+#: solace/badges.py:156
+msgid "First asked question"
+msgstr "Erste gestellte Frage"
+
+#: solace/badges.py:162
+msgid "Troubleshooter"
+msgstr "Problemlöser"
+
+#: solace/badges.py:163
+msgid "First answered question"
+msgstr "Erste beantwortete Frage"
+
+#: solace/badges.py:168
+msgid "Nice Answer"
+msgstr "Nette Antwort"
+
+#: solace/badges.py:169
+msgid "Answer was upvoted 10 times"
+msgstr "Antwort wurde 10 mal upgevoted."
+
+#: solace/badges.py:176
+msgid "Good Answer"
+msgstr "Gute Antwort"
+
+#: solace/badges.py:177
+msgid "Answer was upvoted 25 times"
+msgstr "Die Antwort wurde 25 mal upgevoted."
+
+#: solace/badges.py:184
+msgid "Great Answer"
+msgstr "Großartige Antwort"
+
+#: solace/badges.py:185
+msgid "Answer was upvoted 75 times"
+msgstr "Antwort wurde 75 mal upgevoted."
+
+#: solace/badges.py:192
+msgid "Unique Answer"
+msgstr "Einmalige Antwort"
+
+#: solace/badges.py:193
+msgid "Answer was upvoted 150 times"
+msgstr "Antwort wurde 150 mal upgevoted."
+
+#: solace/badges.py:200
+msgid "Reversal"
+msgstr "Wende"
+
+#: solace/badges.py:201
+msgid "Provided answer of +20 score to a question of -5 score"
+msgstr "Antwort mit +20 Stimmen zu einer Frage mit -5 Stimmen"
+
+#: solace/badges.py:206
+msgid "Self-Learner"
+msgstr "Selbst-Lerner"
+
+#: solace/badges.py:207
+msgid "Answered your own question with at least 4 upvotes"
+msgstr "Beantworte eigene Frage mit zumindest 4 Upvotes."
+
+#: solace/forms.py:23
+msgid "Invalid email address"
+msgstr "Ungültige E-Mail Adresse"
+
+#: solace/forms.py:29
+msgid "The username is too long."
+msgstr "Der Benutzername ist zu lang."
+
+#: solace/forms.py:31
+msgid "The username may not contain slashes."
+msgstr "Der Benutzername darf keine Schrägstriche enthalten."
+
+#: solace/forms.py:34
+msgid "The username may not begin or end with a dot."
+msgstr "Der Benutzername darf nicht mit einem Punkt beginnen oder enden."
+
+#: solace/forms.py:40 solace/forms.py:53 solace/forms.py:81
+#: solace/templates/users/profile.html:22
+msgid "Username"
+msgstr "Benutzername"
+
+#: solace/forms.py:41 solace/forms.py:55 solace/forms.py:128
+msgid "Password"
+msgstr "Passwort"
+
+#: solace/forms.py:57 solace/forms.py:130
+msgid "Password (repeat)"
+msgstr "Password (wiederholen)"
+
+#: solace/forms.py:59 solace/forms.py:82 solace/forms.py:132
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: solace/forms.py:70
+msgid "This username is already in use."
+msgstr "Dieser Benutzername ist bereits vergeben."
+
+#: solace/forms.py:76 solace/forms.py:157
+msgid "The two passwords do not match."
+msgstr "Die zwei Passwörter stimmen nicht überein."
+
+#: solace/forms.py:95
+msgid "The user was not yet activated."
+msgstr "Der Benutzer ist noch nicht aktiviert."
+
+#: solace/forms.py:102
+#, python-format
+msgid "No user named “%s” found."
+msgstr "Kein Benutzer namens „%s“"
+
+#: solace/forms.py:111
+msgid "No user with that e-mail address found."
+msgstr "Es wurde kein Benutzer mit dieser E-Mail Adresse gefunden"
+
+#: solace/forms.py:119
+msgid "Either username or e-mail address  is required."
+msgstr ""
+"Es muss entweder ein Benutzernamen oder eine E-Mail adresse angeben "
+"werden."
+
+#: solace/forms.py:122
+msgid "You have to provide either a username or an e-mail address, not both."
+msgstr ""
+"Du musst entweder einen Benutzernamen oder eine E-Mail Adresse angeben, "
+"nicht beides."
+
+#: solace/forms.py:134
+msgid "Real name"
+msgstr "Echter Name"
+
+#: solace/forms.py:171
+msgid "Title"
+msgstr "Titel"
+
+#: solace/forms.py:173
+msgid "You have to provide a title."
+msgstr "Du musst einen Titel angeben."
+
+#: solace/forms.py:174
+msgid "Type your question"
+msgstr "Gib deine Frage ein"
+
+#: solace/forms.py:176 solace/forms.py:216 solace/forms.py:248
+msgid "Text"
+msgstr "Text"
+
+#: solace/forms.py:178
+msgid "You have to provide a text."
+msgstr "Du musst einen Text angeben."
+
+#: solace/forms.py:179
+msgid "Describe your problem"
+msgstr "Beschreibe dein Problem"
+
+#: solace/forms.py:181 solace/templates/layout.html:52
+#: solace/templates/kb/_editor.html:20 solace/templates/kb/tags.html:2
+#: solace/templates/kb/tags.html:4
+msgid "Tags"
+msgstr "Tags"
+
+#: solace/forms.py:182
+msgid "You attached too many tags. You may only use 10 tags."
+msgstr "Du hast zu viele Tags angegeben.  Maximal sind 10 erlaubt."
+
+#: solace/forms.py:218
+msgid "Write your reply and answer the question"
+msgstr "Schreib deine Rückmeldung und beantworte die Frage"
+
+#. : i18n support, leave in place for custom settings modules
+#. : the platform we're running on
+#. : the database URI
+#. : the title of the website
+#: solace/settings.py:33
+msgid "Plurk Solace"
+msgstr "Plurk Solace"
+
+#. : the tagline of the website
+#: solace/settings.py:36
+msgid "Comfort others, become enlighted"
+msgstr "Helfe anderen, werde erleuchtet"
+
+#: solace/templating.py:35
+#, python-format
+msgid "on %s"
+msgstr "am %s"
+
+#: solace/static/solace.js:275
+msgid "just now"
+msgstr "gerade erst"
+
+#: solace/static/solace.js:278
+#, python-format
+msgid "%d minute ago"
+msgid_plural "%d minutes ago"
+msgstr[0] "vor %d Minute"
+msgstr[1] "vor %d Minuten"
+
+#: solace/static/solace.js:282
+#, python-format
+msgid "%d hour ago"
+msgid_plural "%d hours ago"
+msgstr[0] "vor %d Stunde"
+msgstr[1] "vor %d Stunden"
+
+#: solace/static/solace.js:420
+msgid "The feed for this page"
+msgstr "Der Feed für diese Seite"
+
+#: solace/static/solace.js:444
+msgid "Could not contact server.  Connection problems?"
+msgstr "Konnte Server nicht erreichen.  Verbindungsprobleme?"
+
+#: solace/templates/layout.html:27
+msgid "Language"
+msgstr "Sprache"
+
+#: solace/templates/layout.html:38
+msgid "Logout"
+msgstr "Abmelden"
+
+#: solace/templates/layout.html:40 solace/templates/core/register.html:9
+msgid "Register"
+msgstr "Registrieren"
+
+#: solace/templates/layout.html:41 solace/templates/core/login.html:2
+#: solace/templates/core/login.html:4 solace/templates/core/login.html:14
+msgid "Login"
+msgstr "Anmelden"
+
+#: solace/templates/layout.html:43 solace/templates/core/about.html:2
+msgid "About Solace"
+msgstr "Über Solace"
+
+#: solace/templates/layout.html:49
+msgid "Ask"
+msgstr "Neue Frage"
+
+#: solace/templates/layout.html:50 solace/templates/kb/overview.html:3
+msgid "Overview"
+msgstr "Übersicht"
+
+#: solace/templates/layout.html:51
+msgid "Unanswered"
+msgstr "Unbeantwortet"
+
+#: solace/templates/layout.html:53 solace/templates/layout.html:54
+msgid "Users"
+msgstr "Benutzer"
+
+#: solace/templates/layout.html:55 solace/templates/badges/show_list.html:3
+#: solace/templates/users/profile.html:53
+msgid "Badges"
+msgstr "Plaketten"
+
+#: solace/templates/layout.html:63
+msgid "Section"
+msgstr "Sektion"
+
+#: solace/templates/badges/show_badge.html:5
+#, python-format
+msgid "%s-Badge"
+msgstr "%s-Plakette"
+
+#: solace/templates/badges/show_badge.html:14
+msgid "This badge can be earned multiple times."
+msgstr "Diese Plakette kann mehrere Male verdient werden."
+
+#: solace/templates/badges/show_badge.html:19
+msgid "This badge was recently awarded to:"
+msgstr "Diese Plakette wurde vor kurzem an folgende Leute verliehen:"
+
+#: solace/templates/badges/show_badge.html:23
+#, python-format
+msgid "awarded %s"
+msgstr "verliehen %s"
+
+#: solace/templates/badges/show_badge.html:28
+msgid "This badge was not yet awarded.  Be the first"
+msgstr "Diese Plakette wurde noch nicht verliehen.  Sei der Erste"
+
+#: solace/templates/badges/show_list.html:7
+msgid ""
+"\n"
+"    Here you can see all badges that you can earn.  Some of them even\n"
+"    multiple times.\n"
+"  "
+msgstr ""
+"\n"
+"    Hier kannst du alle Plaketten sehen, die du verdienen kannst.  Manche"
+"\n"
+"    davon sogar mehrere Male.\n"
+"  "
+
+#: solace/templates/badges/show_list.html:17
+msgid "(awarded multiple times)"
+msgstr "(mehrmalig verliehen)"
+
+#: solace/templates/core/about.html:5
+msgid ""
+"\n"
+"    I'm out of ideas.  Someone come up with something.\n"
+"  "
+msgstr ""
+"\n"
+"    Keine Ideen, wer schreibt den Text?\n"
+"  "
+
+#: solace/templates/core/login.html:5
+msgid "Enter your username and password to log into Solace:"
+msgstr "Gibt deinen Benutzernamen und dein Passwort ein um dich anzumelden:"
+
+#: solace/templates/core/login.html:18
+msgid "Not yet registered?"
+msgstr "Noch nicht registriert?"
+
+#: solace/templates/core/login.html:21
+msgid "Forgot your password?"
+msgstr "Passwort vergessen?"
+
+#: solace/templates/core/no_javascript.html:2
+#: solace/templates/core/no_javascript.html:4
+msgid "JavaScript not Available"
+msgstr "JavaScript nicht verfügbar"
+
+#: solace/templates/core/no_javascript.html:5
+msgid ""
+"\n"
+"    Hey buddy! It seems like your browser is not capable of JavaScript\n"
+"    or you have disabled it. This website requires it however for some\n"
+"    functions so you should enable it.\n"
+"  "
+msgstr ""
+"\n"
+"    Hi! Es schaut so aus als könnte dein Browser kein JavaScript "
+"ausführen\n"
+"    oder du hast es deaktiviert. Diese Webseite erfordert dies jedoch für"
+"\n"
+"    einige Funktionen. Bitte aktiviere es.\n"
+"  "
+
+#: solace/templates/core/not_found.html:2
+#: solace/templates/core/not_found.html:4
+msgid "Page Not Found"
+msgstr "Seite nicht gefunden"
+
+#: solace/templates/core/not_found.html:5
+msgid "The requested URL was not found on the server."
+msgstr "Die angeforderte URL wurde auf diesem Server nicht gefunden."
+
+#: solace/templates/core/not_found.html:6
+msgid "If you entered the URL manually please check your spelling and try again."
+msgstr ""
+"Wenn du die URL von Hand eingegeben hast überprüfe die Schreibung und "
+"probiere es nochmal."
+
+#: solace/templates/core/register.html:2
+msgid "Register new Account"
+msgstr "Neuen Account Registrieren"
+
+#: solace/templates/core/reset_password.html:2
+#: solace/templates/core/reset_password.html:20 solace/views/core.py:131
+msgid "Reset Password"
+msgstr "Passwort zurücksetzen"
+
+#: solace/templates/core/reset_password.html:6
+#, python-format
+msgid ""
+"\n"
+"    <p>Your password was reset to <code>%(new_password)s</code>.  Please\n"
+"    make sure to <a href=\"%(change_url)s\">change it</a> as soon as "
+"possible.\n"
+"  "
+msgstr ""
+"\n"
+"    <p>Dein Passwort wurde auf <code>%(new_password)s</code> "
+"zurückgesetzt.\n"
+"    Bitte steller sicher, dass du es so schnell als möglich\n"
+"    <a href=\"%(change_url)s\">änderst</a>.\n"
+"  "
+
+#: solace/templates/core/reset_password.html:11
+msgid ""
+"\n"
+"    <p>In order to reset your password enter either your username\n"
+"       or e-mail address.  We will then send you you a link to your\n"
+"       e-mail address with a link to reset the password.\n"
+"  "
+msgstr ""
+"\n"
+"    <p>Um dein Password zurückzusetzen musst du entweder deinen "
+"Benutzernamen\n"
+"       oder deine E-Mail Adresse angeben.  Wir werden dir dann den Link\n"
+"       zum Zurücksetzen des Passwortes zusenden.\n"
+"  "
+
+#: solace/templates/kb/_boxes.html:15
+msgid "vote"
+msgid_plural "votes"
+msgstr[0] "Stimme"
+msgstr[1] "Stimmen"
+
+#: solace/templates/kb/_boxes.html:19
+msgid "reply"
+msgid_plural "replies"
+msgstr[0] "Antwort"
+msgstr[1] "Antworten"
+
+#: solace/templates/kb/_boxes.html:25
+#, python-format
+msgid "By %s"
+msgstr "Von %s"
+
+#: solace/templates/kb/_boxes.html:45
+msgid "Newest"
+msgstr "Neueste"
+
+#: solace/templates/kb/_boxes.html:46
+msgid "Hot"
+msgstr "Heiß"
+
+#: solace/templates/kb/_boxes.html:47 solace/templates/users/profile.html:39
+msgid "Votes"
+msgstr "Stimmen"
+
+#: solace/templates/kb/_boxes.html:48
+msgid "Activity"
+msgstr "Aktivität"
+
+#: solace/templates/kb/_boxes.html:74
+#, python-format
+msgid "Created %(date)s by %(user)s."
+msgstr "Erstellt %(date)s von %(user)s."
+
+#: solace/templates/kb/_boxes.html:78
+#, python-format
+msgid "Last change %(date)s by %(user)s."
+msgstr "Letzte Änderung %(date)s von %(user)s."
+
+#: solace/templates/kb/_boxes.html:81
+#, python-format
+msgid "This post was edited %d time."
+msgid_plural "This post was edited %d times."
+msgstr[0] "Dieser Beitrag wurde %d mal editiert."
+msgstr[1] "Dieser Beitrag wurde %d mal editiert."
+
+#: solace/templates/kb/_boxes.html:84
+msgid "Show revisions"
+msgstr "Revisionen anzeigen"
+
+#: solace/templates/kb/_boxes.html:100 solace/templates/users/profile.html:42
+#: solace/templates/users/profile.html:47
+msgid "Up"
+msgstr "Hoch"
+
+#: solace/templates/kb/_boxes.html:102 solace/templates/users/profile.html:44
+#: solace/templates/users/profile.html:49
+msgid "Down"
+msgstr "Nieder"
+
+#: solace/templates/kb/_boxes.html:114
+msgid "Unaccept as answer"
+msgstr "Nicht als Antwort akzeptieren"
+
+#: solace/templates/kb/_boxes.html:116
+msgid "Accepted Answer"
+msgstr "Akzeptierte Antwort"
+
+#: solace/templates/kb/_boxes.html:120
+msgid "Accept as answer"
+msgstr "Als Antwort akzeptieren"
+
+#: solace/templates/kb/_boxes.html:129
+#, python-format
+msgid "%d comment"
+msgid_plural "%d comments"
+msgstr[0] "%d Kommentar"
+msgstr[1] "%d Kommentare"
+
+#: solace/templates/kb/_boxes.html:132 solace/templates/kb/_comments.html:10
+msgid "Add comment"
+msgstr "Kommentar hinzufügen"
+
+#: solace/templates/kb/_boxes.html:158 solace/templates/kb/edit_post.html:25
+#: solace/templates/kb/post_revisions.html:27
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: solace/templates/kb/_boxes.html:162
+#: solace/templates/kb/post_revisions.html:30
+msgid "Restore"
+msgstr "Wiederherstellen"
+
+#: solace/templates/kb/_boxes.html:164
+msgid "Delete"
+msgstr "Löschen"
+
+#: solace/templates/kb/by_tag.html:3 solace/views/kb.py:137
+#, python-format
+msgid "Questions Tagged “%s”"
+msgstr "Fragen getaggt als „%s“"
+
+#: solace/templates/kb/by_tag.html:13
+#, python-format
+msgid ""
+"Questions are grouped and flagged by tags. By using the right tags you\n"
+"      make it easier for others to find questions again. The following "
+"topics\n"
+"      are topics tagged %(tag)s."
+msgstr ""
+"Fragen sind nach Tags gruppiert. Wenn du die richtigen Tags benutzt\n"
+"      machst du es anderen Leuten einfacher Fragen wiederzufinden. Die "
+"folgenden Beiträge sind markiert %(tag)s."
+
+#: solace/templates/kb/delete_post.html:3
+msgid "Delete Post"
+msgstr "Beitrag Löschen"
+
+#: solace/templates/kb/delete_post.html:7
+msgid ""
+"\n"
+"    <p>Do you want to delete the post?\n"
+"  "
+msgstr ""
+"\n"
+"    <p>Möchtest du den Beitrag löschen?\n"
+"  "
+
+#: solace/templates/kb/delete_post.html:13
+#: solace/templates/kb/restore_post.html:16
+msgid "Yes"
+msgstr "Ja"
+
+#: solace/templates/kb/delete_post.html:14
+#: solace/templates/kb/restore_post.html:17
+msgid "No"
+msgstr "Nein"
+
+#: solace/templates/kb/edit_post.html:3
+#, python-format
+msgid "Edit “%s”"
+msgstr "Bearbeite „%s“"
+
+#: solace/templates/kb/edit_post.html:4
+msgid "Edit Reply"
+msgstr "Antwort bearbeiten"
+
+#: solace/templates/kb/edit_post.html:8
+msgid ""
+"<p>\n"
+"      Do you want to fix something? Every change you make will be "
+"revisioned\n"
+"      so you can always go back to an older revision of the post."
+msgstr ""
+"<p>\n"
+"      Möchtest du etwas korrigieren? Jede Änderung die du machst wird "
+"gespeichert, also kannst du später zu einer vorigen Version\n"
+"      zurückkehren."
+
+#: solace/templates/kb/edit_post.html:16
+#: solace/templates/kb/post_revisions.html:3
+msgid "Revisions"
+msgstr "Revisionen"
+
+#: solace/templates/kb/new.html:3 solace/templates/kb/new.html:5
+msgid "New Question"
+msgstr "Neue Frage"
+
+#: solace/templates/kb/new.html:7
+#, python-format
+msgid ""
+"<p>Hey %(username)s!\n"
+"    <p>\n"
+"      Stumble across a problem while using Plurk? Have a suggestion to "
+"share with us? Ask away."
+msgstr ""
+"<p>Hey %(username)s!\n"
+"    <p>\n"
+"      Über ein Problem gestolpert während du Plurk benutzt hast? Hast du"
+"       einen Vorschlag, den du mit uns Teilen willst? Frag einfach."
+
+#: solace/templates/kb/new.html:13
+msgid "Submit question"
+msgstr "Frage absenden"
+
+#: solace/templates/kb/overview.html:12
+msgid ""
+"This is an overview of some of the newest topics here on Solace. You can "
+"view other topics grouped by activity, votes and hotness."
+msgstr ""
+"Dies ist eine Übersicht über die neuesten Beiträge hier auf Solace. Du "
+"kannst andere Beitrage sortiert nach Aktivität, Stimmen und der Hitze "
+"eines Themas sortieren."
+
+#: solace/templates/kb/post_revisions.html:7
+#, python-format
+msgid ""
+"\n"
+"    <p>Here you can see all revisions for %(post)s by %(author)s.\n"
+"    <p>Added information is <ins>marked green</ins>, deleted text is\n"
+"       <del>struck out and red</del> and changed formatting is\n"
+"       <span class=\"changed\">marked with a yellow background</span>.\n"
+"       To see the full text of a revision click on the ellipsis\n"
+"       (“…”) below and after each paragraph containing marks."
+msgstr ""
+"\n"
+"    <p>Hier kannst du alle Revisionen für %(post)s von %(author)s sehen.\n"
+"    <p>Hinzugefügte Information ist <ins>grün markiert</ins>, gelöschter\n"
+"       Text ist <del>durchgestrichen</del> und veränderte Formattierung\n"
+"       ist <span class=\"changed\">markiert mit einem gelben "
+"Hintergrund</span>.\n"
+"       Um den kompletten Text einer Revision zu sehen klicke auf die\n"
+"       Auslassungspunkte: („…“) vor und nach einem Absatz."
+
+#: solace/templates/kb/post_revisions.html:21
+#, python-format
+msgid "Revision created %(date)s by %(user)s."
+msgstr "Version erstellt %(date)s von %(user)s."
+
+#: solace/templates/kb/restore_post.html:3
+msgid "Restore old Revision"
+msgstr "Alte Revision wiederherstellen"
+
+#: solace/templates/kb/restore_post.html:4
+msgid "Restore deleted Post"
+msgstr "Gelöschten Beitrag wiederherstellen"
+
+#: solace/templates/kb/restore_post.html:8
+msgid ""
+"\n"
+"    <p>Do you want to restore an old revision of the post?\n"
+"  "
+msgstr ""
+"\n"
+"    <p>Möchtest du die alte Revision wiederherstellen?\n"
+"  "
+
+#: solace/templates/kb/restore_post.html:10
+msgid ""
+"\n"
+"    <p>Do you want to restore the deleted post?\n"
+"  "
+msgstr ""
+"\n"
+"    <p>Möchtest du den gelöschten Beitrag wiederherstellen?\n"
+"  "
+
+#: solace/templates/kb/restore_post.html:23
+msgid "Preview"
+msgstr "Vorschau"
+
+#: solace/templates/kb/sections.html:3 solace/templates/kb/sections.html:5
+msgid "Sections"
+msgstr "Sektionen"
+
+#: solace/templates/kb/sections.html:6
+msgid ""
+"\n"
+"    Got a problem?  Then let us know.  But make sure to post it\n"
+"    in the correct section.  The one in bold is the one you are\n"
+"    probably most interested in:\n"
+"  "
+msgstr ""
+"\n"
+"    Hast du ein Problem?  Dann lass es uns wissen.  Aber stelle bitte    "
+"sicher, dass der in der Richten Sektion ist.  Die Sektion in Fett ist    "
+"der, der dich warscheinlich am meisten Interessiert:"
+
+#: solace/templates/kb/sections.html:18
+msgid ""
+"\n"
+"    Your language is not here?  Help us out and make it happen.\n"
+"    Contact our <a href=\"#\">translation guys</a> and we will try\n"
+"    to get your language in as quickly as possible.\n"
+"  "
+msgstr ""
+"\n"
+"    Deine Sprache ist nicht dabei?  Lass es uns wissen und wir\n"
+"    werden uns Datum kümmern.  Sprich mit unseren <a "
+"href=\"#\">Übersetzungs    Leuten</a> und wir werden versuchen deine "
+"Sprache so schnell\n"
+"    als möglich einbauen.\n"
+"  "
+
+#: solace/templates/kb/tags.html:5
+msgid ""
+"\n"
+"    Questions are grouped and flagged by tags. By using the right tags "
+"you\n"
+"    make it easier for others to find questions again. The following tags"
+"\n"
+"    are the most common:\n"
+"  "
+msgstr ""
+"\n"
+"Fragen sind nach Tags gruppiert. Wenn du die richtigen Tags benutzt\n"
+"      machst du es anderen Leuten einfacher Fragen wiederzufinden. Die "
+"folgenden Tags sind die häufigsten:\n"
+"  "
+
+#: solace/templates/kb/topic.html:26
+msgid "Replies"
+msgstr "Antworten"
+
+#: solace/templates/kb/topic.html:27
+#, python-format
+msgid "%d Reply"
+msgid_plural "%d Replies"
+msgstr[0] "%d Antwort"
+msgstr[1] "%d Antworten"
+
+#: solace/templates/kb/topic.html:31
+msgid "Nobody has replied yet"
+msgstr "Noch hat niemand geantwortet"
+
+#: solace/templates/kb/topic.html:33
+msgid "Why not be the first?"
+msgstr "Warum nicht der erste sein?"
+
+#: solace/templates/kb/topic.html:44
+msgid "New Reply"
+msgstr "Neue Antwort"
+
+#: solace/templates/kb/topic.html:45
+msgid "Add Reply"
+msgstr "Antwort hinzufügen"
+
+#: solace/templates/kb/unanswered.html:3 solace/views/kb.py:112
+msgid "Unanswered Questions"
+msgstr "Unbeantwortete Fragen"
+
+#: solace/templates/kb/unanswered.html:12
+msgid ""
+"Topics posted here do not have a decent answer yet. Help a plurker finds "
+"his/her way :)."
+msgstr ""
+"Beiträge hier haben noch keine gute Antwort. Hilf einem Plurker seinen "
+"Weg zu finden :)."
+
+#: solace/templates/mails/activate_user.txt:2
+#, python-format
+msgid ""
+"Hi %(user)s!\n"
+"\n"
+"You have signed up on %(site)s but your account\n"
+"is not yet activated.  You have to follow the following link to\n"
+"finish the registration and activate your account:\n"
+"\n"
+"%(confirmation_url)s\n"
+"\n"
+"See you soon on %(site)s"
+msgstr ""
+"Hallo %(user)s!\n"
+"\n"
+"Du hasst dich auf %(site)s registiert aber dein Konto\n"
+"ist noch nicht aktiviert.  Du musst dem folgenden Link folgen\n"
+"um die Registrierung abzuschließen:\n"
+"\n"
+"%(confirmation_url)s\n"
+"\n"
+"Bis bald auf %(site)s"
+
+#: solace/templates/mails/reset_password.txt:2
+#, python-format
+msgid ""
+"Hi %(user)s!\n"
+"\n"
+"You can reset your password by clicking the following link:\n"
+"\n"
+"%(reset_url)s\n"
+"\n"
+"If you did not request your password to be reset, just delete\n"
+"this e-mail and ignore the request."
+msgstr ""
+"Hallo %(user)s!\n"
+"\n"
+"Du kannst dein Passwort zurücksetzen indem du auf den folgenden\n"
+"Link klickst:\n"
+"\n"
+"%(reset_url)s\n"
+"\n"
+"Wenn du dein Passwort nicht zurücksetzen wolltest ignoriere diese\n"
+"E-Mail einfach."
+
+#: solace/templates/users/edit_profile.html:3
+msgid "Edit Profile"
+msgstr "Profil bearbeiten"
+
+#: solace/templates/users/edit_profile.html:9
+msgid "Update Profile"
+msgstr "Profil aktualisieren"
+
+#: solace/templates/users/profile.html:10
+msgid "This is you"
+msgstr "Das bist du"
+
+#: solace/templates/users/profile.html:12
+msgid "Edit profile"
+msgstr "Profil bearbeiten"
+
+#: solace/templates/users/profile.html:16
+msgid "The user's avatar"
+msgstr "Des Benutzer's Avatar"
+
+#: solace/templates/users/profile.html:19
+msgid "Name"
+msgstr "Name"
+
+#: solace/templates/users/profile.html:25
+msgid "Active in"
+msgstr "Aktiv in"
+
+#: solace/templates/users/profile.html:32
+msgid "Ordered by activity, most active first"
+msgstr "Geordnet nach Aktivität, die Höchste zuerst"
+
+#: solace/templates/users/profile.html:36
+msgid "Reputation"
+msgstr "Ansehen"
+
+#: solace/templates/users/profile.html:63
+msgid "Most Popular Questions"
+msgstr "Die bliebtesten Fragen"
+
+#: solace/templates/users/profile.html:67
+msgid "Most Popular Replies"
+msgstr "Die bliebtesten Antworten"
+
+#: solace/templates/users/userlist.html:3
+msgid "All Users"
+msgstr "Alle Benutzer"
+
+#: solace/templates/users/userlist.html:4
+#: solace/templates/users/userlist.html:16
+#, python-format
+msgid "Users active in Section “%s”"
+msgstr "Benutzer aktiv in Sektion „%s“"
+
+#: solace/templates/users/userlist.html:8
+msgid ""
+"\n"
+"    <p>\n"
+"      Here you can see a complete list of all users on Solace.\n"
+"    "
+msgstr ""
+"\n"
+"    <p>\n"
+"      Hier kannst du eine komplette Liste aller Benutzer auf Solace "
+"sehen.\n"
+"    "
+
+#: solace/templates/users/userlist.html:17
+#, python-format
+msgid ""
+"\n"
+"    <p>\n"
+"      Here you can see the list of all users that are active in\n"
+"      the “%(locale_link)s” section of the Solace.\n"
+"    "
+msgstr ""
+"\n"
+"    <p>\n"
+"      Hier kannst du eine Liste aller Benutzer sehen, die in der Sektion\n"
+"      „%(locale_link)s“ aktiv sind.\n"
+"    "
+
+#: solace/templates/users/userlist.html:24
+msgid "Filter by section"
+msgstr "Nach Sektion Filtern"
+
+#: solace/templates/users/userlist.html:25
+msgid "All"
+msgstr "Alle"
+
+#: solace/utils/api.py:80
+#, python-format
+msgid "Unknown format \"%s\""
+msgstr "Unbekanntes Format \"%s\""
+
+#: solace/utils/api.py:97
+msgid ""
+"Could not detect format.  You have to specify the format as query "
+"argument or in the accept HTTP header."
+msgstr ""
+"Konnte Format nicht erkennen.  Du musst das Format als URL Argument "
+"angeben oder einen Accept HTTP Header mit angeben."
+
+#: solace/utils/api.py:116
+msgid "Unknown language"
+msgstr "Unbekannte Sprache"
+
+#: solace/utils/api.py:126
+msgid "Unknown locale"
+msgstr "Unbekannte Locale"
+
+#: solace/utils/forms.py:690
+msgid "No choices."
+msgstr "Keine Möglichkeiten."
+
+#: solace/utils/forms.py:796
+msgid "Submit"
+msgstr "Absenden"
+
+#: solace/utils/forms.py:941
+msgid "This field is required."
+msgstr "Dieses Feld ist erforderlich."
+
+#: solace/utils/forms.py:1103
+msgid "Invalid security token submitted."
+msgstr "Ungültigere Sicherheits-Token übermittelt."
+
+#: solace/utils/forms.py:1111
+msgid "You entered an invalid captcha."
+msgstr "Du hast ein ungültiges Captcha eingegeben."
+
+#: solace/utils/forms.py:1162 solace/utils/forms.py:1439
+#, python-format
+msgid "Please provide at least %d item."
+msgid_plural "Please provide at least %d items."
+msgstr[0] "Bitte gib zumindest %d Element an."
+msgstr[1] "Bitte gib zumindest %d Elemente an."
+
+#: solace/utils/forms.py:1169 solace/utils/forms.py:1446
+#, python-format
+msgid "Please provide no more than %d item."
+msgid_plural "Please provide no more than %d items."
+msgstr[0] "Bitte gib nicht mehr als %d Elemente an."
+msgstr[1] "Bitte gib nicht mehr als %d Elemente an."
+
+#: solace/utils/forms.py:1282
+#, python-format
+msgid "Please enter at least %d character."
+msgid_plural "Please enter at least %d characters."
+msgstr[0] "Bitte gib zumindest %d Zeichen ein."
+msgstr[1] "Bitte gib zumindest %d Zeichen ein."
+
+#: solace/utils/forms.py:1289
+#, python-format
+msgid "Please enter no more than %d character."
+msgid_plural "Please enter no more than %d characters."
+msgstr[0] "Bitte gib nicht mehr als %d Zeichen ein."
+msgstr[1] "Bitte gib nicht mehr als %d Zeichen ein."
+
+#: solace/utils/forms.py:1375
+msgid "Please enter a valid choice."
+msgstr "Bitte gibt einen gültigen Wert an."
+
+#: solace/utils/forms.py:1433
+#, python-format
+msgid "“%s” is not a valid choice"
+msgstr "„%s“ ist keine gültige Eingabe"
+
+#: solace/utils/forms.py:1478
+msgid "Please enter a whole number."
+msgstr "Bitte gib eine ganze Zahl ein."
+
+#: solace/utils/forms.py:1503
+#, python-format
+msgid "Ensure this value is greater than or equal to %s."
+msgstr "Stelle sicher, dass der Wert größer oder gleich %s ist."
+
+#: solace/utils/forms.py:1509
+#, python-format
+msgid "Ensure this value is less than or equal to %s."
+msgstr "Stelle sicher, dass der Wert kleiner oder gleich %s ist."
+
+#: solace/utils/forms.py:1531
+msgid "True"
+msgstr "Wahr"
+
+#: solace/utils/forms.py:1532
+msgid "False"
+msgstr "Falsch"
+
+#: solace/utils/pagination.py:94
+msgid "Next »"
+msgstr "Weiter »"
+
+#: solace/utils/recaptcha.py:45
+msgid "Get a visual challenge"
+msgstr "Visuelle Aufgabe anzeigen"
+
+#: solace/utils/recaptcha.py:46
+msgid "Get an audio challenge"
+msgstr "Audio-Aufgabe anzeigen"
+
+#: solace/utils/recaptcha.py:47
+msgid "Get a new challenge"
+msgstr "Neue Aufgabe"
+
+#: solace/utils/recaptcha.py:48
+msgid "Type the two words:"
+msgstr "Gib die zwei Worte ein:"
+
+#: solace/utils/recaptcha.py:49
+msgid "Type what you hear:"
+msgstr "Gib ein was du hörst:"
+
+#: solace/utils/recaptcha.py:50
+msgid "Help"
+msgstr "Hilfe"
+
+#: solace/utils/recaptcha.py:51
+msgid "Play sound again"
+msgstr "Ton erneut abspielen"
+
+#: solace/utils/recaptcha.py:52
+msgid "Download sound as MP3"
+msgstr "Ton als MP3 herunterladen"
+
+#: solace/utils/recaptcha.py:53
+msgid "Incorrect. Try again."
+msgstr "Falsch, bitte probiere es nochmal"
+
+#: solace/views/core.py:62
+msgid "You are now logged in."
+msgstr "Du bist nun angemeldet."
+
+#: solace/views/core.py:75
+msgid "You were logged out."
+msgstr "Du wurdest abgemeldet."
+
+#: solace/views/core.py:120
+msgid "The password-reset key expired or the link was invalid."
+msgstr "Der Schlüssel zum Zurücksetzen des Passwortes war ungültig."
+
+#: solace/views/core.py:134
+#, python-format
+msgid "A mail with a link to reset the password was sent to “%s”"
+msgstr ""
+"Eine E-Mail mit dem Link zum Zurücksetzen des Passwortes wurde an „%s“ "
+"gesendet."
+
+#: solace/views/core.py:150
+msgid "Your account was activated.  You can log in now."
+msgstr "Dein Konto wurde aktiviert.  Du kannst dich nun anmelden."
+
+#: solace/views/core.py:153
+msgid ""
+"User activation failed.  The user is either already activated or you "
+"followed a wrong link."
+msgstr ""
+"Benutzerkativierung fehlgeschlagen.  Entweder ist der Benutzer bereits "
+"aktiviert, oder du bist einem falschen Link gefolgt."
+
+#: solace/views/core.py:180
+#, python-format
+msgid ""
+"The interface language was set to %s.  You were also forwarded to the "
+"help section of that language."
+msgstr ""
+"Die Sprache der Benutzeroberfläche wurde auf %s geändert.  Du wurdest "
+"gleichzeitig zur Hilfesektion dieser Sprache weitergeleitet."
+
+#: solace/views/kb.py:100
+msgid "Questions"
+msgstr "Sektionen"
+
+#: solace/views/kb.py:175
+msgid "Your reply was posted."
+msgstr "Deine Antwort wurde abgsendet."
+
+#: solace/views/kb.py:219
+#, python-format
+msgid "Answer by %s"
+msgstr "Antwort von %s"
+
+#: solace/views/kb.py:236
+msgid "Your question was posted."
+msgstr "Die Frage wurde abgesendet."
+
+#: solace/views/kb.py:271
+msgid "The post was edited."
+msgstr "Der Beitrag wurde bearbeitet."
+
+#: solace/views/kb.py:275
+#, python-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: solace/views/kb.py:278
+msgid "Current revision"
+msgstr "Aktuelle Revision"
+
+#: solace/views/kb.py:302
+msgid "The post was deleted"
+msgstr "Der Beitrag wurde gelöscht."
+
+#: solace/views/kb.py:326
+msgid "The post was restored"
+msgstr "Der Beitrag wurde wiederhergestellt."
+
+#: solace/views/kb.py:329
+msgid "The revision was restored"
+msgstr "Die Revision wurde wiederhergestellt."
+
+#: solace/views/kb.py:386
+msgid "You cannot vote on deleted posts."
+msgstr "Du kannst nicht für gelöschte Beiträge stimmen."
+
+#: solace/views/kb.py:399
+msgid "You cannot upvote your own post."
+msgstr "Du kannst nicht für deinen eigenen Beitrag stimmen."
+
+#: solace/views/kb.py:407
+#, python-format
+msgid "In order to upvote you need at least %d reputation"
+msgstr "Um upzuvoten musst du zumindest %d Ansehen haben"
+
+#: solace/views/kb.py:420
+#, python-format
+msgid "In order to downvote you need at least %d reputation"
+msgstr "Um downzuvoten musst du mindestens %d Ansehen haben"
+
+#: solace/views/kb.py:456
+msgid "You cannot accept deleted posts as answers"
+msgstr "Du kannst gelöschte Beiträge nicht als Antworten akzeptieren."
+
+#: solace/views/kb.py:468
+msgid "You cannot unaccept this reply as an answer."
+msgstr "Du kannst diese Antwort nicht de-akzeptieren."
+
+#: solace/views/kb.py:481
+msgid "You cannot accept this reply as answer."
+msgstr "Du kannst diese Antwort nicht akzeptieren."
+
+#: solace/views/kb.py:533
+msgid "You cannot submit comments for deleted posts"
+msgstr "Du kannst nicht Kommentare zu gelöschten Posts abgeben."
+
+#: solace/views/users.py:84
+msgid "Your profile was updated"
+msgstr "Dein Profil wurde aktualisiert"
+

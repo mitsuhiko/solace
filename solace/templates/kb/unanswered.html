@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+{% from 'kb/_boxes.html' import render_topics, render_topic_tabs %}
+{% set page_title = _('Unanswered Questions') %}
+{% block html_head %}
+{{ super() }}
+<link rel="alternate" href="{{ url_for('kb.unanswered_feed', order_by=order_by)
+  }}" type="application/atom+xml">
+{%- endblock %}
+{% block body %}
+  <h1>{{ page_title }}</h1>
+  <div class="explanation">
+    <p>{% trans -%}
+      Topics posted here do not have a decent answer yet. Help a plurker finds his/her way :).
+    {%- endtrans %}
+  </div>
+  {{ render_topic_tabs('kb.unanswered', order_by) }}
+  {{ render_topics(topics) }}
+  {{ pagination }}
+{% endblock %}

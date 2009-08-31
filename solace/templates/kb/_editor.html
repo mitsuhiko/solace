@@ -1,0 +1,28 @@
+{% macro render_editor(form, submit_text) %}
+  <div class="post_form">
+    {% call form() %}
+      <div class="editor">
+        {%- if form.title %}
+          <div class="title">
+            <div class="help">{{ form.title.help_text|e }}</div>
+            <div class="input">{{ form.title() }}</div>
+          </div>
+        {%- endif %}
+        <div class="text">
+          {%- if form.text.help_text %}
+          <div class="help">{{ form.text.help_text|e }}</div>
+          {%- endif %}
+          <div class="input">{{ form.text() }}</div>
+        </div>
+      </div>
+      {%- if form.tags %}
+      <div class="tags">
+        {{ _('Tags') }}: {{ form.tags(size=30) }}
+      </div>
+      {%- endif %}
+      <div class="submit">
+        <input type="submit" value="{{ submit_text }}">
+      </div>
+    {% endcall %}
+  </div>
+{% endmacro %}

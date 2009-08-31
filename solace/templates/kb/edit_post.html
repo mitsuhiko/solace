@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% from 'kb/_editor.html' import render_editor %}
+{% set page_title = _('Edit “%s”') % post.topic.title|e
+  if post.is_question else _('Edit Reply') %}
+{% block body %}
+  <h1>{{ page_title }}</h1>
+  <div class="explanation">
+    {% trans -%}
+    <p>
+      Do you want to fix something? Every change you make will be revisioned
+      so you can always go back to an older revision of the post.
+    {%- endtrans %}
+  </div>
+  <form action="" method="get">
+    <div class="revisionlist">
+      {{ _('Revisions') }}:
+      <select name="rev" class="submit_on_select">
+      {%- for selected, id, shortname in all_revisions %}
+        <option value="{{ id }}"{% if selected %} selected{%
+          endif %}>{{ shortname|e }}</option>
+      {%- endfor %}
+      </select>
+    </div>
+  </form>
+  {{ render_editor(form, _('Edit')) }}
+{% endblock %}

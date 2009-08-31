@@ -1,0 +1,185 @@
+
+
+                         // HACKING ON SOLACE //
+
+    ~ HACKING ~
+
+        Hacking on Solace is fun.  It's written in Python and based
+        on pupular libraries.  The dynamic parts in the user interface
+        are created using HTML 4 and jQuery.
+
+        This file should give you a brief overview how the code works
+        and what you should keep in mind when working on it.
+
+    ~ STYLEGUIDE ~
+
+        Solace follows PEP 8 for Python code.  The rule you should
+        follow is "adapt to the code style used in the file".  And
+        that also means, put whitespace where the original author
+        put it and so on.
+
+        Indent with 4 *spaces* only.
+
+        JavaScript code is intended with 2 spaces and only two spaces.
+        The same rule applies for HTML as well.
+
+        **Every page has to validate against HTML 4.01 transitional**.
+
+        If you need features HTML 4 does not give you, use JavaScript!
+	We're using the transitional DTD because recaptcha uses iframes
+	for non-JavaScript enabled browsers.
+
+        We will probably switch to HTML 5 once support is widespread
+        but until then, the doctype has to be HTML 4.01 transitional.
+	The reason for this rule is that many browser validators such as
+        the firefox validator plugin does not support HTML 5 yet which
+        makes it nearly impossible to ensure that every page validates.
+
+        CSS spacing rules should follow the existing rules in the files.
+        Use whitespace after property, value colons.
+
+        CSS files *have* to use relative paths, so do templates.  A
+        template should use `url_for` where possible.  The application
+        does not enforce itself to be mounted on the URL root, so assume
+        it can be anywhere.
+
+        CSS classes are lowercase and use underscore for separation.
+
+        All filenames have to be lowercase and ASCII only.
+
+    ~ URLS ~
+
+        Rules for URLs are simple.  Stuff that depends on a language and
+        is *publically* available is mounted below `/<lang_code>`.
+
+        Stuff invoked by JavaScript, that redirects back or is remotely
+        JavaScript related has a leading underscore.
+
+        Examples:
+
+            /login
+            /<lang_code>/
+            /_set_timezone
+            /_vote/<post>
+
+    ~ INTERFACE GUIDELINES ~
+
+        The Solace user interface is intended to be used by everybody
+        not just hackers.  Keep that in mind when working on the code
+        base.
+
+        // Emphasis //
+
+            The emphasis is always on the non-technical elements.  For
+            example in the overview page the emphasis is on the title,
+            number of votes and replies, but not on the tags.  Tags are
+            elements not everybody is familiar with.
+
+        // Font Sizes //
+            
+            The following font sizes are in use:
+
+            10px    preferred bold and only for navigation, errors
+                    and popup menus.
+            11px    for meta information such as authors etc.
+            13px    for regular text
+            20px    for headline like content such as questions on
+                    the overview page.
+            24px    the biggest headline and in caps the header
+
+            Special font sizes
+
+            18px    used by the hinted editor.  As long as a field is
+                    empty it may display a 18px big and #69A9B8 colored
+                    text instead.
+
+        // Margins & Padding //
+
+            Standard margins                10px
+            above header, below footer      50px
+            small separation                3px 7px
+
+        // Colors //
+
+            Use the following colors for the CSS:
+
+            #2a606d             standard link color, darkish blue
+            #0E3640             very dark blue, nav background
+                                (combine with white) or marked text
+            #458696             popup background
+            #C2DDE3             blue box background
+            #E1EDF0             tag background
+            #EEF8FA             editor background
+
+            #69A9B8             hint text color
+            #B5DDE6             editor border color
+
+            #FAFAFA             preview boxes, deleted content
+            #eee                inactive elements, headline background
+            #ccc                boxes on deleted content
+            #555                text on deleted content
+
+            #A8DFAA             background for inserted text
+            #FDF5F5             background for deleted text
+            #EB4040             color for deleted text
+            #F5F2D7             background for modified text
+
+        // Client-side Scripting //
+
+            The core functionality of Solace should work without
+            JavaScript on modern browsers.  (We do not consider either
+            IE6 or IE7 as modern browser).
+
+            Currently the only feature that does not work without
+            JavaScript is adding comments to questions and replies.
+
+            Whenever you cannot provide a non-javascript implementation
+            of a feature, make sure that the user somehow ends up on
+            the special `_no_javascript` page.  Either on click or
+            somehow else.  That one tells the user to enable JavaScript
+            to use this feature.
+
+        // Language Handling //
+
+            Solace has two indepdendent language context.  The language
+            of the UI and the language of the section the user is active
+            in.
+
+            Sometimes the user leaves a section in which case the links
+            that point back to a section (in the navigation bar) will
+            point to the section of the UI language.  Whenever that
+            happens the link that points to that section has to be marked
+            with the faded color so that the user knows the link might
+            not take him back to where he came from.  At the same time
+            the link to the active section disappears.
+
+            You can try that by clicking on the "badges" link.  The
+            "ask" and other buttons will be slightly faded out.
+
+            If you're adding new pages, keep that behavior in mind.
+
+    ~ TEMPLATES ~
+
+        Templates must not contain any CSS information besides classes.
+        Use classes as appropriate, and use as many of them as you like.
+        Keep them easy to read.
+
+        Use macros to ensure that you are using the same elements and
+        classes for the same widget (tags, users, badges etc.)
+
+    ~ UNIT TESTS ~
+
+        Solace uses standard Python unittests for all tests.  You can use
+        doctest as well if you convert it into a unittest testsuite
+        using the `doctest.DocTestSuite`.
+
+        In general what you have to do is to add a test to one of the
+        existing test modules (`solace.tests.module`) and make sure that
+        you either add the test to an existing suite or add a new suite
+        and register it in the `suite` factory function.
+
+        If you add a full new module to the test module, also open the
+        `tests` package's `__init__` file and make sure your suite is
+        added properly.
+
+        To run the tests you can use `python setup.py test`.

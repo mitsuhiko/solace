@@ -1,0 +1,21 @@
+Solace is written and maintained by the Plurk Inc. and various contributors.
+
+Development Lead:
+
+- Armin Ronacher <armin.ronacher@active-4.com>
+
+Some parts of the code are taken from existing projects:
+
+    From the Zine blogging platform:
+
+    - solace.utils.forms
+    - solace.utils.mail
+    - solace.i18n
+
+    From the Sphinx documentation tool:
+
+    - solace.scripts
+
+    From Jason Kirtland's translit tab:
+
+    - solace.utils._translit_tab

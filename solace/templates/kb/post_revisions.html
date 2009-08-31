@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% from '_helpers.html' import render_user %}
+{% set page_title = _('Revisions') %}
+{% block body %}
+  <h1>{{ page_title }}</h1>
+  <div class="explanation diffhelp">
+  {%- trans post='<a href="%s">%s</a>' % (url_for(post),
+    post.topic.title|e if post.is_question else '#' ~ post.id),
+    author=render_user(post.author) %}
+    <p>Here you can see all revisions for {{ post }} by {{ author }}.
+    <p>Added information is <ins>marked green</ins>, deleted text is
+       <del>struck out and red</del> and changed formatting is
+       <span class="changed">marked with a yellow background</span>.
+       To see the full text of a revision click on the ellipsis
+       (“…”) below and after each paragraph containing marks.
+  {%- endtrans %}
+  </div>
+  <div class="revisions">
+  {%- for revision in revisions %}
+    <div class="revision diffed">
+      <p class="title">{% trans date=revision.date|datetimeformat,
+                  user=render_user(revision.editor) -%}
+        Revision created {{ date }} by {{ user }}.
+      {%- endtrans %}
+      <p class="actions">
+        <a href="{{ url_for('kb.edit_post', id=post.id, rev=revision.id)
+          }}">{{ _('Edit') }}</a>
+        {%- if not revision.latest %} |
+        <a href="{{ url_for('kb.restore_post', id=post.id, rev=revision.id)
+          }}">{{ _('Restore') }}</a>
+        {%- endif %}
+      <div class="text">{{ revision.diff }}</div>
+    </div>
+  {%- endfor %}
+  </div>
+{% endblock %}

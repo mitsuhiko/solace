@@ -1,0 +1,12 @@
+{% from 'kb/_boxes.html' import render_comment %}
+<div class="wrapper">
+  <div class="commentlist">
+    {%- for comment in post.comments %}
+      {{ render_comment(comment) }}
+    {%- endfor %}
+  </div>
+  {% call form() %}
+    <p class="text">{{ form.text(rows=3, cols=50) }}
+    <p class="actions"><input type="submit" value="{{ _('Add comment') }}">
+  {% endcall %}
+</div>
