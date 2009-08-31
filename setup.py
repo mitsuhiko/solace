@@ -63,6 +63,7 @@ setup(
     description='Multilangual User Support Platform',
     long_description=__doc__,
     packages=['solace', 'solace.views', 'solace.i18n', 'solace.utils'],
+    zip_safe=False,
     package_data={
         'solace.i18n': ['*'],
         'solace': ['templates/*', 'static/*']
