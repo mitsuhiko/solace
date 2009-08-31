@@ -1,6 +1,18 @@
 # -*- coding: utf-8 -*-
 """
-Description missing
+Solace
+======
+
+*a multilingual support system*
+
+
+Solace is a multilingual support system developed at Plurk
+for end user support.  The application design is heavily
+influenced by bulletin boards like phpBB and the new
+stackoverflow programming community site.
+
+For more information consult the `README` file or have a
+look at the `website <http://opensource.plurk.com/solace/>`_.
 """
 
 # we require setuptools because of dependencies and testing.
@@ -46,6 +58,7 @@ setup(
     version='0.1',
     url='http://opensource.plurk.com/solace/',
     license='BSD',
+    long_description='::\n\n' + read('README'),
     author='Plurk Inc.',
     author_email='opensource@plurk.com',
     description='Multilangual User Support Platform',
