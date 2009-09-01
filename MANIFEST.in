@@ -1,0 +1,2 @@
+recursive-include solace/templates *.*
+recursive-include solace/static *.*

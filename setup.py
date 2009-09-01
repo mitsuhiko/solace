@@ -54,7 +54,7 @@ else:
     extra['webdepcompress_manager'] = 'solace.packs.pack_mgr'
 
 setup(
-    name='Solace',
+    name='Plurk_Solace',
     version='0.1',
     url='http://opensource.plurk.com/solace/',
     license='BSD',
@@ -64,10 +64,6 @@ setup(
     long_description=__doc__,
     packages=['solace', 'solace.views', 'solace.i18n', 'solace.utils'],
     zip_safe=False,
-    package_data={
-        'solace.i18n': ['*'],
-        'solace': ['templates/*', 'static/*']
-    },
     platforms='any',
     test_suite='solace.tests.suite',
     install_requires=[
