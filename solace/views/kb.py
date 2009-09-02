@@ -65,7 +65,7 @@ def _topic_list(template_name, request, query, order_by, **context):
 
 def _topic_feed(request, title, query, order_by):
     # non moderators cannot see deleted posts, so we filter them out first
-    # for moderators the template marks the posts up as deleted so that
+    # for moderators we mark the posts up as deleted so that
     # they can be kept apart from non-deleted ones.
     if not request.user or not request.user.is_moderator:
         query = query.filter_by(is_deleted=False)
@@ -79,7 +79,10 @@ def _topic_feed(request, title, query, order_by):
                     url=request.url_root)
 
     for topic in query.all():
-        feed.add(topic.title, topic.question.rendered_text, content_type='html',
+        title = topic.title
+        if topic.is_deleted:
+            title += u' ' + _(u'(deleted)')
+        feed.add(title, topic.question.rendered_text, content_type='html',
                  author=topic.author.display_name,
                  url=url_for(topic, _external=True),
                  id=topic.guid, updated=topic.last_change, published=topic.date)
@@ -216,8 +219,10 @@ def topic_feed(request, id, slug=None):
     for reply in topic.replies:
         if reply.is_deleted and not (request.user and request.user.is_moderator):
             continue
-        feed.add(_(u'Answer by %s') % reply.author.display_name,
-                 reply.rendered_text, content_type='html',
+        title = _(u'Answer by %s') % reply.author.display_name
+        if reply.is_deleted:
+            title += u' ' + _('(deleted)')
+        feed.add(title=title, reply.rendered_text, content_type='html',
                  author=reply.author.display_name,
                  url=url_for(reply, _external=True),
                  id=reply.guid, updated=reply.updated, created=reply.created)
