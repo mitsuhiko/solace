@@ -222,7 +222,7 @@ def topic_feed(request, id, slug=None):
         title = _(u'Answer by %s') % reply.author.display_name
         if reply.is_deleted:
             title += u' ' + _('(deleted)')
-        feed.add(title=title, reply.rendered_text, content_type='html',
+        feed.add(title, reply.rendered_text, content_type='html',
                  author=reply.author.display_name,
                  url=url_for(reply, _external=True),
                  id=reply.guid, updated=reply.updated, created=reply.created)
