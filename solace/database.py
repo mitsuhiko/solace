@@ -39,7 +39,8 @@ def get_engine():
     global _engine
     with _engine_lock:
         if _engine is None:
-            options = {'echo': settings.DATABASE_ECHO}
+            options = {'echo': settings.DATABASE_ECHO,
+                       'convert_unicode': True}
             if settings.TRACK_QUERIES:
                 options['proxy'] = ConnectionQueryTrackingProxy()
             _engine = create_engine(settings.DATABASE_URI, **options)
