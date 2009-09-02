@@ -267,7 +267,8 @@ posts = Table('posts', metadata,
     # the internal ID of the post, also used as anchor
     Column('post_id', Integer, primary_key=True),
     # the id of the topic the post belongs to
-    Column('topic_id', Integer, ForeignKey('topics.topic_id')),
+    Column('topic_id', Integer, ForeignKey('topics.topic_id', use_alter=True,
+                                           name='topics_topic_id_fk')),
     # the text of the post
     Column('text', Text),
     # the text rendered to HTML
@@ -349,22 +350,14 @@ post_revisions = Table('post_revisions', metadata,
 )
 
 
-all_tables = [users, user_badges, user_activities, user_messages, posts,
-              topics, votes, post_revisions, comments, tags, topic_tags]
-
-
 def init():
     """Initializes the database."""
-    engine = get_engine()
-    for table in all_tables:
-        table.create(bind=engine, checkfirst=True)
+    metadata.create_all(bind=get_engine())
 
 
 def drop_tables():
     """Drops all tables again."""
-    engine = get_engine()
-    for table in reversed(all_tables):
-        table.drop(bind=engine, checkfirst=True)
+    metadata.drop_all(bind=get_engine())
 
 
 #: circular dependencies
