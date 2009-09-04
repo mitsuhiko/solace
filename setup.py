@@ -70,7 +70,7 @@ setup(
         'Werkzeug>=0.5.1',
         'Jinja2',
         'Babel',
-        'SQLAlchemy>=0.5',
+        'SQLAlchemy>=0.5.5',
         'creoleparser',
         'simplejson',
         'webdepcompress'
