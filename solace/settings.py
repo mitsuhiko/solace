@@ -65,6 +65,13 @@ GRAVATAR_FALLBACK = 'identicon'
 #: the gravatar rating
 GRAVATAR_RATING = 'g'
 
+#: the theme for the application.  Currently only "teal" is supported.
+THEME = 'teal'
+
+#: a list of directories where the system will look for themes.  The
+#: default path is automatically searched for templates.
+THEME_PATH = []
+
 #: a list of hosts we allow redirects to
 ALLOWED_REDIRECTS = ['*.plurk.com', 'localhost']
 

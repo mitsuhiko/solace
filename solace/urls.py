@@ -91,6 +91,9 @@ url_map = Map([
         Rule('/replies/<int:reply_id>') > 'api.get_reply'
     ]),
 
+    # support for theme resources.
+    Rule('/_themes/<theme>/<file>') > 'themes.get_resource',
+
     # Build only stuff
-    Rule('/_static/<file>', build_only=True) > 'static'
+    Rule('/_static/<file>', build_only=True) > 'static',
 ])

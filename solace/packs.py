@@ -23,7 +23,6 @@ def _url_for(*args, **kwargs):
 
 pack_mgr = PackManager(os.path.join(os.path.dirname(__file__), 'static'),
                        lambda fn, ext: _url_for('static', file=fn))
-pack_mgr.add_pack('default', ['layout.css', 'teal.css', 'badges.css',
-                              'jquery.js', 'babel.js', 'solace.js',
-                              'jquery.form.js', 'jquery.autocomplete.js',
-                              'creole.js'])
+pack_mgr.add_pack('default', ['layout.css', 'badges.css', 'jquery.js',
+                              'babel.js', 'solace.js', 'jquery.form.js',
+                              'jquery.autocomplete.js', 'creole.js'])

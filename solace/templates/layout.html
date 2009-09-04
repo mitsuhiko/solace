@@ -1,12 +1,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 {%- from '_helpers.html' import render_user %}
 {%- block html_head -%}
-<title>{% if page_title %}{{ page_title }} | {% endif %}{{ settings.WEBSITE_TITLE|e }}</title>
+<title>{% block html_head_title %}{% if page_title %}{{ page_title
+  }} | {% endif %}{{ settings.WEBSITE_TITLE|e }}{% endblock %}</title>
 {{ packs.default }}
 <script type="text/javascript" src="{{ url_for('core.get_translations', lang=request.locale) }}"></script>
 <!--[if IE]><link rel="stylesheet" type="text/css" href="{{ url_for('static', file='ie.css') }}"><![endif]-->
 <!--[if lt IE 7]><link rel="stylesheet" type="text/css" href="{{ url_for('static', file='ie6.css') }}"><![endif]-->
-{%- endblock %}
 <script type="text/javascript">
 Solace.URL_ROOT = "{{ url_for('core.language_redirect') }}";
 {%- if request.user %}
@@ -19,9 +19,14 @@ Solace.CONTEXT_LANG = "{{ request.view_lang }}";
 Solace.notifyUTCOffset();
 {%- endif %}
 </script>
+{%- endblock %}
 <div class="header">
+{%- block header %}
+  {%- block header_text %}
   <p class="title"><strong>{{ settings.WEBSITE_TITLE|e }}</strong>
   <p class="subtitle"><small>{{ settings.WEBSITE_TAGLINE|e }}</small>
+  {%- endblock %}
+  {%- block header_language_selection %}
   {%- if settings.LANGUAGE_SECTIONS|length > 1 %}
   <ul class="language_selection css_language_selection">
     <li class="title">{{ _('Language') }}
@@ -31,7 +36,9 @@ Solace.notifyUTCOffset();
   {%- endfor %}
   </ul>
   {%- endif %}
+  {%- endblock %}
   <div class="metanavigation">
+  {%- block header_metanavigation %}
     <p class="links">
     {%- if request.is_logged_in %}
       {{ render_user(request.user, with_avatar=false) }} |
@@ -41,8 +48,11 @@ Solace.notifyUTCOffset();
       <a href="{{ url_for('core.login') }}">{{ _('Login') }}</a>
     {%- endif %} |
     <a href="{{ url_for('core.about') }}">{{ _('About Solace') }}</a>
+  {%- endblock %}
   </div>
+{%- endblock %}
 </div>
+{%- block navigation %}
 <ul class="navigation{% if not request.view_lang and settings.LANGUAGE_SECTIONS|length > 1
   %} localeless_navigation{% endif %}">
 {%- for endpoint, with_lang, caption in [
@@ -65,6 +75,7 @@ Solace.notifyUTCOffset();
     </a>
 {%- endif %}
 </ul>
+{%- endblock %}
 {%- if request %}
   {%- set messages = request.pull_flash_messages() %}
   {%- if messages %}
@@ -84,7 +95,9 @@ Solace.notifyUTCOffset();
 {% block body %}{% endblock %}
 </div>
 <div class="footer">
+{%- block footer %}
   &copy; Copyright 2009 by <a href="http://plurk.com/">Plurk Inc.</a><br>
   {{ settings.WEBSITE_TITLE|e }} is powered by <a href="http://opensource.plurk.com/solace/">Solace</a>,
   our open source support software | <a href="{{ url_for('api.help') }}">API</a>
+{%- endblock %}
 </div>
