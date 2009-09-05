@@ -102,7 +102,7 @@ class EMail(object):
     def send(self):
         """Send the message."""
         try:
-            smtp = SMTP(settings.SMTP_HOST, settings.SMT_PORT)
+            smtp = SMTP(settings.SMTP_HOST, settings.SMTP_PORT)
         except SMTPException, e:
             raise RuntimeError(str(e))
 
