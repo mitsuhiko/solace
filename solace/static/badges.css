@@ -1,65 +1,65 @@
 span.critic_badge_type a {
-    background: #ce0026 url(badges/critic.png) no-repeat -14px -1px;
+    background: #ce0026 url(badges/critic.png) no-repeat -14px -1px!important;
     border: 1px solid #83071e;
     padding-left: 24px;
 }
 
 span.editor_badge_type a {
-    background: #7a4e3a url(badges/editor.png) no-repeat -14px -2px;
+    background: #7a4e3a url(badges/editor.png) no-repeat -14px -2px!important;
     border: 1px solid #4b1f0b;
     padding-left: 24px;
 }
 
 span.inquirer_badge_type a {
-    background: #210152 url(badges/inquirer.png) no-repeat -14px -2px;
+    background: #210152 url(badges/inquirer.png) no-repeat -14px -2px!important;
     border: 1px solid #110129;
     padding-left: 24px;
 }
 
 span.nice_answer_badge_type a {
-    background: #5f9512 url(badges/nice_answer.png) no-repeat -11px 0px;
+    background: #5f9512 url(badges/nice_answer.png) no-repeat -11px 0px!important;
     border: 1px solid #375b03;
     padding-left: 24px;
 }
 
 span.good_answer_badge_type a {
-    background: #e65f5b url(badges/good_answer.png) no-repeat -13px 2px;
+    background: #e65f5b url(badges/good_answer.png) no-repeat -13px 2px!important;
     border: 1px solid #a42825;
     padding-left: 24px;
 }
 
 span.self_critic_badge_type a {
-    background: #8f8f3b url(badges/self_critic.png) no-repeat -12px 0px;
+    background: #8f8f3b url(badges/self_critic.png) no-repeat -12px 0px!important;
     border: 1px solid #5a5a14;
     padding-left: 24px;
 }
 
 span.self_learner_badge_type a {
-    background: #551e15 url(badges/self_learner.png) no-repeat -12px 0px;
+    background: #551e15 url(badges/self_learner.png) no-repeat -12px 0px!important;
     border: 1px solid #2f0903;
     padding-left: 24px;
 }
 
 span.troubleshooter_badge_type a {
-    background: #040497 url(badges/troubleshooter.png) no-repeat -12px -2px;
+    background: #040497 url(badges/troubleshooter.png) no-repeat -12px -2px!important;
     border: 1px solid #020240;
     padding-left: 24px;
 }
 
 span.great_answer_badge_type a {
-    background: #d4a206 url(badges/great_answer.png) no-repeat -12px -4px;
+    background: #d4a206 url(badges/great_answer.png) no-repeat -12px -4px!important;
     border: 1px solid #4f3c02;
     padding-left: 24px;
 }
 
 span.reversal_badge_type a {
-    background: #c6460c url(badges/reversal.png) no-repeat -12px 2px;
+    background: #c6460c url(badges/reversal.png) no-repeat -12px 2px!important;
     border: 1px solid #7e2c07;
     padding-left: 24px;
 }
 
 span.unique_answer_badge_type a {
-    background: #444444 url(badges/unique_answer.png) no-repeat -12px 2px;
+    background: #444444 url(badges/unique_answer.png) no-repeat -12px 2px!important;
     border: 1px solid #333;
     padding-left: 24px;
 }
