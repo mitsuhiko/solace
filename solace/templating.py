@@ -26,7 +26,21 @@ _theme_lock = Lock()
 DEFAULT_THEME_PATH = [path.join(path.dirname(__file__), 'themes')]
 
 
-def split_path_savely(template):
+def split_path_safely(template):
+    """Splits up a path into individual components.  If one of the
+    components is unsafe on the file system, `None` is returned:
+
+    >>> from solace.templating import split_path_safely
+    >>> split_path_safely("foo/bar/baz")
+    ['foo', 'bar', 'baz']
+    >>> split_path_safely("foo/bar/baz/../meh")
+    >>> split_path_safely("/meh/muh")
+    ['meh', 'muh']
+    >>> split_path_safely("/blafasel/.muh")
+    ['blafasel', '.muh']
+    >>> split_path_safely("/blafasel/./x")
+    ['blafasel', 'x']
+    """
     pieces = []
     for piece in template.split('/'):
         if path.sep in piece \
@@ -64,6 +78,12 @@ def refresh_theme():
     global _theme
     _theme = None
 
+    # if we have a cache, clear it.  This makes sure that imports no
+    # longer point to the old theme's layout files etc.
+    cache = jinja_env.cache
+    if cache:
+        cache.clear()
+
 
 class Theme(object):
     """Represents a theme."""
@@ -83,7 +103,7 @@ class Theme(object):
 
     def open_resource(self, filename):
         """Opens a resource from the static folder as fd."""
-        pieces = split_path_savely(filename)
+        pieces = split_path_safely(filename)
         if pieces is not None:
             fn = path.join(self.folder, 'static', *pieces)
             if path.isfile(fn):
@@ -110,7 +130,7 @@ class SolaceThemeLoader(PackageLoader):
         if template[:1] == '!':
             template = template[1:]
         else:
-            pieces = split_path_savely(template)
+            pieces = split_path_safely(template)
             if pieces is None:
                 raise TemplateNotFound()
             theme = get_theme()

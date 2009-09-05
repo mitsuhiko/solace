@@ -49,7 +49,7 @@ class SolaceTestCase(unittest.TestCase):
     """Subclass of the standard test case that creates and drops the database."""
 
     def setUp(self):
-        from solace import database, settings
+        from solace import database, settings, templating
         from solace.application import application
         self.__old_settings = dict(settings.__dict__)
         settings.DATABASE_URI = 'sqlite:///' + TEST_DATABASE
@@ -103,10 +103,12 @@ class SolaceTestCase(unittest.TestCase):
 
 
 def suite():
-    from solace.tests import models, querycount, kb_views, core_views
+    from solace.tests import models, querycount, kb_views, core_views, \
+         templating
     suite = unittest.TestSuite()
     suite.addTest(models.suite())
     suite.addTest(querycount.suite())
     suite.addTest(kb_views.suite())
     suite.addTest(core_views.suite())
+    suite.addTest(templating.suite())
     return suite
