@@ -21,7 +21,7 @@ from werkzeug.exceptions import HTTPException, NotFound, Forbidden
 from werkzeug.routing import BuildError, RequestRedirect
 from werkzeug.contrib.securecookie import SecureCookie
 
-from solace.utils.ctxlocal import local, local_mgr, LocalProperty
+from solace.utils.ctxlocal import local, LocalProperty
 
 
 class Request(RequestBase):
