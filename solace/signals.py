@@ -95,6 +95,76 @@ class Signal(tuple):
             mod = '<temporary>'
         return tuple.__new__(cls, (mod, name, tuple(args or ())))
 
+    def connect(self, func):
+        """Connect the function to the signal.  The function can be a regular
+        Python function object or a bound method.  Internally a weak reference
+        to this object is subscribed so it's not a good idea to pass an arbitrary
+        callable to the function which most likely is then unregistered pretty
+        quickly by the garbage collector.
+
+        >>> def handle_foo(arg):
+        ...   print arg
+        ...
+        >>> foo = Signal('foo', ['arg'])
+        >>> foo.connect(handle_foo)
+
+        The return value of the function is always `None`, there is no ID for the
+        newly established connection.  To disconnect the function and signal is
+        needed.  There can only be one connection of the function to the signal
+        which means that if you're connecting twice the function will still only
+        be called once and the first disconnect closes the connection.
+
+        :param func: the function to connect
+        """
+        func = _ref(func)
+        with _subscribe_lock:
+            d = _subscriptions.get(self)
+            if d is None:
+                d = _subscriptions[self] = WeakKeyDictionary()
+            d[func] = None
+
+    def disconnect(self, func):
+        """Disconnects the function from the signal.  Disconnecting automatically
+        happens if the connected function is garbage collected.  However if you
+        have a local function that should connect to signals for a short period
+        of time use the :func:`temporary_connection` function for performance
+        reasons and clarity.
+
+        :param func: the name of the function to disconnect
+        :param signal: the signal to disconnect from
+        """
+        func = _ref(func)
+        with _subscribe_lock:
+            d = _subscriptions.get(self)
+            if d is not None:
+                d.pop(func, None)
+
+    def emit(self, **args):
+        """Emits a signal with the given named arguments.  The arguments have
+        to match the argument signature from the signal.  However this check
+        is only performed in debug runs for performance reasons.  Arguments are
+        passed as keyword arguments only.
+
+        The return value of the emit function is a list of the handlers and their
+        return values
+
+        >>> foo = Signal('foo', ['arg'])
+        >>> foo.emit(arg=42)
+        []
+
+        :param signal: the signal to emit
+        :param args: the arguments for the signal.
+        :return: a list of ``(handler, return_value)`` tuples.
+        """
+        assert set(self.args) == set(args), \
+            'passed arguments to not match signal signature'
+        listeners = _subscriptions.get(self)
+        result = []
+        if listeners is not None:
+            for func in listeners.keys():
+                result.append((func, func(**args)))
+        return result
+
     def __reduce__(self):
         if self.__module__ == '<temporary>':
             raise TypeError('cannot pickle temporary signal')
@@ -116,139 +186,65 @@ def temporary_connection(func, signal):
         with temporary_connection(handle_foo, FOO):
             ...
     """
-    connect(func, signal)
+    signal.connect(func)
     try:
         yield
     finally:
-        disconnect(func, signal)
-
-
-def connect(func, signal):
-    """Connect the function to the signal.  The function can be a regular
-    Python function object or a bound method.  Internally a weak reference
-    to this object is subscribed so it's not a good idea to pass an arbitrary
-    callable to the function which most likely is then unregistered pretty
-    quickly by the garbage collector.
-
-    >>> def handle_foo(arg):
-    ...   print arg
-    ...
-    >>> FOO = Signal('FOO', ['arg'])
-    >>> connect(handle_foo, FOO)
-
-    The return value of the function is always `None`, there is no ID for the
-    newly established connection.  To disconnect the function and signal is
-    needed.  There can only be one connection of the function to the signal
-    which means that if you're connecting twice the function will still only
-    be called once and the first disconnect closes the connection.
-
-    :param func: the function to connect
-    :param signal: the signal to listen on
-    """
-    func = _ref(func)
-    with _subscribe_lock:
-        d = _subscriptions.get(signal)
-        if d is None:
-            d = _subscriptions[signal] = WeakKeyDictionary()
-        d[func] = None
+        signal.disconnect(func)
 
 
 def handler(signal):
     """Helper decorator for function registering.  Connects the decorated
     function to the signal given:
 
-    >>> FOO = Signal('FOO', ['arg'])
-    >>> @handler(FOO)
+    >>> foo = Signal('foo', ['arg'])
+    >>> @handler(foo)
     ... def handle_foo(arg):
     ...   print arg
     ...
-    >>> rv = emit(FOO, arg=42)
+    >>> rv = foo.emit(arg=42)
     42
 
     :param signal: the signal to connect the handler to
     """
     def decorator(func):
-        connect(func, signal)
+        signal.connect(func)
         return func
     return decorator
-
-
-def disconnect(func, signal):
-    """Disconnects the function from the signal.  Disconnecting automatically
-    happens if the connected function is garbage collected.  However if you
-    have a local function that should connect to signals for a short period
-    of time use the :func:`temporary_connection` function for performance
-    reasons and clarity.
-
-    :param func: the name of the function to disconnect
-    :param signal: the signal to disconnect from
-    """
-    func = _ref(func)
-    with _subscribe_lock:
-        d = _subscriptions.get(signal)
-        if d is not None:
-            d.pop(func, None)
-
-
-def emit(signal, **args):
-    """Emits a signal with the given named arguments.  The arguments have
-    to match the argument signature from the signal.  However this check
-    is only performed in debug runs for performance reasons.  Arguments are
-    passed as keyword arguments only.
-
-    The return value of the emit function is a list of the handlers and their
-    return values
-
-    >>> FOO = Signal('FOO', ['arg'])
-    >>> emit(FOO, arg=42)
-    []
-
-    :param signal: the signal to emit
-    :param args: the arguments for the signal.
-    :return: a list of ``(handler, return_value)`` tuples.
-    """
-    assert set(signal.args) == set(args), \
-        'passed arguments to not match signal signature'
-    listeners = _subscriptions.get(signal)
-    result = []
-    if listeners is not None:
-        for func in listeners.keys():
-            result.append((func, func(**args)))
-    return result
 
 
 #: this signal is emitted before the request is initialized.  At that point
 #: you don't know anything yet, not even the WSGI environment.  The local
 #: manager indent is already set to the correct thread though, so you might
 #: add something to the local object from the ctxlocal module.
-SIG('BEFORE_REQUEST_INIT')
+SIG('before_request_init')
 
 #: emitted when the request was initialized successfully.
-SIG('AFTER_REQUEST_INIT', ['request'])
+SIG('after_request_init', ['request'])
 
 #: emitted right before the request dispatching kicks in.
-SIG('BEFORE_REQUEST_DISPATCH', ['request'])
+SIG('before_request_dispatch', ['request'])
 
 #: emitted after the request dispatching ended.  Usually it's a bad idea to
 #: use this signal, use the BEFORE_RESPONSE_SENT signal instead.
-SIG('AFTER_REQUEST_DISPATCH', ['request', 'response'])
+SIG('after_request_dispatch', ['request', 'response'])
 
 #: emitted after the request was shut down.  This might be called with an
 #: exception on the stack if an error happened.
-SIG('AFTER_REQUEST_SHUTDOWN')
+SIG('after_request_shutdown')
 
 #: emitted before the response is sent.  The response object might be modified
 #: in place, but it's not possible to replace it or abort the handling.
-SIG('BEFORE_RESPONSE_SENT', ['request', 'response'])
+SIG('before_response_sent', ['request', 'response'])
 
 #: emitted after a model was deleted using the session and when the
 #: transaction was properly committed to the database.
-SIG('AFTER_MODEL_DELETED', ['model'])
+SIG('after_model_deleted', ['model'])
 
 #: emitted after a model was inserted using the session and when the
 #: transaction was properly committed to the database.
-SIG('AFTER_MODEL_INSERTED', ['model'])
+SIG('after_model_inserted', ['model'])
 
 #: emitted after a model was updated using the session and when the
 #: transaction was properly committed to the database.
-SIG('AFTER_MODEL_UPDATED', ['model'])
+SIG('after_model_updated', ['model'])

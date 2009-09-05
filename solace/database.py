@@ -119,15 +119,15 @@ class SignalTrackingMapperExtension(MapperExtension):
     """Adds signals to the session for later emitting."""
 
     def after_delete(self, mapper, connection, instance):
-        self._postpone(AFTER_MODEL_DELETED, instance)
+        self._postpone(after_model_deleted, instance)
         return EXT_CONTINUE
 
     def after_insert(self, mapper, connection, instance):
-        self._postpone(AFTER_MODEL_INSERTED, instance)
+        self._postpone(after_model_inserted, instance)
         return EXT_CONTINUE
 
     def after_update(self, mapper, connection, instance):
-        self._postpone(AFTER_MODEL_UPDATED, instance)
+        self._postpone(after_model_updated, instance)
         return EXT_CONTINUE
 
     def _postpone(self, signal, model):
@@ -139,7 +139,7 @@ class SignalEmittingSessionExtension(SessionExtension):
 
     def after_commit(self, session):
         for signal, model in session._postponed_signals:
-            emit(signal, model=model)
+            signal.emit(model=model)
         del session._postponed_signals[:]
         return EXT_CONTINUE
 
@@ -230,11 +230,10 @@ def add_query_debug_headers(request, response):
 
 
 # make sure the session is removed at the end of the request.
-from solace.signals import AFTER_REQUEST_SHUTDOWN, BEFORE_RESPONSE_SENT, \
-     AFTER_MODEL_DELETED, AFTER_MODEL_INSERTED, AFTER_MODEL_UPDATED, \
-     connect, emit
-connect(session.remove, AFTER_REQUEST_SHUTDOWN)
-connect(add_query_debug_headers, BEFORE_RESPONSE_SENT)
+from solace.signals import after_request_shutdown, before_response_sent, \
+     after_model_deleted, after_model_inserted, after_model_updated
+after_request_shutdown.connect(session.remove)
+before_response_sent.connect(add_query_debug_headers)
 
 # circular dependencies
 from solace import settings

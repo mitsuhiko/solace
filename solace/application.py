@@ -33,7 +33,7 @@ class Request(RequestBase):
 
     def __init__(self, environ):
         RequestBase.__init__(self, environ)
-        emit(BEFORE_REQUEST_INIT)
+        before_request_init.emit()
         self.url_adapter = url_map.bind_to_environ(self.environ)
         self.view_lang = self.match_exception = None
         try:
@@ -52,13 +52,13 @@ class Request(RequestBase):
             self.match_exception = e
         self.sql_queries = []
         local.request = self
-        emit(AFTER_REQUEST_INIT, request=self)
+        after_request_init.emit(request=self)
 
     current = LocalProperty('request')
 
     def dispatch(self):
         """Where do we want to go today?"""
-        emit(BEFORE_REQUEST_DISPATCH, request=self)
+        before_request_dispatch.emit(request=self)
         try:
             if self.match_exception is not None:
                 raise self.match_exception
@@ -67,7 +67,7 @@ class Request(RequestBase):
             rv = get_view('core.not_found')(self)
         if isinstance(rv, basestring):
             rv = Response(rv, mimetype='text/html')
-        emit(AFTER_REQUEST_DISPATCH, request=self, response=rv)
+        after_request_dispatch.emit(request=self, response=rv)
         return rv
 
     def _get_locale(self):
@@ -370,7 +370,7 @@ def finalize_response(request, response):
     if response.status == 200:
         response.add_etag()
         response = response.make_conditional(request)
-    emit(BEFORE_RESPONSE_SENT, request=request, response=response)
+    before_response_sent.emit(request=request, response=response)
     return response
 
 
@@ -387,7 +387,7 @@ def application(request):
             response = e.get_response(request.environ)
         return finalize_response(request, response)
     finally:
-        emit(AFTER_REQUEST_SHUTDOWN)
+        after_request_shutdown.emit()
 
 
 application = SharedDataMiddleware(application, {
@@ -403,13 +403,13 @@ from solace.i18n import select_locale, load_translations, Timezone, _, \
 from solace.auth import get_auth_system
 from solace.database import session
 from solace.models import UserMessage
-from solace.signals import BEFORE_REQUEST_INIT, AFTER_REQUEST_INIT, \
-     BEFORE_REQUEST_DISPATCH, AFTER_REQUEST_DISPATCH, \
-     AFTER_REQUEST_SHUTDOWN, BEFORE_RESPONSE_SENT, connect, emit
+from solace.signals import before_request_init, after_request_init, \
+     before_request_dispatch, after_request_dispatch, \
+     after_request_shutdown, before_response_sent
 from solace.utils.remoting import remote_export_primitive
 
 # remember to save the session
-connect(save_session, BEFORE_RESPONSE_SENT)
+before_response_sent.connect(save_session)
 
 # important because of initialization code (such as signal subscriptions)
 import solace.badges

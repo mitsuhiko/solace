@@ -27,5 +27,5 @@ class LocalProperty(object):
 
 
 # make sure the request local is removed at the end of the request
-from solace.signals import AFTER_REQUEST_SHUTDOWN, connect
-connect(local_mgr.cleanup, AFTER_REQUEST_SHUTDOWN)
+from solace.signals import after_request_shutdown
+after_request_shutdown.connect(local_mgr.cleanup)

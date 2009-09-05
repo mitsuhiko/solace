@@ -34,17 +34,17 @@ class SignalTestCase(SolaceTestCase):
         def foo(a, b):
             called.append((a, b))
 
-        signals.emit(sig, a=1, b=2)
+        sig.emit(a=1, b=2)
         self.assertEqual(called, [])
 
-        signals.connect(foo, sig)
-        signals.emit(sig, a=1, b=2)
+        sig.connect(foo)
+        sig.emit(a=1, b=2)
         self.assertEqual(called, [(1, 2)])
 
         del foo
         gc.collect()
 
-        signals.emit(sig, a=3, b=4)
+        sig.emit(a=3, b=4)
         self.assertEqual(called, [(1, 2)])
 
     def test_weak_method_subscriptions(self):
@@ -56,16 +56,16 @@ class SignalTestCase(SolaceTestCase):
         f = Foo()
 
         sig = signals.Signal('FOO', ('a',))
-        signals.connect(f.foo, sig)
-        signals.emit(sig, a=42)
+        sig.connect(f.foo)
+        sig.emit(a=42)
 
         self.assertEqual(called, [42])
-        signals.disconnect(f.foo, sig)
+        sig.disconnect(f.foo)
 
         del f
         gc.collect()
 
-        signals.emit(sig, a=23)
+        sig.emit(a=23)
         self.assertEqual(called, [42])
 
     def test_temporary_subscriptions(self):
@@ -74,10 +74,10 @@ class SignalTestCase(SolaceTestCase):
         sig = signals.Signal('FOO')
         def foo():
             called.append(True)
-        signals.emit(sig)
+        sig.emit()
         with signals.temporary_connection(foo, sig):
-            signals.emit(sig)
-        signals.emit(sig)
+            sig.emit()
+        sig.emit()
         self.assertEqual(len(called), 1)
 
     def test_pickle(self):
@@ -95,7 +95,7 @@ class SignalTestCase(SolaceTestCase):
         on_insert = []
         def listen(model):
             on_insert.append(model)
-        signals.connect(listen, signals.AFTER_MODEL_INSERTED)
+        signals.after_model_inserted.connect(listen)
 
         me = User('A_USER', 'a-user@example.com')
         self.assertEqual(on_insert, [])
