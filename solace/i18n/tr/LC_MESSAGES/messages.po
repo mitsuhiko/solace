@@ -305,7 +305,7 @@ msgstr "Giriş"
 
 #: solace/templates/layout.html:43 solace/templates/core/about.html:2
 msgid "About Solace"
-msgstr "Hakkında"
+msgstr "Solace Hakkında"
 
 #: solace/templates/layout.html:49
 msgid "Ask"
@@ -382,7 +382,7 @@ msgstr ""
 
 #: solace/templates/core/login.html:5
 msgid "Enter your username and password to log into Solace:"
-msgstr "Doorusu'na giriş yapmak için kullanıcı adı ve şifrenizi giriniz:"
+msgstr "Solace'e giriş yapmak için kullanıcı adı ve şifrenizi giriniz:"
 
 #: solace/templates/core/login.html:18
 msgid "Not yet registered?"
