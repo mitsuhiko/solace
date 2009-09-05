@@ -16,6 +16,10 @@ from datetime import datetime
 from babel import Locale
 from sqlalchemy.types import TypeDecorator
 from sqlalchemy.interfaces import ConnectionProxy
+from sqlalchemy.orm.session import Session
+from sqlalchemy.orm.interfaces import SessionExtension, MapperExtension, \
+     EXT_CONTINUE
+from sqlalchemy.util import to_list
 from sqlalchemy import String, orm, sql, create_engine, MetaData
 
 
@@ -87,6 +91,14 @@ def atomic_add(obj, column, delta, expire=False):
     sess.execute(stmt)
 
 
+def mapper(model, table, **options):
+    """A mapper that hooks in standard extensions."""
+    extensions = to_list(options.pop('extension', None), [])
+    extensions.append(SignalTrackingMapperExtension())
+    options['extension'] = extensions
+    return orm.mapper(model, table, **options)
+
+
 class ConnectionQueryTrackingProxy(ConnectionProxy):
     """A proxy that if enabled counts the queries."""
 
@@ -101,6 +113,49 @@ class ConnectionQueryTrackingProxy(ConnectionProxy):
             if request is not None:
                 request.sql_queries.append((statement, parameters,
                                             start, _timer()))
+
+
+class SignalTrackingMapperExtension(MapperExtension):
+    """Adds signals to the session for later emitting."""
+
+    def after_delete(self, mapper, connection, instance):
+        self._postpone(AFTER_MODEL_DELETED, instance)
+        return EXT_CONTINUE
+
+    def after_insert(self, mapper, connection, instance):
+        self._postpone(AFTER_MODEL_INSERTED, instance)
+        return EXT_CONTINUE
+
+    def after_update(self, mapper, connection, instance):
+        self._postpone(AFTER_MODEL_UPDATED, instance)
+        return EXT_CONTINUE
+
+    def _postpone(self, signal, model):
+        orm.object_session(model)._postponed_signals.append((signal, model))
+
+
+class SignalEmittingSessionExtension(SessionExtension):
+    """Emits signals the mapper extension accumulated."""
+
+    def after_commit(self, session):
+        for signal, model in session._postponed_signals:
+            emit(signal, model=model)
+        del session._postponed_signals[:]
+        return EXT_CONTINUE
+
+    def after_rollback(self, session):
+        del session._postponed_signals[:]
+        return EXT_CONTINUE
+
+
+class SignalTrackingSession(Session):
+    """A session that tracks signals for later"""
+
+    def __init__(self):
+        extension = [SignalEmittingSessionExtension()]
+        Session.__init__(self, get_engine(), autoflush=True,
+                         autocommit=False, extension=extension)
+        self._postponed_signals = []
 
 
 class LocaleType(TypeDecorator):
@@ -147,8 +202,7 @@ class BadgeType(TypeDecorator):
 
 
 metadata = MetaData()
-session = orm.scoped_session(lambda: orm.create_session(get_engine(),
-                             autoflush=True, autocommit=False))
+session = orm.scoped_session(SignalTrackingSession)
 
 
 def init():
@@ -177,7 +231,8 @@ def add_query_debug_headers(request, response):
 
 # make sure the session is removed at the end of the request.
 from solace.signals import AFTER_REQUEST_SHUTDOWN, BEFORE_RESPONSE_SENT, \
-     connect
+     AFTER_MODEL_DELETED, AFTER_MODEL_INSERTED, AFTER_MODEL_UPDATED, \
+     connect, emit
 connect(session.remove, AFTER_REQUEST_SHUTDOWN)
 connect(add_query_debug_headers, BEFORE_RESPONSE_SENT)
 

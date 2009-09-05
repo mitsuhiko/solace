@@ -18,7 +18,7 @@ from hashlib import sha1, md5
 from itertools import chain
 from datetime import datetime
 from sqlalchemy import select
-from sqlalchemy.orm import relation, mapper, backref, synonym, Query, \
+from sqlalchemy.orm import relation, backref, synonym, Query, \
      dynamic_loader, synonym, eagerload
 from sqlalchemy.orm.interfaces import AttributeExtension
 from sqlalchemy.ext.associationproxy import association_proxy
@@ -26,7 +26,7 @@ from werkzeug import escape, ImmutableList, ImmutableDict, cached_property
 from babel import Locale
 
 from solace import settings
-from solace.database import atomic_add
+from solace.database import atomic_add, mapper
 from solace.utils.formatting import format_creole
 from solace.utils.remoting import RemoteObject
 from solace.database import session

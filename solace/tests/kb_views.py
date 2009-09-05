@@ -74,6 +74,7 @@ class KBViewsTestCase(SolaceTestCase):
             user.reputation = 50
         topic = models.Topic('en', 'Hello World', 'foo', users[0])
         session.commit()
+        tquid = topic.question.id
 
         def get_vote_count(response):
             el = response.html.xpath('//div[@class="votebox"]/h4')
@@ -81,13 +82,13 @@ class KBViewsTestCase(SolaceTestCase):
 
         # the author should not be able to upvote
         self.login('user_0', 'default')
-        response = self.client.get('/_vote/%d?val=1' % topic.question.id,
+        response = self.client.get('/_vote/%d?val=1' % tquid,
                                    follow_redirects=True)
         self.assert_('cannot upvote your own post' in response.data)
 
         # by default the user should not be able to downvote, because
         # he does not have enough reputation
-        response = self.client.get('/_vote/%d?val=-1' % topic.question.id,
+        response = self.client.get('/_vote/%d?val=-1' % tquid,
                                    follow_redirects=True)
         self.assert_('to downvote you need at least 100 reputation'
                      in response.data)
@@ -98,7 +99,7 @@ class KBViewsTestCase(SolaceTestCase):
         session.commit()
 
         # and let him downvote
-        response = self.client.get('/_vote/%d?val=-1' % topic.question.id,
+        response = self.client.get('/_vote/%d?val=-1' % tquid,
                                    follow_redirects=True)
         self.assertEqual(get_vote_count(response), -1)
 
@@ -107,7 +108,7 @@ class KBViewsTestCase(SolaceTestCase):
         for num in xrange(5):
             self.logout()
             self.login('user_%d' % num, 'default')
-            response = self.client.get('/_vote/%d?val=1' % topic.question.id,
+            response = self.client.get('/_vote/%d?val=1' % tquid,
                                        follow_redirects=True)
 
         # we should be at 4, author -1 the other four +1

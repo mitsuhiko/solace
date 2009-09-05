@@ -240,3 +240,15 @@ SIG('AFTER_REQUEST_SHUTDOWN')
 #: emitted before the response is sent.  The response object might be modified
 #: in place, but it's not possible to replace it or abort the handling.
 SIG('BEFORE_RESPONSE_SENT', ['request', 'response'])
+
+#: emitted after a model was deleted using the session and when the
+#: transaction was properly committed to the database.
+SIG('AFTER_MODEL_DELETED', ['model'])
+
+#: emitted after a model was inserted using the session and when the
+#: transaction was properly committed to the database.
+SIG('AFTER_MODEL_INSERTED', ['model'])
+
+#: emitted after a model was updated using the session and when the
+#: transaction was properly committed to the database.
+SIG('AFTER_MODEL_UPDATED', ['model'])
