@@ -29,9 +29,10 @@ from solace import settings
 from solace.database import atomic_add
 from solace.utils.formatting import format_creole
 from solace.utils.remoting import RemoteObject
-from solace.database import session, users, topics, posts, votes, \
-     comments, post_revisions, tags, topic_tags, user_activities, \
-     user_badges, user_messages
+from solace.database import session
+from solace.schema import users, topics, posts, votes, comments, \
+     post_revisions, tags, topic_tags, user_activities, user_badges, \
+     user_messages
 
 
 _paragraph_re = re.compile(r'(?:\r?\n){2,}')
