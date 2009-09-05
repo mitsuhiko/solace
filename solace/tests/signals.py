@@ -86,8 +86,25 @@ class SignalTestCase(SolaceTestCase):
         self.assert_(x is TEST_SIGNAL)
 
     def test_SIG(self):
-        """Tests the `SIG` function."""
+        """Tests the `SIG` function"""
         self.assertEqual(repr(TEST_SIGNAL), 'solace.tests.signals.TEST_SIGNAL')
+
+    def test_model_signals(self):
+        """Model signalling"""
+        from solace.models import User, session
+        on_insert = []
+        def listen(model):
+            on_insert.append(model)
+        signals.connect(listen, signals.AFTER_MODEL_INSERTED)
+
+        me = User('A_USER', 'a-user@example.com')
+        self.assertEqual(on_insert, [])
+        session.rollback()
+        self.assertEqual(on_insert, [])
+        me = User('A_USER', 'a-user@example.com')
+        self.assertEqual(on_insert, [])
+        session.commit()
+        self.assertEqual(on_insert, [me])
 
 
 def suite():
