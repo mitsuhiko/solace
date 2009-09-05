@@ -104,15 +104,15 @@ class ConnectionQueryTrackingProxy(ConnectionProxy):
 
     def cursor_execute(self, execute, cursor, statement, parameters,
                        context, executemany):
+        before_cursor_executed.emit(cursor=self, statement=statement,
+                                    parameters=parameters)
         start = _timer()
         try:
             return execute(cursor, statement, parameters, context)
         finally:
-            from solace.application import Request
-            request = Request.current
-            if request is not None:
-                request.sql_queries.append((statement, parameters,
-                                            start, _timer()))
+            after_cursor_executed.emit(cursor=self, statement=statement,
+                                       parameters=parameters,
+                                       time=_timer() - start)
 
 
 class SignalTrackingMapperExtension(MapperExtension):
@@ -219,21 +219,33 @@ def drop_tables():
 
 def add_query_debug_headers(request, response):
     """Add headers with the SQL info."""
-    if not settings.TRACK_QUERIES:
-        return
-    count = len(request.sql_queries)
-    sql_time = 0.0
-    for stmt, param, start, end in request.sql_queries:
-        sql_time += (end - start)
-    response.headers['X-SQL-Query-Count'] = str(count)
-    response.headers['X-SQL-Query-Time'] = str(sql_time)
+    if settings.TRACK_QUERIES:
+        count = len(request.sql_queries)
+        sql_time = 0.0
+        for stmt, param, time in request.sql_queries:
+            sql_time += time
+        response.headers['X-SQL-Query-Count'] = str(count)
+        response.headers['X-SQL-Query-Time'] = str(sql_time)
 
 
-# make sure the session is removed at the end of the request.
+def request_track_query(cursor, statement, parameters, time):
+    """If there is an active request, it logs the query on it."""
+    if settings.TRACK_QUERIES:
+        from solace.application import Request
+        request = Request.current
+        if request is not None:
+            request.sql_queries.append((statement, parameters, time))
+
+
+# make sure the session is removed at the end of the request and that
+# query logging for the request works.
 from solace.signals import after_request_shutdown, before_response_sent, \
-     after_model_deleted, after_model_inserted, after_model_updated
+     after_model_deleted, after_model_inserted, after_model_updated, \
+     after_cursor_executed, before_cursor_executed
 after_request_shutdown.connect(session.remove)
 before_response_sent.connect(add_query_debug_headers)
+after_cursor_executed.connect(request_track_query)
+
 
 # circular dependencies
 from solace import settings

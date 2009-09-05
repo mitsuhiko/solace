@@ -248,3 +248,9 @@ SIG('after_model_inserted', ['model'])
 #: emitted after a model was updated using the session and when the
 #: transaction was properly committed to the database.
 SIG('after_model_updated', ['model'])
+
+#: emitted before a database cursor was executed
+SIG('before_cursor_executed', ['cursor', 'statement', 'parameters'])
+
+#: emitted after a database cursor was executed
+SIG('after_cursor_executed', ['cursor', 'statement', 'parameters', 'time'])
