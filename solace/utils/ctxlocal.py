@@ -24,3 +24,8 @@ class LocalProperty(object):
 
     def __get__(self, obj, type=None):
         return getattr(local, self.__name__, None)
+
+
+# make sure the request local is removed at the end of the request
+from solace.signals import AFTER_REQUEST_SHUTDOWN, connect
+connect(local_mgr.cleanup, AFTER_REQUEST_SHUTDOWN)

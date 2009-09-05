@@ -215,3 +215,10 @@ def emit(signal, **args):
         for func in listeners.keys():
             result.append((func, func(**args)))
     return result
+
+
+SIG('BEFORE_REQUEST_INIT')
+SIG('AFTER_REQUEST_INIT', ['request'])
+SIG('BEFORE_REQUEST_DISPATCH', ['request'])
+SIG('AFTER_REQUEST_DISPATCH', ['request', 'response'])
+SIG('AFTER_REQUEST_SHUTDOWN')

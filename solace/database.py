@@ -163,5 +163,9 @@ def drop_tables():
     metadata.drop_all(bind=get_engine())
 
 
-#: circular dependencies
+# make sure the session is removed at the end of the request.
+from solace.signals import AFTER_REQUEST_SHUTDOWN, connect
+connect(session.remove, AFTER_REQUEST_SHUTDOWN)
+
+# circular dependencies
 from solace import settings

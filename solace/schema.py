@@ -10,9 +10,9 @@
     :copyright: (c) 2009 by Plurk Inc., see AUTHORS for more details.
     :license: BSD, see LICENSE for more details.
 """
-from solace.database import LocaleType, BadgeType, metadata
 from sqlalchemy import Table, Column, Integer, String, Text, DateTime, \
      ForeignKey, Boolean, Float
+from solace.database import LocaleType, BadgeType, metadata
 
 
 users = Table('users', metadata,

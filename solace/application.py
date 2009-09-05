@@ -33,6 +33,7 @@ class Request(RequestBase):
 
     def __init__(self, environ):
         RequestBase.__init__(self, environ)
+        emit(BEFORE_REQUEST_INIT)
         self.url_adapter = url_map.bind_to_environ(self.environ)
         self.view_lang = self.match_exception = None
         try:
@@ -51,19 +52,28 @@ class Request(RequestBase):
             self.match_exception = e
         self.sql_queries = []
         local.request = self
+        emit(AFTER_REQUEST_INIT, request=self)
 
     current = LocalProperty('request')
 
     def dispatch(self):
         """Where do we want to go today?"""
-        try:
-            if self.match_exception is not None:
-                raise self.match_exception
-            rv = self.view(self, **self.view_arguments)
-        except NotFound, e:
-            rv = get_view('core.not_found')(self)
+        for handler, rv in emit(BEFORE_REQUEST_DISPATCH, request=self):
+            if rv is not None:
+                break
+        else:
+            try:
+                if self.match_exception is not None:
+                    raise self.match_exception
+                rv = self.view(self, **self.view_arguments)
+            except NotFound, e:
+                rv = get_view('core.not_found')(self)
         if isinstance(rv, basestring):
             rv = Response(rv, mimetype='text/html')
+        for handler, rv in emit(AFTER_REQUEST_DISPATCH, request=self,
+                                response=rv):
+            if rv is not None:
+                break
         return rv
 
     def _get_locale(self):
@@ -389,12 +399,7 @@ def application(request):
             response = Response.force_type(response, request.environ)
         return finalize_response(request, response)
     finally:
-        # at the end of the request we get rid of the open database
-        # session.  If it was comitted before that's fine, otherwise
-        # we make sure there is no pending transaction left open.
-        session.remove()
-        # also get rid of all the locals we still have
-        local_mgr.cleanup()
+        emit(AFTER_REQUEST_SHUTDOWN)
 
 
 application = SharedDataMiddleware(application, {
@@ -410,4 +415,10 @@ from solace.i18n import select_locale, load_translations, Timezone, _, \
 from solace.auth import get_auth_system
 from solace.database import session
 from solace.models import UserMessage
+from solace.signals import emit, BEFORE_REQUEST_INIT, AFTER_REQUEST_INIT, \
+     BEFORE_REQUEST_DISPATCH, AFTER_REQUEST_DISPATCH, \
+     AFTER_REQUEST_SHUTDOWN
 from solace.utils.remoting import remote_export_primitive
+
+# important because of initialization code (such as signal subscriptions)
+import solace.badges
