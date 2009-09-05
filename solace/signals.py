@@ -217,8 +217,26 @@ def emit(signal, **args):
     return result
 
 
+#: this signal is emitted before the request is initialized.  At that point
+#: you don't know anything yet, not even the WSGI environment.  The local
+#: manager indent is already set to the correct thread though, so you might
+#: add something to the local object from the ctxlocal module.
 SIG('BEFORE_REQUEST_INIT')
+
+#: emitted when the request was initialized successfully.
 SIG('AFTER_REQUEST_INIT', ['request'])
+
+#: emitted right before the request dispatching kicks in.
 SIG('BEFORE_REQUEST_DISPATCH', ['request'])
+
+#: emitted after the request dispatching ended.  Usually it's a bad idea to
+#: use this signal, use the BEFORE_RESPONSE_SENT signal instead.
 SIG('AFTER_REQUEST_DISPATCH', ['request', 'response'])
+
+#: emitted after the request was shut down.  This might be called with an
+#: exception on the stack if an error happened.
 SIG('AFTER_REQUEST_SHUTDOWN')
+
+#: emitted before the response is sent.  The response object might be modified
+#: in place, but it's not possible to replace it or abort the handling.
+SIG('BEFORE_RESPONSE_SENT', ['request', 'response'])

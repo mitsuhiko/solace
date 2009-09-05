@@ -58,22 +58,16 @@ class Request(RequestBase):
 
     def dispatch(self):
         """Where do we want to go today?"""
-        for handler, rv in emit(BEFORE_REQUEST_DISPATCH, request=self):
-            if rv is not None:
-                break
-        else:
-            try:
-                if self.match_exception is not None:
-                    raise self.match_exception
-                rv = self.view(self, **self.view_arguments)
-            except NotFound, e:
-                rv = get_view('core.not_found')(self)
+        emit(BEFORE_REQUEST_DISPATCH, request=self)
+        try:
+            if self.match_exception is not None:
+                raise self.match_exception
+            rv = self.view(self, **self.view_arguments)
+        except NotFound, e:
+            rv = get_view('core.not_found')(self)
         if isinstance(rv, basestring):
             rv = Response(rv, mimetype='text/html')
-        for handler, rv in emit(AFTER_REQUEST_DISPATCH, request=self,
-                                response=rv):
-            if rv is not None:
-                break
+        emit(AFTER_REQUEST_DISPATCH, request=self, response=rv)
         return rv
 
     def _get_locale(self):
@@ -264,11 +258,6 @@ class Request(RequestBase):
             self._pulled_flash_messages = msgs
         return msgs
 
-    def save_session(self, response):
-        """Save the session to the response if changed."""
-        if not self.in_api and self.session.should_save:
-            self.session.save_cookie(response, settings.COOKIE_NAME)
-
 
 def get_view(endpoint):
     """Returns the view for the endpoint."""
@@ -366,37 +355,36 @@ def url_for(endpoint, **values):
     raise BuildError(endpoint, values, 'GET')
 
 
-def add_query_debug_headers(request, response):
-    """Add headers with the SQL info."""
-    count = len(request.sql_queries)
-    sql_time = 0.0
-    for stmt, param, start, end in request.sql_queries:
-        sql_time += (end - start)
-    response.headers['X-SQL-Query-Count'] = str(count)
-    response.headers['X-SQL-Query-Time'] = str(sql_time)
+def save_session(request, response):
+    """Saves the session to the response.  Called automatically at
+    the end of a request.
+    """
+    if not request.in_api and request.session.should_save:
+        request.session.save_cookie(response, settings.COOKIE_NAME)
 
 
 def finalize_response(request, response):
     """Finalizes the response.  Applies common response processors."""
-    request.save_session(response)
-    if settings.TRACK_QUERIES:
-        add_query_debug_headers(request, response)
+    if not isinstance(response, Response):
+        response = Response.force_type(response, request.environ)
     if response.status == 200:
         response.add_etag()
         response = response.make_conditional(request)
+    emit(BEFORE_RESPONSE_SENT, request=request, response=response)
     return response
 
 
 @Request.application
 def application(request):
-    """The WSGI application."""
+    """The WSGI application.  The majority of the handling here happens
+    in the :meth:`Request.dispatch` method and the functions that are
+    connected to the request signals.
+    """
     try:
         try:
             response = request.dispatch()
         except HTTPException, e:
             response = e.get_response(request.environ)
-        if not isinstance(response, Response):
-            response = Response.force_type(response, request.environ)
         return finalize_response(request, response)
     finally:
         emit(AFTER_REQUEST_SHUTDOWN)
@@ -415,10 +403,13 @@ from solace.i18n import select_locale, load_translations, Timezone, _, \
 from solace.auth import get_auth_system
 from solace.database import session
 from solace.models import UserMessage
-from solace.signals import emit, BEFORE_REQUEST_INIT, AFTER_REQUEST_INIT, \
+from solace.signals import BEFORE_REQUEST_INIT, AFTER_REQUEST_INIT, \
      BEFORE_REQUEST_DISPATCH, AFTER_REQUEST_DISPATCH, \
-     AFTER_REQUEST_SHUTDOWN
+     AFTER_REQUEST_SHUTDOWN, BEFORE_RESPONSE_SENT, connect, emit
 from solace.utils.remoting import remote_export_primitive
+
+# remember to save the session
+connect(save_session, BEFORE_RESPONSE_SENT)
 
 # important because of initialization code (such as signal subscriptions)
 import solace.badges

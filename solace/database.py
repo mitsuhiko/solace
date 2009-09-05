@@ -163,9 +163,23 @@ def drop_tables():
     metadata.drop_all(bind=get_engine())
 
 
+def add_query_debug_headers(request, response):
+    """Add headers with the SQL info."""
+    if not settings.TRACK_QUERIES:
+        return
+    count = len(request.sql_queries)
+    sql_time = 0.0
+    for stmt, param, start, end in request.sql_queries:
+        sql_time += (end - start)
+    response.headers['X-SQL-Query-Count'] = str(count)
+    response.headers['X-SQL-Query-Time'] = str(sql_time)
+
+
 # make sure the session is removed at the end of the request.
-from solace.signals import AFTER_REQUEST_SHUTDOWN, connect
+from solace.signals import AFTER_REQUEST_SHUTDOWN, BEFORE_RESPONSE_SENT, \
+     connect
 connect(session.remove, AFTER_REQUEST_SHUTDOWN)
+connect(add_query_debug_headers, BEFORE_RESPONSE_SENT)
 
 # circular dependencies
 from solace import settings
