@@ -6,3 +6,5 @@
 \.cfg$
 ^env/
 \.egg-info$
+^test\.py$
+^\.Python$

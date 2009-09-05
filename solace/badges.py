@@ -18,10 +18,6 @@ def try_award(event, *args):
     """Tries to avard a badge for the given event.  The events correspond
     to the `on_X` callbacks on the badges, just without the `on_` prefix.
     """
-    from solace.application import Request
-    request = Request.current
-    awarded = False
-
     lookup = attrgetter('on_' + event)
     for badge in badge_list:
         cb = lookup(badge)
@@ -39,8 +35,6 @@ def try_award(event, *args):
             # inactive or banned users don't get messages.
             if user.is_active and not user.is_banned:
                 UserMessage(user, _(u'You earned the “%s” badge') % badge.name)
-            awarded = True
-    return awarded
 
 
 _numeric_levels = dict(zip(('bronce', 'silver', 'gold', 'platin'),
