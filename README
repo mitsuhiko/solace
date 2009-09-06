@@ -71,10 +71,11 @@
         have *have to be changed* if you want to use Solace in
         production.
 
-        WHen Solace initializes it checks for a `SOLACE_SETTINGS_FILE`
-        environment variable.  If it finds one, it will execute the
-        file set as a Python script and overrides the assigned variables
-        in that script in the config.
+        When Solace initializes it checks for a `SOLACE_SETTINGS_FILE`
+        operating system environment variable.  If it finds one, it will
+	execute the that file as a Python script and overrides the
+	assigned variables of the Solace enviroment script config
+	(`solace/settings.py`).
 
         Example configuration:
 
