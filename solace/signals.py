@@ -24,10 +24,11 @@ _method_refs = WeakKeyDictionary()
 
 
 def _ref(func):
-    """Return a safe reference to the function."""
+    """Return a safe reference to the callable."""
+    assert callable(func), 'expected callable, got %r' % type(func).__name__
+    if not ismethod(func) or func.im_self is None:
+        return func
     with _ref_lock:
-        if not ismethod(func) or func.im_self is None:
-            return func
         self = func.im_self
         d = _method_refs.get(self)
         if d is None:
@@ -35,32 +36,27 @@ def _ref(func):
         method = d.get(func.im_func)
         if method is not None:
             return method
-        d[func.im_func] = rv = _MethodRef(self, func.im_func)
+        d[func.im_func] = rv = _MethodRef(self, func.im_func, func.im_class)
         return rv
 
 
 class _MethodRef(object):
     """A weak method reference."""
 
-    def __init__(self, im_self, im_func):
+    def __init__(self, im_self, im_func, im_class):
         self.im_self = weakref(im_self)
         self.im_func = weakref(im_func)
+        self.im_class = weakref(im_class)
 
-    def as_method(self):
+    def resolve(self):
         """Returns the reference as standard Python method.  If the
         reference is already dead, `None` is returned.
         """
+        cls = self.im_class()
         obj = self.im_self()
         func = self.im_func()
-        if obj is not None and func is not None:
-            return MethodType(func, obj)
-
-    def __call__(self, *args, **kwargs):
-        obj = self.im_self()
-        func = self.im_func()
-        if obj is None or func is None:
-            raise RuntimeError('dead reference')
-        return func(obj, *args, **kwargs)
+        if obj is not None and func is not None and cls is not None:
+            return MethodType(func, obj, cls)
 
 
 def SIG(name, args=None):
@@ -159,7 +155,7 @@ class Signal(tuple):
             if d is not None:
                 for con in d.keys():
                     if isinstance(con, _MethodRef):
-                        con = con.as_method()
+                        con = con.resolve()
                     if con is not None:
                         result.add(con)
             return result
@@ -203,6 +199,14 @@ class Signal(tuple):
         result = []
         if listeners is not None:
             for func in listeners.keys():
+                # if a listener is a method reference we have to resolve it.
+                # there is a small window where this could be garbage collected
+                # while we have the reference so we handle the case when the
+                # resolving returns `None`.
+                if isinstance(func, _MethodRef):
+                    func = func.resolve()
+                    if func is None:
+                        continue
                 result.append((func, func(**args)))
 
         # send the special broadcast signal to notify listeners of the
