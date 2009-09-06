@@ -9,6 +9,7 @@
     :license: BSD, see LICENSE for more details.
 """
 from __future__ import with_statement
+from types import MethodType
 from inspect import ismethod, currentframe
 from weakref import WeakKeyDictionary, ref as weakref
 from threading import Lock
@@ -44,6 +45,15 @@ class _MethodRef(object):
     def __init__(self, im_self, im_func):
         self.im_self = weakref(im_self)
         self.im_func = weakref(im_func)
+
+    def as_method(self):
+        """Returns the reference as standard Python method.  If the
+        reference is already dead, `None` is returned.
+        """
+        obj = self.im_self()
+        func = self.im_func()
+        if obj is not None and func is not None:
+            return MethodType(func, obj)
 
     def __call__(self, *args, **kwargs):
         obj = self.im_self()
@@ -123,6 +133,37 @@ class Signal(tuple):
                 d = _subscriptions[self] = WeakKeyDictionary()
             d[func] = None
 
+    def is_connected(self, func):
+        """Checks if the function is connected to the signal.
+
+        :param func: the function to check for an active connection.
+        :return: `True` if connected, otherwise `False`.
+        """
+        func = _ref(func)
+        with _subscribe_lock:
+            d = _subscriptions.get(self)
+            if d is None:
+                return False
+            return d.get(func, 0) is not 0
+
+    def get_connections(self):
+        """Returns a list of active connections a set.  The return value may
+        only be used for introspection.  After the call the connections might
+        have changed already, so do not attempt to call the handlers yourself.
+
+        :return: a `set` of connections
+        """
+        with _subscribe_lock:
+            d = _subscriptions.get(self)
+            result = set()
+            if d is not None:
+                for con in d.keys():
+                    if isinstance(con, _MethodRef):
+                        con = con.as_method()
+                    if con is not None:
+                        result.add(con)
+            return result
+
     def disconnect(self, func):
         """Disconnects the function from the signal.  Disconnecting automatically
         happens if the connected function is garbage collected.  However if you
@@ -163,6 +204,12 @@ class Signal(tuple):
         if listeners is not None:
             for func in listeners.keys():
                 result.append((func, func(**args)))
+
+        # send the special broadcast signal to notify listeners of the
+        # broadcast signal that a signal was sent.
+        if self is not broadcast:
+            Signal.emit(broadcast, signal=self, args=args)
+
         return result
 
     def __reduce__(self):
@@ -174,6 +221,24 @@ class Signal(tuple):
         if self.__module__ != '<temporary>':
             return self.__module__ + '.' + self.__name__
         return self.__name__
+
+
+class _BroadcastSignal(Signal):
+    """Special broadcast signal.  Connect to it to be notified about
+    all signals.  This signal is automatically send with each other
+    signal.
+    """
+
+    __slots__ = ()
+
+    def emit(self, **args):
+        """You cannot emit broadcast signals."""
+        raise TypeError('emitting broadcast signals is unsupported')
+
+
+# the singleton instance of the broadcast signal
+broadcast = _BroadcastSignal('broadcast', ['signal', 'args'])
+del _BroadcastSignal
 
 
 @contextmanager

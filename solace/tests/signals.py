@@ -106,6 +106,42 @@ class SignalTestCase(SolaceTestCase):
         session.commit()
         self.assertEqual(on_insert, [me])
 
+    def test_signal_introspection(self):
+        """Signal introspection"""
+        sig = signals.Signal('sig')
+        self.assertEqual(sig.get_connections(), set())
+
+        def on_foo():
+            pass
+        class Foo(object):
+            def f(self):
+                pass
+        f = Foo()
+
+        sig.connect(on_foo)
+        sig.connect(f.f)
+
+        self.assertEqual(sig.get_connections(), set([on_foo, f.f]))
+
+        sig.disconnect(on_foo)
+        self.assertEqual(sig.get_connections(), set([f.f]))
+
+        del f
+        gc.collect()
+        self.assertEqual(sig.get_connections(), set())
+
+    def test_broadcasting(self):
+        """Broadcast signals"""
+        on_signal = []
+        def listen(signal, args):
+            on_signal.append((signal, args))
+        signals.broadcast.connect(listen)
+
+        sig = signals.Signal('sig', ['foo'])
+        sig.emit(foo=42)
+
+        self.assertEqual(on_signal, [(sig, {'foo': 42})])
+
 
 def suite():
     suite = unittest.TestSuite()
