@@ -116,35 +116,41 @@ class ConnectionQueryTrackingProxy(ConnectionProxy):
 
 
 class SignalTrackingMapperExtension(MapperExtension):
-    """Adds signals to the session for later emitting."""
+    """Remembers model changes for the session commit code."""
 
     def after_delete(self, mapper, connection, instance):
-        self._postpone(after_model_deleted, instance)
-        return EXT_CONTINUE
+        return self._record(instance, 'delete')
 
     def after_insert(self, mapper, connection, instance):
-        self._postpone(after_model_inserted, instance)
-        return EXT_CONTINUE
+        return self._record(instance, 'insert')
 
     def after_update(self, mapper, connection, instance):
-        self._postpone(after_model_updated, instance)
-        return EXT_CONTINUE
+        return self._record(instance, 'update')
 
-    def _postpone(self, signal, model):
-        orm.object_session(model)._postponed_signals.append((signal, model))
+    def _record(self, model, operation):
+        pk = tuple(orm.object_mapper(model).primary_key_from_instance(model))
+        orm.object_session(model)._model_changes[pk] = (model, operation)
+        return EXT_CONTINUE
 
 
 class SignalEmittingSessionExtension(SessionExtension):
     """Emits signals the mapper extension accumulated."""
 
+    def before_commit(self, session):
+        d = session._model_changes
+        if d:
+            before_models_committed.emit(changes=d.values())
+        return EXT_CONTINUE
+
     def after_commit(self, session):
-        for signal, model in session._postponed_signals:
-            signal.emit(model=model)
-        del session._postponed_signals[:]
+        d = session._model_changes
+        if d:
+            after_models_committed.emit(changes=d.values())
+            d.clear()
         return EXT_CONTINUE
 
     def after_rollback(self, session):
-        del session._postponed_signals[:]
+        session._model_changes.clear()
         return EXT_CONTINUE
 
 
@@ -155,7 +161,7 @@ class SignalTrackingSession(Session):
         extension = [SignalEmittingSessionExtension()]
         Session.__init__(self, get_engine(), autoflush=True,
                          autocommit=False, extension=extension)
-        self._postponed_signals = []
+        self._model_changes = {}
 
 
 class LocaleType(TypeDecorator):
@@ -240,8 +246,8 @@ def request_track_query(cursor, statement, parameters, time):
 # make sure the session is removed at the end of the request and that
 # query logging for the request works.
 from solace.signals import after_request_shutdown, before_response_sent, \
-     after_model_deleted, after_model_inserted, after_model_updated, \
-     after_cursor_executed, before_cursor_executed
+     after_cursor_executed, before_cursor_executed, before_models_committed, \
+     after_models_committed
 after_request_shutdown.connect(session.remove)
 before_response_sent.connect(add_query_debug_headers)
 after_cursor_executed.connect(request_track_query)

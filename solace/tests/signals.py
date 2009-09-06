@@ -92,19 +92,23 @@ class SignalTestCase(SolaceTestCase):
     def test_model_signals(self):
         """Model signalling"""
         from solace.models import User, session
-        on_insert = []
-        def listen(model):
-            on_insert.append(model)
-        signals.after_model_inserted.connect(listen)
+        model_changes = []
+        def listen(changes):
+            model_changes.append(changes)
+        signals.after_models_committed.connect(listen)
 
         me = User('A_USER', 'a-user@example.com')
-        self.assertEqual(on_insert, [])
+        self.assertEqual(model_changes, [])
         session.rollback()
-        self.assertEqual(on_insert, [])
+        self.assertEqual(model_changes, [])
         me = User('A_USER', 'a-user@example.com')
-        self.assertEqual(on_insert, [])
+        self.assertEqual(model_changes, [])
         session.commit()
-        self.assertEqual(on_insert, [me])
+        self.assertEqual(model_changes, [[(me, 'insert')]])
+        del model_changes[:]
+        session.delete(me)
+        session.commit()
+        self.assertEqual(model_changes, [[(me, 'delete')]])
 
     def test_signal_introspection(self):
         """Signal introspection"""

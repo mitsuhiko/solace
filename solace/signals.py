@@ -306,17 +306,14 @@ SIG('after_request_shutdown')
 #: in place, but it's not possible to replace it or abort the handling.
 SIG('before_response_sent', ['request', 'response'])
 
-#: emitted after a model was deleted using the session and when the
-#: transaction was properly committed to the database.
-SIG('after_model_deleted', ['model'])
+#: emitted after some models where properly comitted to the database.  The
+#: changes list a list of ``(model, operation)`` tuples.  Operation is a
+#: string that can either be "insert", "update" or "delete".
+SIG('after_models_committed', ['changes'])
 
-#: emitted after a model was inserted using the session and when the
-#: transaction was properly committed to the database.
-SIG('after_model_inserted', ['model'])
-
-#: emitted after a model was updated using the session and when the
-#: transaction was properly committed to the database.
-SIG('after_model_updated', ['model'])
+#: like `after_models_committed` but fired before the actual commit.  Mostly
+#: useless but exists for completeness.
+SIG('before_models_committed', ['changes'])
 
 #: emitted before a database cursor was executed
 SIG('before_cursor_executed', ['cursor', 'statement', 'parameters'])
