@@ -27,6 +27,7 @@ class LinkCheckTestCase(SolaceTestCase):
         """Make sure that all links are valid"""
         settings.LANGUAGE_SECTIONS = ['en']
         user = models.User('user1', 'user1@example.com', 'default')
+        user.active = True
         topic = models.Topic('en', 'This is a test topic', 'Foobar', user)
         post1 = models.Post(topic, user, 'meh1')
         post2 = models.Post(topic, user, 'meh2')
@@ -45,9 +46,14 @@ class LinkCheckTestCase(SolaceTestCase):
             for link in response.html.xpath('//a[@href]'):
                 visit(link.attrib['href'])
 
+        # logged out
         visit('/')
+        self.assert_(len(visited_links) > MIN_VISITED)
 
-        # make sure we visited enough links
+        # logged in
+        visited_links.clear()
+        self.login('user1', 'default')
+        visit('/')
         self.assert_(len(visited_links) > MIN_VISITED)
 
 
