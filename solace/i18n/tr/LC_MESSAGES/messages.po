@@ -28,7 +28,7 @@ msgstr "Kayıt Onayı"
 #: solace/auth.py:99 solace/auth.py:137
 #, python-format
 msgid "A mail was sent to %s with a link to finish the registration."
-msgstr "Kaydınızı tamamlamak için %s adresine onay bağlantınızı içeren bir e-posta mesajı gönderildi."
+msgstr "Kaydınızı tamamlamak için %s adresine onay bağlantınızı içeren bir e-posta gönderildi."
 
 #: solace/auth.py:102 solace/auth.py:140
 msgid "You're registered.  You can login now."
@@ -66,7 +66,7 @@ msgstr "Özeleştiri"
 
 #: solace/badges.py:143
 msgid "First downvote on own reply or question"
-msgstr "Kendi soru veya yanıtına ilk puan kırma"
+msgstr "Kendi sorusuna veya yanıtına ilk puan kırma"
 
 #: solace/badges.py:149
 msgid "Editor"
@@ -150,7 +150,7 @@ msgstr "Kullanıcı adı çok uzun."
 
 #: solace/forms.py:31
 msgid "The username may not contain slashes."
-msgstr "Kullanıcı adı kesme işareti içeremez."
+msgstr "Kullanıcı adı eğik çizgi içeremez."
 
 #: solace/forms.py:34
 msgid "The username may not begin or end with a dot."
@@ -159,7 +159,7 @@ msgstr "Kullanıcı adının başında veya sonunda nokta olamaz."
 #: solace/forms.py:40 solace/forms.py:53 solace/forms.py:81
 #: solace/templates/users/profile.html:22
 msgid "Username"
-msgstr "Kullanıcı adı"
+msgstr "Kullanıcı Adı"
 
 #: solace/forms.py:41 solace/forms.py:55 solace/forms.py:128
 msgid "Password"
@@ -171,7 +171,7 @@ msgstr "Şifre (tekrar)"
 
 #: solace/forms.py:59 solace/forms.py:82 solace/forms.py:132
 msgid "E-Mail"
-msgstr "E-posta"
+msgstr "E-Posta"
 
 #: solace/forms.py:70
 msgid "This username is already in use."
@@ -204,7 +204,7 @@ msgstr "Kullanıcı adı veya e-posta adresinden sadece birini girmeniz gerekiyo
 
 #: solace/forms.py:134
 msgid "Real name"
-msgstr "İsminiz ve soyadınız"
+msgstr "Adınız ve soyadınız"
 
 #: solace/forms.py:171
 msgid "Title"
@@ -305,7 +305,7 @@ msgstr "Giriş"
 
 #: solace/templates/layout.html:43 solace/templates/core/about.html:2
 msgid "About Solace"
-msgstr "Hakkında"
+msgstr "Solace Hakkında"
 
 #: solace/templates/layout.html:49
 msgid "Ask"
@@ -362,8 +362,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Burada kazanabileceğiniz bütün rozetleri görebilirsiniz. Bazılarını birden fazla\n"
-"    kereler kazanabilirsiniz.\n"
+"    Burada kazanabileceğiniz bütün rozetleri görebilirsiniz. Bazılarını\n"
+"    birden fazla kereler kazanabilirsiniz.\n"
 "  "
 
 #: solace/templates/badges/show_list.html:17
@@ -382,7 +382,7 @@ msgstr ""
 
 #: solace/templates/core/login.html:5
 msgid "Enter your username and password to log into Solace:"
-msgstr "Doorusu'na giriş yapmak için kullanıcı adı ve şifrenizi giriniz:"
+msgstr "Solace'e giriş yapmak için kullanıcı adı ve şifrenizi giriniz:"
 
 #: solace/templates/core/login.html:18
 msgid "Not yet registered?"
@@ -407,8 +407,8 @@ msgid ""
 msgstr ""
 "\n"
 "    Merhabalar! Görünüşe göre tarayıcınız JavaScript uyumlu değil veya\n"
-"    devre dışı bırakılmış. Fakat bu web sitesi bazı fonksiyonlarının çalışması\n"
-"    için JavaScript'e ihtiyaç duyuyor.\n"
+"    devre dışı bırakılmış. Fakat bu web sitesi bazı fonksiyonlarının\n"
+"    çalışması için JavaScript'e ihtiyaç duyuyor.\n"
 "  "
 
 #: solace/templates/core/not_found.html:2
@@ -422,7 +422,7 @@ msgstr "İstenilen adres bu sunucuda bulunamadı."
 
 #: solace/templates/core/not_found.html:6
 msgid "If you entered the URL manually please check your spelling and try again."
-msgstr "Eğer adresi elle girdiyseniz yazım hatalarına için kontrol ediniz."
+msgstr "Eğer adresi elle girdiyseniz yazım hataları için kontrol ediniz."
 
 #: solace/templates/core/register.html:2
 msgid "Register new Account"
@@ -458,7 +458,7 @@ msgstr ""
 "\n"
 "    <p>Şifrenizi sıfırlamak için kullanıcı adınızı veya e-posta\n"
 "       adresinizi girmelisiniz.  Daha sonra size şifrenizi\n"
-"       sıfırlamabileceğiniz bağlantıyı içeren bir e-posta göndereceğiz.\n"
+"       sıfırlayabileceğiniz bağlantıyı içeren bir e-posta göndereceğiz.\n"
 "  "
 
 #: solace/templates/kb/_boxes.html:15
@@ -574,7 +574,7 @@ msgid ""
 "      are topics tagged %(tag)s."
 msgstr ""
 "Sorular etikelerle işaretlenip gruplanır. Doğru etiketleri kullanarak\n"
-"      sorunuzun başkaları tarasından tekrar bulunmasını kolaylaştırırsınız."
+"      sorunuzun başkaları tarafından tekrar bulunmasını kolaylaştırırsınız."
 "Aşağıdaki girdiler %(tag)s ile etiketlenmiştir."
 
 #: solace/templates/kb/delete_post.html:3
@@ -641,8 +641,8 @@ msgid ""
 msgstr ""
 "<p>Merhaba %(username)s!\n"
 "    <p>\n"
-"      Bir sorun mu var? Bizimle paylaşmak istediğin bir konu mu var?"
-"      Sor gitsin."
+"      Bir sorunuz mu var? Bizimle paylaşmak istediğiniz bir konu mu var?"
+"      Sorun gitsin."
 
 #: solace/templates/kb/new.html:13
 msgid "Submit question"
@@ -671,10 +671,10 @@ msgstr ""
 "    <p>Burada %(author)s tarafından oluşturulmuş %(post)s girdisine\n"
 "       yapılmış tüm düzenlemeleri görebilirsiniz.\n"
 "    <p>Yapılan eklemeler <ins>yeşil renkli</ins>, silmeler ise\n"
-"       <del>kırmızı ve üstü çizili</del> ve formatlama değişiklikleri\n"
+"       <del>kırmızı ve üstü çizili</del> olarak, formatlama değişiklikleri\n"
 "       <span class=\"changed\">sarı arkaplan</span> olarak belirtilecektir.\n"
 "       Düzenlemenin tam metnine ulaşmak için her paragrafın altındaki\n"
-"       üç noktaya (“…”) tıklayınız."
+"       üç noktaya (“…”) tıklayabilirsiniz."
 
 #: solace/templates/kb/post_revisions.html:21
 #, python-format
@@ -696,7 +696,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    <p>Girdiyi eski bir düzenlemesine geri almak mı istiyorsunuz?\n"
+"    <p>Girdiyi eski bir düzenlemeye geri almak mı istiyorsunuz?\n"
 "  "
 
 #: solace/templates/kb/restore_post.html:10
@@ -777,7 +777,7 @@ msgstr "Henüz kimse yanıtlamadı"
 
 #: solace/templates/kb/topic.html:33
 msgid "Why not be the first?"
-msgstr "Neden ilk siz olmayasınız?"
+msgstr "Neden siz ilk olmayasınız?"
 
 #: solace/templates/kb/topic.html:44
 msgid "New Reply"
@@ -1083,7 +1083,9 @@ msgstr "Şifre sıfırlama anahtarının süresi dolmuş veya yanlış bir adres
 #: solace/views/core.py:134
 #, python-format
 msgid "A mail with a link to reset the password was sent to “%s”"
-msgstr "Şifrenizi sıfırlamanız için gerekli bağlantıyı içeren bir e-posta “%s” adresine gönderildi"
+msgstr ""
+"Şifrenizi sıfırlamanız için gerekli bağlantıyı içeren bir e-posta “%s”"
+" adresine gönderildi"
 
 #: solace/views/core.py:150
 msgid "Your account was activated.  You can log in now."
@@ -1121,7 +1123,7 @@ msgstr "%s tarafından yanıtlandı"
 
 #: solace/views/kb.py:236
 msgid "Your question was posted."
-msgstr "Sorunu gönderildi."
+msgstr "Sorunuz gönderildi."
 
 #: solace/views/kb.py:271
 msgid "The post was edited."
@@ -1172,7 +1174,7 @@ msgstr "Silinmiş yanıtları kabul edemezsiniz"
 
 #: solace/views/kb.py:468
 msgid "You cannot unaccept this reply as an answer."
-msgstr "Bu yanıtı kabulünü geri alamazsınız."
+msgstr "Bu yanıtın kabulünü geri alamazsınız."
 
 #: solace/views/kb.py:481
 msgid "You cannot accept this reply as answer."
