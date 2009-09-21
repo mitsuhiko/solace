@@ -110,10 +110,12 @@ var Solace = {
            the form another time, we send another HTTP request to
            get the updated CSRF token. */
         var token_field = $('input[name="_csrf_token"]');
-        if (token_field.length)
-          Solace.request('_get_csrf_token', null, 'GET', function(response) {
-            token_field.val(response.token);
+        if (token_field.length) {
+          var url = $(token_field).parent().parent().attr('action');
+          Solace.request('_update_csrf_token', {url: url}, 'POST', function(data) {
+            token_field.val(data.token);
           });
+        }
         return Solace._standardRemoteCallback(callback)(data);
       }
     });

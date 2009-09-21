@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    solace.formatting
-    ~~~~~~~~~~~~~~~~~
+    solace.utils.formatting
+    ~~~~~~~~~~~~~~~~~~~~~~~
 
     Implements the formatting.  Uses creoleparser internally.
 

@@ -74,7 +74,7 @@ url_map = Map([
     Rule('/_submit_comment/<post>') > 'kb.submit_comment',
     Rule('/_get_tags/<lang_code>') > 'kb.get_tags',
     Rule('/_no_javascript') > 'core.no_javascript',
-    Rule('/_get_csrf_token') > 'core.get_csrf_token',
+    Rule('/_update_csrf_token') > 'core.update_csrf_token',
     Rule('/_i18n/<lang>.js') > 'core.get_translations',
 
     # the API (version 1.0)

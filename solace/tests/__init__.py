@@ -20,6 +20,9 @@ from html5lib.treebuilders import getTreeBuilder
 from werkzeug import Client, Response, cached_property
 
 
+BASE_URL = 'http://localhost/'
+
+
 # ignore lxml and html5lib warnings
 warnings.filterwarnings('ignore', message='lxml does not preserve')
 warnings.filterwarnings('ignore', message=r'object\.__init__.*?takes no parameters')
@@ -68,6 +71,13 @@ class SolaceTestCase(unittest.TestCase):
         settings.MAIL_LOG_FILE.seek(pos)
         return [message_from_string(x) for x in mails if x]
 
+    def normalize_local_path(self, path):
+        if path in ('', '.'):
+            path = path
+        elif path.startswith(BASE_URL):
+            path = path[len(BASE_URL) - 1:]
+        return path
+
     def submit_form(self, path, data, follow_redirects=False):
         response = self.client.get(path)
         try:
@@ -76,9 +86,7 @@ class SolaceTestCase(unittest.TestCase):
             raise RuntimeError('no form on page')
         csrf_token = form.xpath('//input[@name="_csrf_token"]')[0]
         data['_csrf_token'] = csrf_token.attrib['value']
-        action = form.attrib['action']
-        if action in ('', '.'):
-            action = path
+        action = self.normalize_local_path(form.attrib['action'])
         return self.client.post(action, method=form.attrib['method'].upper(),
                                 data=data, follow_redirects=follow_redirects)
 

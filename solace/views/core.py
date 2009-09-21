@@ -10,7 +10,7 @@
     :license: BSD, see LICENSE for more details.
 """
 from werkzeug import redirect, Response
-from werkzeug.exceptions import NotFound
+from werkzeug.exceptions import NotFound, MethodNotAllowed
 from babel import Locale, UnknownLocaleError
 
 from solace.application import url_for, json_response
@@ -21,6 +21,7 @@ from solace.forms import LoginForm, RegistrationForm, ResetPasswordForm
 from solace.models import User
 from solace.database import session
 from solace.utils.mail import send_email
+from solace.utils.csrf import get_csrf_token
 
 
 def language_redirect(request):
@@ -190,13 +191,16 @@ def no_javascript(request):
     return render_template('core/no_javascript.html')
 
 
-def get_csrf_token(request):
+def update_csrf_token(request):
     """Updates the CSRF token.  Required for forms that are submitted multiple
     times using JavaScript.  This updates the token.
     """
     if not request.is_xhr:
         raise BadRequest()
-    return json_response(token=request.get_csrf_token(force_generation=True))
+    elif not request.method == 'POST':
+        raise MethodNotAllowed(valid=['POST'])
+    token = get_csrf_token(request, request.form['url'], force_update=True)
+    return json_response(token=token)
 
 
 def get_translations(request, lang):

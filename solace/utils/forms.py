@@ -16,6 +16,7 @@ from datetime import datetime
 from itertools import chain
 from functools import update_wrapper
 from threading import Lock
+from urlparse import urljoin
 
 from werkzeug import html, escape, MultiDict, redirect, cached_property
 
@@ -23,6 +24,7 @@ from solace import settings
 from solace.i18n import _, ngettext, lazy_gettext
 from solace.utils.support import OrderedDict
 from solace.utils.recaptcha import get_recaptcha_html, validate_recaptcha
+from solace.utils.csrf import get_csrf_token, invalidate_csrf_token
 
 
 _last_position_hint = -1
@@ -814,7 +816,7 @@ class FormWidget(MappingWidget):
 
         if with_errors:
             body = self.errors() + body
-        return html.form(body, action=self._field.form.action or u'',
+        return html.form(body, action=self._field.form.action,
                          method=method, **attrs)
 
     def __call__(self, *args, **attrs):
@@ -1740,8 +1742,13 @@ class Form(object):
         self.initial = initial
         self.action = action
         self.invalid_redirect_targets = set()
+
         if self.request is not None:
             self.csrf_protected = True
+            if self.action in (None, '', '.'):
+                self.action = request.url
+            else:
+                self.action = urljoin(request.url, self.action)
 
         self._root_field = _bind(self.__class__._root_field, self, {})
         self.reset()
@@ -1796,7 +1803,7 @@ class Form(object):
         if not self.csrf_protected:
             raise AttributeError('no csrf token because form not '
                                  'csrf protected')
-        return self.request.get_csrf_token()
+        return get_csrf_token(self.request, self.action)
 
     @property
     def is_valid(self):
@@ -1862,7 +1869,7 @@ class Form(object):
         # every time we validate, we invalidate the csrf token if there
         # was one.
         if self.csrf_protected:
-            self.request.clear_csrf_token()
+            invalidate_csrf_token(self.request, self.action)
             self.request.session.pop('csrf_token', None)
 
         if errors:
