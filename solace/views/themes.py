@@ -24,8 +24,8 @@ def get_resource(request, theme, file):
     f = theme.open_resource(file)
     if f is None:
         raise NotFound()
-    mimetype = mimetypes.guess_type(file)[1] or 'text/plain'
-    resp = Response(wrap_file(request.environ, f), mimetype=mimetype,
+    resp = Response(wrap_file(request.environ, f),
+                    mimetype=mimetypes.guess_type(file)[0] or 'text/plain',
                     direct_passthrough=True)
     resp.add_etag()
     return resp.make_conditional(request)

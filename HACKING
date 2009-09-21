@@ -6,7 +6,7 @@
 
         Hacking on Solace is fun.  It's written in Python and based
         on pupular libraries.  The dynamic parts in the user interface
-        are created using HTML 4 and jQuery.
+        are created using HTML 5 and jQuery.
 
         This file should give you a brief overview how the code works
         and what you should keep in mind when working on it.
@@ -23,17 +23,11 @@
         JavaScript code is intended with 2 spaces and only two spaces.
         The same rule applies for HTML as well.
 
-        **Every page has to validate against HTML 4.01 transitional**.
+        **Every page has to validate against HTML 5**.
 
-        If you need features HTML 4 does not give you, use JavaScript!
-	We're using the transitional DTD because recaptcha uses iframes
-	for non-JavaScript enabled browsers.
-
-        We will probably switch to HTML 5 once support is widespread
-        but until then, the doctype has to be HTML 4.01 transitional.
-	The reason for this rule is that many browser validators such as
-        the firefox validator plugin does not support HTML 5 yet which
-        makes it nearly impossible to ensure that every page validates.
+        There is a unittest that will send the pages to validator.nu
+        to check if they validate.  If you are adding a new page,
+        make sure it's somehow crawled there.
 
         CSS spacing rules should follow the existing rules in the files.
         Use whitespace after property, value colons.

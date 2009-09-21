@@ -104,7 +104,7 @@ class SolaceTestCase(unittest.TestCase):
 
 def suite():
     from solace.tests import models, querycount, kb_views, core_views, \
-         templating, signals, link_check
+         templating, signals, link_check, validation
     suite = unittest.TestSuite()
     suite.addTest(models.suite())
     suite.addTest(querycount.suite())
@@ -113,4 +113,5 @@ def suite():
     suite.addTest(templating.suite())
     suite.addTest(signals.suite())
     suite.addTest(link_check.suite())
+    suite.addTest(validation.suite())
     return suite

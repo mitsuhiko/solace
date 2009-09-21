@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!doctype html>
 {%- from '_helpers.html' import render_user %}
 {%- block html_head -%}
 <title>{% block html_head_title %}{% if page_title %}{{ page_title
@@ -71,7 +71,7 @@ Solace.notifyUTCOffset();
   <li class="view_lang">
     <a href="{{ url_for('kb.sections') }}">
       <small>{{ _('Section') }}</small>
-      <big>{{ request.view_lang.display_name }}</big>
+      <strong>{{ request.view_lang.display_name }}</strong>
     </a>
 {%- endif %}
 </ul>

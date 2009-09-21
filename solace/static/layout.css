@@ -232,11 +232,10 @@ ul.navigation li.view_lang a small {
     font-weight: normal;
 }
 
-ul.navigation li.view_lang a big {
+ul.navigation li.view_lang a strong {
     margin-top: -2px;
     display: block;
     font-size: 13px;
-    font-weight: bold;
 }
 
 /* :::: CONTENTS :::: */
