@@ -1,5 +1,5 @@
 <!doctype html>
-{%- from '_helpers.html' import render_user %}
+{% from '_helpers.html' import render_user %}
 {%- block html_head -%}
 <title>{% block html_head_title %}{% if page_title %}{{ page_title
   }} | {% endif %}{{ settings.WEBSITE_TITLE|e }}{% endblock %}</title>

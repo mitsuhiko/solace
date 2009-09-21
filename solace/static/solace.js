@@ -397,17 +397,22 @@ var Solace = {
      support has problems with our markup. */
   makeLanguageSelectionPopup : function() {
     var tid = null;
-    var sel = $('ul.language_selection').bind('mouseover', function() {
+    function activate() {
       sel.addClass('hovered');
       if (tid != null) {
         window.clearInterval(tid);
         tid = null;
       }
-    }).bind('mouseout', function() {
-      tid = window.setTimeout(function() {
-        sel.removeClass('hovered');
-      }, 300);
-    }).removeClass('css_language_selection');
+    }
+    var sel = $('ul.language_selection')
+      .bind('mouseover', activate)
+      .bind('click', activate) /* for iphone like devices */
+      .bind('mouseout', function() {
+        tid = window.setTimeout(function() {
+          sel.removeClass('hovered');
+        }, 300);
+      })
+      .removeClass('css_language_selection');
   },
 
   /* reduce the API method boxes */
