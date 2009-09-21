@@ -80,7 +80,7 @@ def edit_profile(request):
     """Allows the user to change profile information."""
     form = ProfileEditForm(request.user)
 
-    if request.method == 'POST' and form.validate(request.form):
+    if request.method == 'POST' and form.validate():
         request.flash(_(u'Your profile was updated'))
         form.apply_changes()
         session.commit()

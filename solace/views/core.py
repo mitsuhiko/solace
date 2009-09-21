@@ -13,7 +13,7 @@ from werkzeug import redirect, Response
 from werkzeug.exceptions import NotFound
 from babel import Locale, UnknownLocaleError
 
-from solace.application import url_for
+from solace.application import url_for, json_response
 from solace.auth import get_auth_system, LoginUnsucessful
 from solace.templating import render_template
 from solace.i18n import _, has_section, get_js_translations
@@ -45,7 +45,7 @@ def login(request):
         return rv
 
     form = LoginForm()
-    if request.method == 'POST' and form.validate(request.form):
+    if request.method == 'POST' and form.validate():
         username = form.data['username']
 
         # watch out, there might not be a password for
@@ -84,7 +84,7 @@ def register(request):
         return rv
 
     form = RegistrationForm()
-    if request.method == 'POST' and form.validate(request.form):
+    if request.method == 'POST' and form.validate():
         rv = auth.register(request, form['username'],
                            form['password'], form['email'])
         session.commit()
@@ -188,6 +188,15 @@ def no_javascript(request):
     Some non-critical functionality requires it.
     """
     return render_template('core/no_javascript.html')
+
+
+def get_csrf_token(request):
+    """Updates the CSRF token.  Required for forms that are submitted multiple
+    times using JavaScript.  This updates the token.
+    """
+    if not request.is_xhr:
+        raise BadRequest()
+    return json_response(token=request.get_csrf_token(force_generation=True))
 
 
 def get_translations(request, lang):

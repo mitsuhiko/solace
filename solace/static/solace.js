@@ -104,7 +104,18 @@ var Solace = {
   dynamicSubmit : function(selector, callback) {
     $(selector).ajaxSubmit({
       dataType:     'json',
-      success:      Solace._standardRemoteCallback(callback)
+      success:      function(data) {
+        /* if we successfully submitted data, the server will have
+           invalidated the CSRF token.  Assuming we want to submit
+           the form another time, we send another HTTP request to
+           get the updated CSRF token. */
+        var token_field = $('input[name="_csrf_token"]');
+        if (token_field.length)
+          Solace.request('_get_csrf_token', null, 'GET', function(response) {
+            token_field.val(response.token);
+          });
+        return Solace._standardRemoteCallback(callback)(data);
+      }
     });
   },
 

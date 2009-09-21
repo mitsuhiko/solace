@@ -41,8 +41,8 @@ class LoginForm(forms.Form):
     password = forms.TextField(lazy_gettext(u'Password'), required=True,
                                widget=forms.PasswordInput)
 
-    def __init__(self, initial=None, action=None):
-        forms.Form.__init__(self, initial, action)
+    def __init__(self, initial=None, action=None, request=None):
+        forms.Form.__init__(self, initial, action, request)
         self.auth_system = get_auth_system()
         if self.auth_system.passwordless:
             del self.fields['password']
@@ -86,8 +86,8 @@ class ResetPasswordForm(forms.Form):
         """We're protected if the config says so."""
         return settings.RECAPTCHA_ENABLE
 
-    def __init__(self, initial=None, action=None):
-        forms.Form.__init__(self, initial, action)
+    def __init__(self, initial=None, action=None, request=None):
+        forms.Form.__init__(self, initial, action, request)
         self.user = None
 
     def _check_active(self, user):
@@ -133,7 +133,7 @@ class ProfileEditForm(forms.Form):
                             validators=[is_valid_email])
     real_name = forms.TextField(lazy_gettext(u'Real name'))
 
-    def __init__(self, user, initial=None, action=None):
+    def __init__(self, user, initial=None, action=None, request=None):
         self.user = user
         self.auth_system = get_auth_system()
         if self.auth_system.passwordless or \
@@ -148,7 +148,7 @@ class ProfileEditForm(forms.Form):
             if 'email' in self.fields:
                 initial['email'] = user.email
 
-        forms.Form.__init__(self, initial, action)
+        forms.Form.__init__(self, initial, action, request)
 
     def context_validate(self, data):
         password = data.get('password')
@@ -182,14 +182,15 @@ class QuestionForm(forms.Form):
         messages=dict(too_big=lazy_gettext(u'You attached too many tags. '
                                            u'You may only use 10 tags.')))
 
-    def __init__(self, topic=None, revision=None, initial=None, action=None):
+    def __init__(self, topic=None, revision=None, initial=None, action=None,
+                 request=None):
         self.topic = topic
         self.revision = revision
         if topic is not None:
             text = (revision or topic.question).text
             initial = forms.fill_dict(initial, title=topic.title,
                                       text=text, tags=[x.name for x in topic.tags])
-        forms.Form.__init__(self, initial, action)
+        forms.Form.__init__(self, initial, action, request)
 
     def create_topic(self, view_lang=None, user=None):
         """Creates a new topic."""

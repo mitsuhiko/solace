@@ -172,7 +172,7 @@ def topic(request, id, slug=None):
     # a form for the replies.
     form = ReplyForm(topic)
 
-    if request.method == 'POST' and form.validate(request.form):
+    if request.method == 'POST' and form.validate():
         reply = form.create_reply()
         session.commit()
         request.flash(_(u'Your reply was posted.'))
@@ -235,7 +235,7 @@ def new(request):
     """The new-question form."""
     form = QuestionForm()
 
-    if request.method == 'POST' and form.validate(request.form):
+    if request.method == 'POST' and form.validate():
         topic = form.create_topic()
         session.commit()
         request.flash(_(u'Your question was posted.'))
@@ -270,7 +270,7 @@ def edit_post(request, id):
     else:
         form = ReplyForm(post=post, revision=revision)
 
-    if request.method == 'POST' and form.validate(request.form):
+    if request.method == 'POST' and form.validate():
         form.save_changes()
         session.commit()
         request.flash(_('The post was edited.'))
@@ -300,7 +300,7 @@ def delete_post(request, id):
         return redirect(url_for(post))
 
     form = EmptyForm()
-    if request.method == 'POST' and form.validate(request.form):
+    if request.method == 'POST' and form.validate():
         if 'yes' in request.form:
             post.delete()
             session.commit()
@@ -325,7 +325,7 @@ def restore_post(request, id):
         raise Forbidden()
 
     form = EmptyForm()
-    if request.method == 'POST' and form.validate(request.form):
+    if request.method == 'POST' and form.validate():
         if 'yes' in request.form:
             if revision is None:
                 request.flash(_(u'The post was restored'))
@@ -539,7 +539,7 @@ def submit_comment(request, post):
         return json_response(success=False, form_errors=[message])
 
     form = _get_comment_form(post)
-    if form.validate(request.form):
+    if form.validate():
         comment = form.create_comment()
         session.commit()
         comment_box = get_macro('kb/_boxes.html', 'render_comment')

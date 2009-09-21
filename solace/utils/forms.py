@@ -14,11 +14,8 @@ import re
 import string
 from datetime import datetime
 from itertools import chain
+from functools import update_wrapper
 from threading import Lock
-try:
-    from hashlib import sha1
-except ImportError:
-    from sha import new as sha1
 
 from werkzeug import html, escape, MultiDict, redirect, cached_property
 
@@ -1100,7 +1097,8 @@ class FormMapping(Mapping):
         if self.form.csrf_protected and self.form.request is not None:
             token = self.form.request.values.get('_csrf_token')
             if token != self.form.csrf_token:
-                raise ValidationError(_(u'Invalid security token submitted.'))
+                raise ValidationError(_(u'Form submitted multiple times or '
+                                        u'session expired.  Try again.'))
         if self.form.captcha_protected:
             request = self.form.request
             if request is None:
@@ -1719,20 +1717,31 @@ class Form(object):
     Forms can be recaptcha protected by setting `catcha_protected` to `True`.
     If catpcha protection is enabled the catcha has to be rendered from the
     widget created, like a field.
+
+    Forms are CSRF protected if they are created in the context of an active
+    request or if an request is passed to the constructor.  In order for the
+    CSRF protection to work it will modify the session on the request.
+
+    The consequence of that is that the application must not ignore session
+    changes.
     """
     __metaclass__ = FormMeta
 
-    csrf_protected = True
+    csrf_protected = False
     redirect_tracking = True
     captcha_protected = False
 
-    def __init__(self, initial=None, action=None):
-        self.request = Request.current
+    def __init__(self, initial=None, action=None, request=None):
+        if request is None:
+            request = Request.current
+        self.request = request
         if initial is None:
             initial = {}
         self.initial = initial
         self.action = action
         self.invalid_redirect_targets = set()
+        if self.request is not None:
+            self.csrf_protected = True
 
         self._root_field = _bind(self.__class__._root_field, self, {})
         self.reset()
@@ -1784,16 +1793,10 @@ class Form(object):
     @property
     def csrf_token(self):
         """The unique CSRF security token for this form."""
-        if self.request is None:
-            raise AttributeError('no csrf token because form not bound '
-                                 'to request')
-        path = self.action or self.request.path
-        user_id = -1
-        if self.request.is_logged_in:
-            user_id = self.request.user.id
-        key = settings.SECRET_KEY
-        return sha1(('%s|%s|%s' % (path, user_id, key))
-                     .encode('utf-8')).hexdigest()
+        if not self.csrf_protected:
+            raise AttributeError('no csrf token because form not '
+                                 'csrf protected')
+        return self.request.get_csrf_token()
 
     @property
     def is_valid(self):
@@ -1827,8 +1830,15 @@ class Form(object):
             seq = self.errors[field] = ErrorList()
         seq.append(error)
 
-    def validate(self, data):
-        """Validate the form against the data passed."""
+    def validate(self, data=None):
+        """Validate the form against the data passed.  If no data is provided
+        the form data of the current request is taken.
+        """
+        if data is None:
+            data = getattr(self.request, 'form', None)
+            if data is None:
+                raise RuntimeError('cannot validate implicitly without '
+                                   'form being bound to request')
         self.raw_data = _decode(data)
 
         # for each field in the root that requires validation on value
@@ -1848,6 +1858,13 @@ class Form(object):
         except ValidationError, e:
             errors = e.unpack()
         self.errors = errors
+
+        # every time we validate, we invalidate the csrf token if there
+        # was one.
+        if self.csrf_protected:
+            self.request.clear_csrf_token()
+            self.request.session.pop('csrf_token', None)
+
         if errors:
             return False
 

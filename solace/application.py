@@ -13,6 +13,10 @@ from urlparse import urlparse, urlsplit, urljoin
 from fnmatch import fnmatch
 from functools import update_wrapper
 from simplejson import dumps
+try:
+    from hashlib import sha1
+except ImportError:
+    from sha import new as sha1
 
 from babel import UnknownLocaleError, Locale
 from werkzeug import Request as RequestBase, Response, cached_property, \
@@ -28,6 +32,7 @@ class Request(RequestBase):
     """The request class."""
 
     in_api = False
+    csrf_protected = False
     _locale = None
     _pulled_flash_messages = None
 
@@ -257,6 +262,18 @@ class Request(RequestBase):
             msgs += self.session.pop('flashes')
             self._pulled_flash_messages = msgs
         return msgs
+
+    def get_csrf_token(self, force_generation=False):
+        """Return the CSRF token."""
+        token = self.session.get('csrf_token')
+        if token is None or force_generation:
+            token = sha1(os.urandom(12)).hexdigest()[:24]
+            self.session['csrf_token'] = token
+        return token
+
+    def clear_csrf_token(self):
+        """Clears the CSRF token."""
+        self.session.pop('csrf_token', None)
 
 
 def get_view(endpoint):
