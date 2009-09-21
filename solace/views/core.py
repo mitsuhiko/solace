@@ -119,7 +119,7 @@ def reset_password(request, email=None, key=None):
                 break
         else:
             request.flash(_(u'The password-reset key expired or the link '
-                            u'was invalid.'))
+                            u'was invalid.'), error=True)
             return redirect(url_for('core.reset_password'))
         new_password = user.set_random_password()
         session.commit()
@@ -152,7 +152,7 @@ def activate_user(request, email, key):
                         u'log in now.'))
         return redirect(url_for('core.login'))
     request.flash(_(u'User activation failed.  The user is either already '
-                    u'activated or you followed a wrong link.'))
+                    u'activated or you followed a wrong link.'), error=True)
     return redirect(url_for('kb.overview'))
 
 

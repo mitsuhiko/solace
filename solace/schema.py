@@ -89,7 +89,9 @@ user_messages = Table('user_messages', metadata,
     # who was the message sent to?
     Column('user_id', Integer, ForeignKey('users.user_id')),
     # the text of the message
-    Column('text', String(512))
+    Column('text', String(512)),
+    # the type of the message
+    Column('type', String(10))
 )
 
 topics = Table('topics', metadata,

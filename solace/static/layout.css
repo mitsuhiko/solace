@@ -270,35 +270,23 @@ div.contents h1 {
     left: 0;
     top: 0;
     right: 0;
-    padding: 5px;
+    padding: 0;
     z-index: 100000;
     border-bottom: 1px solid;
 }
 
 #flash_message p {
     margin: 0;
-    padding: 5px 10px;
+    padding: 7px 13px;
+    cursor: default;
 }
 
-#flash_message div.close {
-    float: right;
-    padding: 5px 10px;
+#flash_message p + p {
+    padding-top: 0;
 }
 
-#flash_message div.close a {
-    display: block;
-    color: white;
-    padding: 0;
-    height: 14px;
-    width: 14px;
-    text-decoration: none;
-    font-size: 10px;
+#flash_message p.error_message {
     font-weight: bold;
-    border: 1px solid;
-}
-
-#flash_message div.close a span {
-    display: none;
 }
 
 form dl dt {

@@ -61,11 +61,8 @@ div.footer                  { background: #eee; color: #555; border-color: #ccc;
 div.footer a                { color: #555; font-weight: bold; }
 
 /* flash message */
-#flash_message              { background: #2b6a7a; border-color: #0E3640; color: white; }
-#flash_message div.close a  { border-color: #42899b;
-                              background: #297385 url(flashtick.png) no-repeat; }
-#flash_message div.close a:hover
-                            { background-color: #54a4b8; }
+#flash_message              { border-color: #0E3640; color: white; }
+#flash_message p            { background: #2b6a7a; border-color: #0E3640; }
 
 /* contents */
 div.contents                { border-color: #ccc; }

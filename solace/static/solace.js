@@ -18,7 +18,7 @@ var Solace = {
   TRANSLATIONS : (new babel.Translations).install(),
 
   /* flash container enhanced? */
-  _flash_container_enhanced : false,
+  _flash_container_enhanced : false,  
 
   /* called by generated code if the UTC offset is not yet
      known to the server code */
@@ -38,7 +38,7 @@ var Solace = {
           document.location.href = Solace.URL_ROOT + 'login?next='
             + encodeURIComponent(document.location.href);
         else if (response.message)
-          Solace.flash(response.message);
+          Solace.flash(response.message, 'error');
       }
       else {
         if (response.message)
@@ -148,6 +148,23 @@ var Solace = {
     });
   },
 
+  /* adds the timeout behavior to one or multipe flashed items */
+  attachFlashTimeouts : function(items, container) {
+    items.each(function() {
+      var self = $(this), timeout = 0;
+      if (self.attr('class') == 'info_message')
+        window.setTimeout(function() {
+          self.animate({
+            height:   'hide'
+          }, 'fast', 'linear', function() {
+            self.remove();
+            if ($('p', container).length == 0)
+              container.remove();
+          });
+        }, 6000);
+    });
+  },
+
   /* return the flash container */
   getFlashContainer : function(nocreate) {
     var container = $('#flash_message');
@@ -155,16 +172,16 @@ var Solace = {
       if (nocreate)
         return null;
       container = $('<div id="flash_message"></div>').insertAfter('ul.navigation').hide();
+      Solace._flash_container_enhanced = false;
     }
     if (!Solace._flash_container_enhanced) {
       Solace._flash_container_enhanced = true;
-      container.prepend($('<div class="close"><a href="#"><span>[x]</span></a>')
-        .bind('click', function() {
-          container.fadeOut('slow', function() {
-            $('p', container).remove();
-          });
-          return false;
-        }));
+      container.hide().bind('mouseenter', function() {
+        container.stop().animate({opacity: 0.3}, 'fast');
+      }).bind('mouseleave', function() {
+        container.stop().animate({opacity: 1.0}, 'fast');
+      });
+      Solace.attachFlashTimeouts($('p', container), container);
     }
     return container;
   },
@@ -172,17 +189,20 @@ var Solace = {
   /* fade in the flash message */
   fadeInFlashMessages : function() {
     var container = Solace.getFlashContainer(true);
-    if (container && !container.is(':visible'))
+    if (container && !container.is(':visible')) {
       container.animate({
         height:   'show',
         opacity:  'show'
       }, 'fast');
+    }
   },
 
   /* flashes a message from javascript */
-  flash : function(text) {
+  flash : function(text, type /* = info */) {
     var container = Solace.getFlashContainer();
-    $('<p>').text(text).appendTo(container);
+    var item = $('<p>').text(text).addClass((type || 'info') + '_message')
+      .appendTo(container);
+    Solace.attachFlashTimeouts(item, container);
     Solace.fadeInFlashMessages();
   },
 
@@ -463,7 +483,7 @@ $(function() {
     }
   });
 
-  /* flash messages get a close button and are nicely faded in */
+  /* flash messages are nicely faded in and out */
   Solace.fadeInFlashMessages();
 
   /* process the body HTML */

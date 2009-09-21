@@ -391,7 +391,7 @@ def vote(request, post):
         message = _(u'You cannot vote on deleted posts.')
         if request.is_xhr:
             return json_response(message=message, error=True)
-        request.flash(message)
+        request.flash(message, error=True)
         return redirect(url_for(post))
 
     # otherwise
@@ -404,7 +404,7 @@ def vote(request, post):
             message = _(u'You cannot upvote your own post.')
             if request.is_xhr:
                 return json_response(message=message, error=True)
-            request.flash(message)
+            request.flash(message, error=True)
             return redirect(url_for(post))
         # also some reputation is needed
         if not request.user.is_admin and \
@@ -414,7 +414,7 @@ def vote(request, post):
                 settings.REPUTATION_MAP['UPVOTE']
             if request.is_xhr:
                 return json_response(message=message, error=True)
-            request.flash(message)
+            request.flash(message, error=True)
             return redirect(url_for(post))
         request.user.upvote(post)
     elif val == -1:
@@ -427,7 +427,7 @@ def vote(request, post):
                 settings.REPUTATION_MAP['DOWNVOTE']
             if request.is_xhr:
                 return json_response(message=message, error=True)
-            request.flash(message)
+            request.flash(message, error=True)
             return redirect(url_for(post))
         request.user.downvote(post)
     else:
@@ -461,7 +461,7 @@ def accept(request, post):
         message = _(u'You cannot accept deleted posts as answers')
         if request.is_xhr:
             return json_response(message=message, error=True)
-        request.flash(message)
+        request.flash(message, error=True)
         return redirect(url_for(post))
 
     topic = post.topic
@@ -473,7 +473,7 @@ def accept(request, post):
             message = _(u'You cannot unaccept this reply as an answer.')
             if request.is_xhr:
                 return json_response(message=message, error=True)
-            request.flash(message)
+            request.flash(message, error=True)
             return redirect(url_for(post))
         topic.accept_answer(None, request.user)
         session.commit()
@@ -486,7 +486,7 @@ def accept(request, post):
         message = _(u'You cannot accept this reply as answer.')
         if request.is_xhr:
             return json_response(message=message, error=True)
-        request.flash(message)
+        request.flash(message, error=True)
         return redirect(url_for(post))
     topic.accept_answer(post, request.user)
     session.commit()

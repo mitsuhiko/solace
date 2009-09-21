@@ -326,9 +326,11 @@ class UserMessage(object):
     """A message for a user."""
     query = session.query_property()
 
-    def __init__(self, user, text):
+    def __init__(self, user, text, type='info'):
+        assert type in ('info', 'error'), 'invalid message type'
         self.user = user
         self.text = text
+        self.type = type
         session.add(self)
 
     @simple_repr

@@ -80,13 +80,8 @@ Solace.notifyUTCOffset();
   {%- set messages = request.pull_flash_messages() %}
   {%- if messages %}
     <div id="flash_message">
-      {# inject some javascript to directly hide the flash message
-         if JavaScript is available. #}
-      <script type="text/javascript">
-        document.getElementById('flash_message').style.display = 'none';
-      </script>
-    {%- for message in messages %}
-      <p>{{ message }}
+    {%- for type, message in messages %}
+      <p class="{{ type }}_message">{{ message }}
     {%- endfor %}
     </div>
   {%- endif %}

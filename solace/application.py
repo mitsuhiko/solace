@@ -236,9 +236,10 @@ class Request(RequestBase):
             section_url=url_for('kb.overview', lang_code=key)
         ) for key, locale in list_languages()]
 
-    def flash(self, message):
+    def flash(self, message, error=False):
         """Flashes a message."""
-        self.session.setdefault('flashes', []).append(message)
+        type = error and 'error' or 'info'
+        self.session.setdefault('flashes', []).append((type, message))
 
     def pull_flash_messages(self):
         """Returns all flash messages.  They will be removed from the
@@ -249,7 +250,7 @@ class Request(RequestBase):
         if self.user is not None:
             to_delete = set()
             for msg in UserMessage.query.filter_by(user=self.user).all():
-                msgs.append(msg.text)
+                msgs.append((msg.type, msg.text))
                 to_delete.add(msg.id)
             if to_delete:
                 UserMessage.query.filter(UserMessage.id.in_(to_delete)).delete()

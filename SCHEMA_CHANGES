@@ -1,0 +1,4 @@
+Schema changes from first release to development version.  This will
+later be integrated into a proper update script:
+
+alter table user_messages add column type varchar(10) after text;
