@@ -21,7 +21,8 @@ from solace.forms import LoginForm, RegistrationForm, ResetPasswordForm
 from solace.models import User
 from solace.database import session
 from solace.utils.mail import send_email
-from solace.utils.csrf import get_csrf_token
+from solace.utils.csrf import get_csrf_token, exchange_token_protected, \
+     get_exchange_token
 
 
 def language_redirect(request):
@@ -67,6 +68,7 @@ def login(request):
                            can_reset_password=auth.can_reset_password)
 
 
+@exchange_token_protected
 def logout(request):
     """Logs the user out."""
     if request.is_logged_in:
@@ -203,6 +205,12 @@ def update_csrf_token(request):
     return json_response(token=token)
 
 
+def request_exchange_token(request):
+    """Return the exchange token."""
+    token = get_exchange_token(request)
+    return json_response(token=token)
+
+
 def get_translations(request, lang):
     """Returns the translations for the given language."""
     rv = get_js_translations(lang)
@@ -215,3 +223,15 @@ def not_found(request):
     """Shows a not found page."""
     return Response(render_template('core/not_found.html'), status=404,
                     mimetype='text/html')
+
+
+def bad_request(request):
+    """Shows a "bad request" page."""
+    return Response(render_template('core/bad_request.html'),
+                    status=400, mimetype='text/html')
+
+
+def forbidden(request):
+    """Shows a forbidden page."""
+    return Response(render_template('core/forbidden.html'),
+                    status=401, mimetype='text/html')

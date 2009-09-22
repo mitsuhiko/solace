@@ -80,16 +80,16 @@ class KBViewsTestCase(SolaceTestCase):
             el = response.html.xpath('//div[@class="votebox"]/h4')
             return int(el[0].text)
 
+        vote_url = '/_vote/%s?val=%%d&_xt=%s' % (tquid, self.get_exchange_token())
+
         # the author should not be able to upvote
         self.login('user_0', 'default')
-        response = self.client.get('/_vote/%d?val=1' % tquid,
-                                   follow_redirects=True)
+        response = self.client.get(vote_url % 1, follow_redirects=True)
         self.assert_('cannot upvote your own post' in response.data)
 
         # by default the user should not be able to downvote, because
         # he does not have enough reputation
-        response = self.client.get('/_vote/%d?val=-1' % tquid,
-                                   follow_redirects=True)
+        response = self.client.get(vote_url % -1, follow_redirects=True)
         self.assert_('to downvote you need at least 100 reputation'
                      in response.data)
 
@@ -99,8 +99,7 @@ class KBViewsTestCase(SolaceTestCase):
         session.commit()
 
         # and let him downvote
-        response = self.client.get('/_vote/%d?val=-1' % tquid,
-                                   follow_redirects=True)
+        response = self.client.get(vote_url % -1, follow_redirects=True)
         self.assertEqual(get_vote_count(response), -1)
 
         # and now let *all* users vote up, including the author, but his
@@ -108,8 +107,7 @@ class KBViewsTestCase(SolaceTestCase):
         for num in xrange(5):
             self.logout()
             self.login('user_%d' % num, 'default')
-            response = self.client.get('/_vote/%d?val=1' % tquid,
-                                       follow_redirects=True)
+            response = self.client.get(vote_url % 1, follow_redirects=True)
 
         # we should be at 4, author -1 the other four +1
         self.assertEqual(get_vote_count(response), 3)

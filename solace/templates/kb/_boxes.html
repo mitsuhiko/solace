@@ -90,9 +90,9 @@
   {%- macro button(direction, val, text) -%}
     <p class="{{ direction }}vote">
       {%- if user and user['has_' ~ direction ~ 'voted'](post) -%}
-        <a href="{{ url_for('kb.vote', post=post.id, val=0) }}" class="active">
+        <a href="{{ url_for('kb.vote', post=post.id, val=0)|e }}" class="active">
       {%- else -%}
-        <a href="{{ url_for('kb.vote', post=post.id, val=val) }}">
+        <a href="{{ url_for('kb.vote', post=post.id, val=val)|e }}">
       {%- endif -%}
       <span>{{ text }}</span></a>
   {%- endmacro %}

@@ -69,6 +69,7 @@ url_map = Map([
     Rule('/admin/') > 'admin.overview',
     Rule('/admin/status') > 'admin.status',
     Rule('/admin/bans') > 'admin.bans',
+    Rule('/admin/unban/<user>') > 'admin.unban',
 
     # AJAX
     Rule('/_set_language/<locale>') > 'core.set_language',
@@ -80,6 +81,7 @@ url_map = Map([
     Rule('/_get_tags/<lang_code>') > 'kb.get_tags',
     Rule('/_no_javascript') > 'core.no_javascript',
     Rule('/_update_csrf_token') > 'core.update_csrf_token',
+    Rule('/_request_exchange_token') > 'core.request_exchange_token',
     Rule('/_i18n/<lang>.js') > 'core.get_translations',
 
     # the API (version 1.0)

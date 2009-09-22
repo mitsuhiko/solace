@@ -12,12 +12,14 @@ import os
 import tempfile
 import unittest
 import warnings
+from simplejson import loads
 from email import message_from_string
 from lxml import etree
 from html5lib import HTMLParser
 from html5lib.treebuilders import getTreeBuilder
 
-from werkzeug import Client, Response, cached_property
+from werkzeug import Client, Response, cached_property, unquote_header_value
+from werkzeug.contrib.securecookie import SecureCookie
 
 
 BASE_URL = 'http://localhost/'
@@ -62,6 +64,17 @@ class SolaceTestCase(unittest.TestCase):
         database.refresh_engine()
         database.init()
         self.client = Client(application, TestResponse)
+        self.is_logged_in = False
+
+    def get_session(self):
+        from solace import settings
+        for cookie in self.client.cookie_jar:
+            if cookie.name == settings.COOKIE_NAME:
+                value = unquote_header_value(cookie.value)
+                return SecureCookie.unserialize(value, settings.SECRET_KEY)
+
+    def get_exchange_token(self):
+        return loads(self.client.get('/_request_exchange_token').data)['token']
 
     def get_mails(self):
         from solace import settings
@@ -91,13 +104,17 @@ class SolaceTestCase(unittest.TestCase):
                                 data=data, follow_redirects=follow_redirects)
 
     def login(self, username, password):
-        return self.submit_form('/login', {
-            'username':     username,
-            'password':     password
-        })
+        try:
+            return self.submit_form('/login', {
+                'username':     username,
+                'password':     password
+            })
+        finally:
+            self.is_logged_in = True
 
     def logout(self):
-        return self.client.get('/logout')
+        self.is_logged_in = False
+        return self.client.get('/logout?_xt=%s' % self.get_exchange_token())
 
     def tearDown(self):
         from solace import database, settings
@@ -108,6 +125,7 @@ class SolaceTestCase(unittest.TestCase):
             pass
         settings.__dict__.clear()
         settings.__dict__.update(self.__old_settings)
+        del self.is_logged_in
 
 
 def suite():

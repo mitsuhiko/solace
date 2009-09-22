@@ -17,11 +17,15 @@ from simplejson import dumps
 from babel import UnknownLocaleError, Locale
 from werkzeug import Request as RequestBase, Response, cached_property, \
      import_string, redirect, SharedDataMiddleware, url_quote
-from werkzeug.exceptions import HTTPException, NotFound, Forbidden
+from werkzeug.exceptions import HTTPException, NotFound, BadRequest, Forbidden
 from werkzeug.routing import BuildError, RequestRedirect
 from werkzeug.contrib.securecookie import SecureCookie
 
 from solace.utils.ctxlocal import local, LocalProperty
+
+
+# already resolved and imported views
+_resolved_views = {}
 
 
 class Request(RequestBase):
@@ -64,6 +68,10 @@ class Request(RequestBase):
             if self.match_exception is not None:
                 raise self.match_exception
             rv = self.view(self, **self.view_arguments)
+        except BadRequest, e:
+            rv = get_view('core.bad_request')(self)
+        except Forbidden, e:
+            rv = get_view('core.forbidden')(self)
         except NotFound, e:
             rv = get_view('core.not_found')(self)
         if isinstance(rv, basestring):
@@ -262,14 +270,19 @@ class Request(RequestBase):
 
 
 def get_view(endpoint):
-    """Returns the view for the endpoint."""
+    """Returns the view for the endpoint.  It will cache both positive and
+    negative hits, so never pass untrusted values to it.  If a view does
+    not exist, `None` is returned.
+    """
+    view = _resolved_views.get(endpoint)
+    if view is not None:
+        return view
     try:
-        return import_string('solace.views.' + endpoint)
+        view = import_string('solace.views.' + endpoint)
     except (ImportError, AttributeError):
-        try:
-            return import_string(endpoint)
-        except (ImportError, AttributeError):
-            raise RuntimeError('could not locate view for %r' % endpoint)
+        view = import_string(endpoint, silent=True)
+    _resolved_views[endpoint] = view
+    return view
 
 
 def json_response(message=None, html=None, error=False, login_could_fix=False,
@@ -365,6 +378,10 @@ def url_for(endpoint, **values):
                                             force_external=external)
         except BuildError:
             continue
+        view = get_view(endpoint)
+        if is_exchange_token_protected(view):
+            xt = get_exchange_token(request)
+            url = '%s%s_xt=%s' % (url, '?' in url and '&' or '?', xt)
         if anchor is not None:
             url += '#' + url_quote(anchor)
         return url
@@ -423,6 +440,7 @@ from solace.signals import before_request_init, after_request_init, \
      before_request_dispatch, after_request_dispatch, \
      after_request_shutdown, before_response_sent
 from solace.utils.remoting import remote_export_primitive
+from solace.utils.csrf import get_exchange_token, is_exchange_token_protected
 
 # remember to save the session
 before_response_sent.connect(save_session)

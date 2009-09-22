@@ -1,0 +1,14 @@
+{% extends 'mails/layout.txt' -%}
+{% block body %}{% trans user=user.display_name,
+                         site=settings.WEBSITE_TITLE -%}
+Hi {{ user }}!
+
+Your ban on {{ site }} was lifted.
+
+In order to login again you have to follow the following
+link and pick a new password:
+
+{{ reset_url }}
+
+See you soon on {{ site }}
+{%- endtrans %}{% endblock %}

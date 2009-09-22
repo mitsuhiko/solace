@@ -1233,3 +1233,9 @@ div.admin_panel table.settings tbody td.value pre {
     padding: 0;
     margin: 0;
 }
+
+div.admin_panel ul.userlist span.action {
+    float: left;
+    display: block;
+    margin: 4px 0 0 20px;
+}

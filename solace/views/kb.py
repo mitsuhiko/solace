@@ -23,6 +23,7 @@ from solace.i18n import _, format_datetime, list_sections
 from solace.forms import QuestionForm, ReplyForm, CommentForm
 from solace.utils.forms import Form as EmptyForm
 from solace.utils.formatting import format_creole_diff, format_creole
+from solace.utils.csrf import exchange_token_protected
 
 
 _topic_order = {
@@ -380,6 +381,7 @@ def userlist(request):
 
 
 @require_login
+@exchange_token_protected
 def vote(request, post):
     """Votes on a post."""
     post = Post.query.get(post)
