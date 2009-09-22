@@ -74,9 +74,19 @@ class Request(RequestBase):
             rv = get_view('core.forbidden')(self)
         except NotFound, e:
             rv = get_view('core.not_found')(self)
+        rv = self.process_view_result(rv)
+        after_request_dispatch.emit(request=self, response=rv)
+        return rv
+
+    def process_view_result(self, rv):
+        """Processes a view's return value and ensures it's a response
+        object.  This is automatically called by the dispatch function
+        but is also handy for view decorators.
+        """
         if isinstance(rv, basestring):
             rv = Response(rv, mimetype='text/html')
-        after_request_dispatch.emit(request=self, response=rv)
+        elif not isinstance(rv, Response):
+            rv = Response.force_type(rv, self.environ)
         return rv
 
     def _get_locale(self):

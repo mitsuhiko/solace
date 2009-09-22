@@ -66,8 +66,8 @@ var Solace = {
   },
 
   /* replaces a container with the response from a server. */
-  loadPartial : function(selector, url, data) {
-    Solace.request(url, data, 'GET', function(response) {
+  loadPartial : function(selector, url, method, data) {
+    Solace.request(url, data, method, function(response) {
       var el = $(response.html);
       $(selector).replaceWith(el);
       Solace.processElement(el);
@@ -125,7 +125,7 @@ var Solace = {
   makeDynamicVotes : function(selector, element) {
     $('div.votebox a', element).bind('click', function() {
       var link = $(this);
-      Solace.loadPartial(link.parent().parent(), link.attr('href'));
+      Solace.loadPartial(link.parent().parent(), link.attr('href'), 'POST');
       return false;
     });
   },
@@ -134,7 +134,7 @@ var Solace = {
   makeDynamicAccepting : function(element) {
     $('div.acceptbox a', element).bind('click', function() {
       var link = $(this);
-      Solace.request(link.attr('href'), null, 'GET',
+      Solace.request(link.attr('href'), null, 'POST',
                      function(response) {
         var reply = link.parent().parent();
         if (response.accepted) {

@@ -24,6 +24,7 @@ from solace.forms import QuestionForm, ReplyForm, CommentForm
 from solace.utils.forms import Form as EmptyForm
 from solace.utils.formatting import format_creole_diff, format_creole
 from solace.utils.csrf import exchange_token_protected
+from solace.utils.caching import no_cache
 
 
 _topic_order = {
@@ -380,10 +381,13 @@ def userlist(request):
     return common_userlist(request, locale=request.view_lang)
 
 
+@no_cache
 @require_login
 @exchange_token_protected
 def vote(request, post):
     """Votes on a post."""
+    # TODO: this is currently also fired as GET if JavaScript is
+    # not available.  Not very nice.
     post = Post.query.get(post)
     if post is None:
         raise NotFound()
@@ -445,9 +449,13 @@ def vote(request, post):
     return json_response(html=box(post, request.user))
 
 
+@no_cache
+@exchange_token_protected
 @require_login
 def accept(request, post):
     """Accept a post as an answer."""
+    # TODO: this is currently also fired as GET if JavaScript is
+    # not available.  Not very nice.
     post = Post.query.get(post)
     if post is None:
         raise NotFound()
