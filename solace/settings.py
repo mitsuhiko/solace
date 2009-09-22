@@ -8,6 +8,9 @@
     :copyright: (c) 2009 by Plurk Inc., see AUTHORS for more details.
     :license: BSD, see LICENSE for more details.
 """
+from __future__ import with_statement
+del with_statement
+
 # temporary imports, delete at end of file
 import os, sys, solace
 
@@ -190,6 +193,37 @@ def configure_from_file(filename):
     for key, value in ns.iteritems():
         if not key.startswith('_') and key.isupper():
             d[key] = value
+
+
+def describe_settings():
+    """Describes the settings.  Returns a list of
+    ``(key, current_value, description)`` tuples.
+    """
+    import re
+    from pprint import pformat
+    assignment_re = re.compile(r'\s*([A-Z_][A-Z0-9_]*)\s*=')
+
+    # use items() here instead of iteritems so that if a different
+    # thread somehow fiddles with the globals, we don't break
+    items = dict((k, (pformat(v).decode('utf-8', 'replace'), u''))
+                 for (k, v) in globals().items() if k.isupper())
+
+    with open(__file__.strip('c')) as f:
+        comment_buf = []
+        for line in f:
+            line = line.rstrip().decode('utf-8')
+            if line.startswith('#:'):
+                comment_buf.append(line[2:].lstrip())
+            else:
+                match = assignment_re.match(line)
+                if match is not None:
+                    key = match.group(1)
+                    tup = items.get(key)
+                    if tup is not None and comment_buf:
+                        items[key] = (tup[0], u'\n'.join(comment_buf))
+                    del comment_buf[:]
+
+    return sorted([(k,) + v for k, v in items.items()])
 
 
 if 'SOLACE_SETTINGS_FILE' in os.environ:

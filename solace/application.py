@@ -296,6 +296,20 @@ def not_logged_in_json_response():
                          error=True, login_could_fix=True)
 
 
+def require_admin(f):
+    """Decorates a view function so that it requires a user that is
+    logged in.
+    """
+    def decorated(request, **kwargs):
+        if not request.user.is_admin:
+            message = _(u'You cannot access this resource.')
+            if request.is_xhr:
+                return json_response(message=message, error=True)
+            raise Forbidden(message)
+        return f(request, **kwargs)
+    return require_login(update_wrapper(decorated, f))
+
+
 def require_login(f):
     """Decorates a view function so that it requires a user that is
     logged in.

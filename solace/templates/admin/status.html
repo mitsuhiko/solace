@@ -1,0 +1,31 @@
+{% extends 'admin/layout.html' %}
+{% block admin_body %}
+  <h2>{{ _('Status') }}</h2>
+  <p>{% trans -%}
+    Monitor the current system status.
+  {%- endtrans %}
+  <h3>{{ _('Active settings') }}</h3>
+  <p>{% trans -%}
+    Lists the current active settings and the description for each key
+    if available.  In order to change these settings you have to modify
+    the configuration file or the WSGI script that sets these values.
+  {%- endtrans %}
+  <table class="settings">
+    <thead>
+      <tr>
+        <th class="key">{{ _('Key') }}
+        <th class="value">{{ _('Value') }}
+    </thead>
+    <tbody>
+    {%- for key, value, description in active_settings %}
+      {%- if description %}
+      <tr class="description">
+        <td colspan="2">{{ description|e }}
+      {%- endif %}
+      <tr class="item">
+        <th class="key">{{ key|e }}
+        <td class="value"><pre>{{ value|e }}</pre>
+    {%- endfor %}
+    </tbody>
+  </table>
+{% endblock %}

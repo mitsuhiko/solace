@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% set page_title = _('Admin Panel') %}
+{% block body %}
+  <div class="admin_panel">
+    <h1>{{ _('Admin Panel') }}</h1>
+    <ul class="admin_navigation">
+    {%- for endpoint, title in [('admin.status', _('Status')),
+                                ('admin.bans', _('Bans'))] %}
+      <li{% if endpoint == request.endpoint %} class="active"{%
+        endif %}><a href="{{ url_for(endpoint) }}">{{ title }}</a>
+    {%- endfor %}
+    </ul>
+    {% block admin_body %}{% endblock %}
+  </div>
+{% endblock %}

@@ -229,3 +229,15 @@ div.apihelp dl              { border-color: #B5DDE6; }
 #recaptcha_table, .recaptcha_image_cell
                             { background: #eee!important; }
 #recaptcha_response_field   { border-color: #ccc!important; }
+
+/* admin panel */
+div.admin_panel ul.admin_navigation
+                            { background: #ccd8dd; border-color: #b3c5cd; }
+div.admin_panel ul.admin_navigation li a
+                            { color: #333; }
+div.admin_panel ul.admin_navigation li a:hover
+                            { background: white; }
+div.admin_panel ul.admin_navigation li.active a
+                            { background: #9eb2ba; }
+div.admin_panel table.settings thead th
+                            { border-color: #9eb2ba; }
