@@ -2,7 +2,7 @@
 {% from 'kb/_boxes.html' import render_topics, render_topic_tabs %}
 {% set page_title = _('Unanswered Questions') %}
 {% block html_head %}
-{{ super() }}
+{{- super() }}
 <link rel="alternate" href="{{ url_for('kb.unanswered_feed', order_by=order_by)
   }}" type="application/atom+xml">
 {%- endblock %}

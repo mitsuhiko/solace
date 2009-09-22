@@ -3,7 +3,7 @@
 {% set page_title = _('Questions Tagged “%s”') % tag.name|e %}
 {% set page_navigation_item = 'kb.tags' %}
 {% block html_head %}
-{{ super() }}
+{{- super() }}
 <link rel="alternate" href="{{ url_for('kb.by_tag_feed', name=tag.name, order_by=order_by)
   }}" type="application/atom+xml">
 {%- endblock %}

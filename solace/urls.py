@@ -65,6 +65,11 @@ url_map = Map([
     Rule('/_reset_password/<email>/<key>') > 'core.reset_password',
     Rule('/_activate/<email>/<key>') > 'core.activate_user',
 
+    # administration
+    Rule('/admin/') > 'admin.overview',
+    Rule('/admin/status') > 'admin.status',
+    Rule('/admin/bans') > 'admin.bans',
+
     # AJAX
     Rule('/_set_language/<locale>') > 'core.set_language',
     Rule('/_set_timezone_offset') > 'core.set_timezone_offset',

@@ -1,6 +1,6 @@
 <!doctype html>
-{% from '_helpers.html' import render_user %}
-{%- block html_head -%}
+{%- from '_helpers.html' import render_user %}
+{%- block html_head %}
 <title>{% block html_head_title %}{% if page_title %}{{ page_title
   }} | {% endif %}{{ settings.WEBSITE_TITLE|e }}{% endblock %}</title>
 {{ packs.default }}
@@ -42,6 +42,9 @@ Solace.notifyUTCOffset();
     <p class="links">
     {%- if request.is_logged_in %}
       {{ render_user(request.user, with_avatar=false) }} |
+      {%- if request.user.is_admin %}
+        <a href="{{ url_for('admin.overview') }}">{{ _('Admin Panel') }}</a> |
+      {%- endif %}
       <a href="{{ url_for('core.logout') }}">{{ _('Logout') }}</a>
     {%- else %}
       <a href="{{ url_for('core.register') }}">{{ _('Register') }}</a> |
