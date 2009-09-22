@@ -264,6 +264,10 @@ class BanUserForm(forms.Form):
     username = forms.TextField(lazy_gettext(u'Username'), required=True)
 
     def validate_username(self, value):
-        self.user = User.query.filter_by(username=value).first()
-        if self.user is None:
+        user = User.query.filter_by(username=value).first()
+        if user is None:
             raise forms.ValidationError(_(u'No such user.'))
+        if self.request is not None and \
+           self.request.user == user:
+            raise forms.ValidationError(_(u'You cannot ban yourself.'))
+        self.user = user

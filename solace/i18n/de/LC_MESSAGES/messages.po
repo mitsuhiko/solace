@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Solace 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2009-08-14 12:14+0200\n"
-"PO-Revision-Date: 2009-08-31 02:34+0200\n"
+"PO-Revision-Date: 2009-09-22 20:47+0200\n"
 "Last-Translator: Armin Ronacher <armin.ronacher@active-4.com>\n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -16,9 +16,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.4\n"
 
-#: solace/application.py:293 solace/application.py:306
+#: solace/application.py:307 solace/application.py:334
 msgid "You have to login in order to visit this page."
 msgstr "Du musst dich anmelden um diese Seite zu sehen."
+
+#: solace/application.py:318
+msgid "You cannot access this resource."
+msgstr "Du kannst diese Seite nicht ansehen."
 
 #: solace/auth.py:95 solace/auth.py:133
 msgid "Registration Confirmation"
@@ -33,109 +37,109 @@ msgstr "Eine E-Mail mit einem Bestätigungslink wurde an %s gesendet."
 msgid "You're registered.  You can login now."
 msgstr "Du bist nun registriert und kannst dich anmelden."
 
-#: solace/auth.py:221
+#: solace/auth.py:228
 #, python-format
 msgid "No user named %s"
 msgstr "Kein Benutzer namens %s"
 
-#: solace/auth.py:223
+#: solace/auth.py:230
 msgid "The user is not yet activated."
 msgstr "Der Benutzer ist noch nicht aktiviert."
 
-#: solace/auth.py:225
+#: solace/auth.py:232
 msgid "Invalid password"
 msgstr "Ungültiges Passwort"
 
-#: solace/badges.py:41
+#: solace/badges.py:37
 #, python-format
 msgid "You earned the “%s” badge"
 msgstr "Du hast die “%s” Plakette erhalten"
 
-#: solace/badges.py:135
+#: solace/badges.py:129
 msgid "Critic"
 msgstr "Kritiker"
 
-#: solace/badges.py:136
+#: solace/badges.py:130
 msgid "First down vote"
 msgstr "Erster Down-Vote"
 
-#: solace/badges.py:142
+#: solace/badges.py:136
 msgid "Self-Critic"
 msgstr "Selbstkritiker"
 
-#: solace/badges.py:143
+#: solace/badges.py:137
 msgid "First downvote on own reply or question"
 msgstr "Erster Down-Vote auf einer eigenen Antwort oder Frage"
 
-#: solace/badges.py:149
+#: solace/badges.py:143
 msgid "Editor"
 msgstr "Editor"
 
-#: solace/badges.py:150
+#: solace/badges.py:144
 msgid "First edited post"
 msgstr "Erster bearbeiter Beitrag"
 
-#: solace/badges.py:155
+#: solace/badges.py:149
 msgid "Inquirer"
 msgstr "Fragesteller"
 
-#: solace/badges.py:156
+#: solace/badges.py:150
 msgid "First asked question"
 msgstr "Erste gestellte Frage"
 
-#: solace/badges.py:162
+#: solace/badges.py:156
 msgid "Troubleshooter"
 msgstr "Problemlöser"
 
-#: solace/badges.py:163
+#: solace/badges.py:157
 msgid "First answered question"
 msgstr "Erste beantwortete Frage"
 
-#: solace/badges.py:168
+#: solace/badges.py:162
 msgid "Nice Answer"
 msgstr "Nette Antwort"
 
-#: solace/badges.py:169
+#: solace/badges.py:163
 msgid "Answer was upvoted 10 times"
 msgstr "Antwort wurde 10 mal upgevoted."
 
-#: solace/badges.py:176
+#: solace/badges.py:170
 msgid "Good Answer"
 msgstr "Gute Antwort"
 
-#: solace/badges.py:177
+#: solace/badges.py:171
 msgid "Answer was upvoted 25 times"
 msgstr "Die Antwort wurde 25 mal upgevoted."
 
-#: solace/badges.py:184
+#: solace/badges.py:178
 msgid "Great Answer"
 msgstr "Großartige Antwort"
 
-#: solace/badges.py:185
+#: solace/badges.py:179
 msgid "Answer was upvoted 75 times"
 msgstr "Antwort wurde 75 mal upgevoted."
 
-#: solace/badges.py:192
+#: solace/badges.py:186
 msgid "Unique Answer"
 msgstr "Einmalige Antwort"
 
-#: solace/badges.py:193
+#: solace/badges.py:187
 msgid "Answer was upvoted 150 times"
 msgstr "Antwort wurde 150 mal upgevoted."
 
-#: solace/badges.py:200
+#: solace/badges.py:194
 msgid "Reversal"
 msgstr "Wende"
 
-#: solace/badges.py:201
+#: solace/badges.py:195
 msgid "Provided answer of +20 score to a question of -5 score"
 msgstr "Antwort mit +20 Stimmen zu einer Frage mit -5 Stimmen"
 
-#: solace/badges.py:206
+#: solace/badges.py:200
 msgid "Self-Learner"
 msgstr "Selbst-Lerner"
 
-#: solace/badges.py:207
+#: solace/badges.py:201
 msgid "Answered your own question with at least 4 upvotes"
 msgstr "Beantworte eigene Frage mit zumindest 4 Upvotes."
 
@@ -155,7 +159,7 @@ msgstr "Der Benutzername darf keine Schrägstriche enthalten."
 msgid "The username may not begin or end with a dot."
 msgstr "Der Benutzername darf nicht mit einem Punkt beginnen oder enden."
 
-#: solace/forms.py:40 solace/forms.py:53 solace/forms.py:81
+#: solace/forms.py:40 solace/forms.py:53 solace/forms.py:81 solace/forms.py:264
 #: solace/templates/users/profile.html:22
 msgid "Username"
 msgstr "Benutzername"
@@ -221,7 +225,7 @@ msgstr "Du musst einen Titel angeben."
 msgid "Type your question"
 msgstr "Gib deine Frage ein"
 
-#: solace/forms.py:176 solace/forms.py:216 solace/forms.py:248
+#: solace/forms.py:176 solace/forms.py:217 solace/forms.py:249
 msgid "Text"
 msgstr "Text"
 
@@ -233,7 +237,7 @@ msgstr "Du musst einen Text angeben."
 msgid "Describe your problem"
 msgstr "Beschreibe dein Problem"
 
-#: solace/forms.py:181 solace/templates/layout.html:52
+#: solace/forms.py:181 solace/templates/layout.html:65
 #: solace/templates/kb/_editor.html:20 solace/templates/kb/tags.html:2
 #: solace/templates/kb/tags.html:4
 msgid "Tags"
@@ -243,99 +247,175 @@ msgstr "Tags"
 msgid "You attached too many tags. You may only use 10 tags."
 msgstr "Du hast zu viele Tags angegeben.  Maximal sind 10 erlaubt."
 
-#: solace/forms.py:218
+#: solace/forms.py:219
 msgid "Write your reply and answer the question"
 msgstr "Schreib deine Rückmeldung und beantworte die Frage"
+
+#: solace/forms.py:269
+msgid "No such user."
+msgstr "Kein solcher Benutzer."
+
+#: solace/forms.py:272
+msgid "You cannot ban yourself."
+msgstr "Du kannst dich nicht selbst bannen."
 
 #. : i18n support, leave in place for custom settings modules
 #. : the platform we're running on
 #. : the database URI
 #. : the title of the website
-#: solace/settings.py:33
+#: solace/settings.py:36
 msgid "Plurk Solace"
 msgstr "Plurk Solace"
 
 #. : the tagline of the website
-#: solace/settings.py:36
+#: solace/settings.py:39
 msgid "Comfort others, become enlighted"
 msgstr "Helfe anderen, werde erleuchtet"
 
-#: solace/templating.py:35
+#: solace/templating.py:174
 #, python-format
 msgid "on %s"
 msgstr "am %s"
 
-#: solace/static/solace.js:275
+#: solace/static/solace.js:308
 msgid "just now"
 msgstr "gerade erst"
 
-#: solace/static/solace.js:278
+#: solace/static/solace.js:311
 #, python-format
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
 msgstr[0] "vor %d Minute"
 msgstr[1] "vor %d Minuten"
 
-#: solace/static/solace.js:282
+#: solace/static/solace.js:315
 #, python-format
 msgid "%d hour ago"
 msgid_plural "%d hours ago"
 msgstr[0] "vor %d Stunde"
 msgstr[1] "vor %d Stunden"
 
-#: solace/static/solace.js:420
+#: solace/static/solace.js:458
 msgid "The feed for this page"
 msgstr "Der Feed für diese Seite"
 
-#: solace/static/solace.js:444
+#: solace/static/solace.js:482
 msgid "Could not contact server.  Connection problems?"
 msgstr "Konnte Server nicht erreichen.  Verbindungsprobleme?"
 
-#: solace/templates/layout.html:27
+#: solace/templates/layout.html:32
 msgid "Language"
 msgstr "Sprache"
 
-#: solace/templates/layout.html:38
+#: solace/templates/layout.html:46 solace/templates/admin/layout.html:2
+#: solace/templates/admin/layout.html:5
+msgid "Admin Panel"
+msgstr "Administration"
+
+#: solace/templates/layout.html:48
 msgid "Logout"
 msgstr "Abmelden"
 
-#: solace/templates/layout.html:40 solace/templates/core/register.html:9
+#: solace/templates/layout.html:50 solace/templates/core/register.html:9
 msgid "Register"
 msgstr "Registrieren"
 
-#: solace/templates/layout.html:41 solace/templates/core/login.html:2
+#: solace/templates/layout.html:51 solace/templates/core/login.html:2
 #: solace/templates/core/login.html:4 solace/templates/core/login.html:14
 msgid "Login"
 msgstr "Anmelden"
 
-#: solace/templates/layout.html:43 solace/templates/core/about.html:2
+#: solace/templates/layout.html:53 solace/templates/core/about.html:2
 msgid "About Solace"
 msgstr "Über Solace"
 
-#: solace/templates/layout.html:49
+#: solace/templates/layout.html:62
 msgid "Ask"
 msgstr "Neue Frage"
 
-#: solace/templates/layout.html:50 solace/templates/kb/overview.html:3
+#: solace/templates/layout.html:63 solace/templates/kb/overview.html:3
 msgid "Overview"
 msgstr "Übersicht"
 
-#: solace/templates/layout.html:51
+#: solace/templates/layout.html:64
 msgid "Unanswered"
 msgstr "Unbeantwortet"
 
-#: solace/templates/layout.html:53 solace/templates/layout.html:54
+#: solace/templates/layout.html:66 solace/templates/layout.html:67
 msgid "Users"
 msgstr "Benutzer"
 
-#: solace/templates/layout.html:55 solace/templates/badges/show_list.html:3
-#: solace/templates/users/profile.html:53
+#: solace/templates/layout.html:68 solace/templates/badges/show_list.html:3
+#: solace/templates/users/profile.html:65
 msgid "Badges"
 msgstr "Plaketten"
 
-#: solace/templates/layout.html:63
+#: solace/templates/layout.html:76
 msgid "Section"
 msgstr "Sektion"
+
+#: solace/templates/admin/bans.html:4 solace/templates/admin/layout.html:8
+msgid "Bans"
+msgstr "Verbote"
+
+#: solace/templates/admin/bans.html:5
+msgid "Ban and unban users."
+msgstr "Banne und entbanne Benutzer."
+
+#: solace/templates/admin/bans.html:8
+msgid "Add a new ban"
+msgstr "Neuen Bann hinzufügen"
+
+#: solace/templates/admin/bans.html:9
+msgid ""
+"In order to ban a user visit his profile and follow the\n"
+"    “ban user” link or enter his username into the following field:"
+msgstr ""
+"Um einen Benutzer zu bannen besuche sein Profil und folge dem\n"
+"„Banne Benutzer“ Link oder gibt seinen Benutzernamen in das folgende Feld ein:"
+
+#: solace/templates/admin/bans.html:16
+msgid "Ban user"
+msgstr "Banne Benutzer"
+
+#: solace/templates/admin/bans.html:20
+msgid "Banned Users"
+msgstr "Gebannte Benutzer"
+
+#: solace/templates/admin/bans.html:25 solace/templates/users/profile.html:39
+msgid "lift the ban"
+msgstr "Bann aufheben"
+
+#: solace/templates/admin/layout.html:7 solace/templates/admin/status.html:3
+msgid "Status"
+msgstr "Status"
+
+#: solace/templates/admin/status.html:4
+msgid "Monitor the current system status."
+msgstr "Aktuellen System Zustand beobachten."
+
+#: solace/templates/admin/status.html:7
+msgid "Active settings"
+msgstr "Aktive Einstellungen"
+
+#: solace/templates/admin/status.html:8
+msgid ""
+"Lists the current active settings and the description for each key\n"
+"    if available.  In order to change these settings you have to modify\n"
+"    the configuration file or the WSGI script that sets these values."
+msgstr ""
+"Zeigt die momentan aktiven Einstellungen und Beschreibungen für jeden\n"
+"Konfigurationsschlüssel an.  Um die Einstellungen zu ändern musst du\n"
+"die Konfigurationsdatei oder das WSGI Skript bearbeiten, dass diese\n"
+"Werte setzt."
+
+#: solace/templates/admin/status.html:16
+msgid "Key"
+msgstr "Schlüssel"
+
+#: solace/templates/admin/status.html:17
+msgid "Value"
+msgstr "Wert"
 
 #: solace/templates/badges/show_badge.html:5
 #, python-format
@@ -385,6 +465,24 @@ msgstr ""
 "\n"
 "    Keine Ideen, wer schreibt den Text?\n"
 "  "
+
+#: solace/templates/core/bad_request.html:2
+#: solace/templates/core/bad_request.html:4
+msgid "Bad Request"
+msgstr "Fehlerhafte Anfrage"
+
+#: solace/templates/core/bad_request.html:5
+msgid "Your client made a request the server could not understand."
+msgstr "Dein Browser hat ein Anfrage an den Server gestellt, die nicht verarbeitet werden konnte."
+
+#: solace/templates/core/forbidden.html:2
+#: solace/templates/core/forbidden.html:4
+msgid "Forbidden"
+msgstr "Zugriff Verboten"
+
+#: solace/templates/core/forbidden.html:5
+msgid "You don't have permission to access the requested resource."
+msgstr "Dir fehlen die nötigen Rechte, diese Seite zu betrachten."
 
 #: solace/templates/core/login.html:5
 msgid "Enter your username and password to log into Solace:"
@@ -439,7 +537,7 @@ msgid "Register new Account"
 msgstr "Neuen Account Registrieren"
 
 #: solace/templates/core/reset_password.html:2
-#: solace/templates/core/reset_password.html:20 solace/views/core.py:131
+#: solace/templates/core/reset_password.html:20 solace/views/core.py:134
 msgid "Reset Password"
 msgstr "Passwort zurücksetzen"
 
@@ -499,7 +597,7 @@ msgstr "Neueste"
 msgid "Hot"
 msgstr "Heiß"
 
-#: solace/templates/kb/_boxes.html:47 solace/templates/users/profile.html:39
+#: solace/templates/kb/_boxes.html:47 solace/templates/users/profile.html:51
 msgid "Votes"
 msgstr "Stimmen"
 
@@ -528,13 +626,13 @@ msgstr[1] "Dieser Beitrag wurde %d mal editiert."
 msgid "Show revisions"
 msgstr "Revisionen anzeigen"
 
-#: solace/templates/kb/_boxes.html:100 solace/templates/users/profile.html:42
-#: solace/templates/users/profile.html:47
+#: solace/templates/kb/_boxes.html:100 solace/templates/users/profile.html:54
+#: solace/templates/users/profile.html:59
 msgid "Up"
 msgstr "Hoch"
 
-#: solace/templates/kb/_boxes.html:102 solace/templates/users/profile.html:44
-#: solace/templates/users/profile.html:49
+#: solace/templates/kb/_boxes.html:102 solace/templates/users/profile.html:56
+#: solace/templates/users/profile.html:61
 msgid "Down"
 msgstr "Nieder"
 
@@ -575,7 +673,7 @@ msgstr "Wiederherstellen"
 msgid "Delete"
 msgstr "Löschen"
 
-#: solace/templates/kb/by_tag.html:3 solace/views/kb.py:137
+#: solace/templates/kb/by_tag.html:3 solace/views/kb.py:141
 #, python-format
 msgid "Questions Tagged “%s”"
 msgstr "Fragen getaggt als „%s“"
@@ -805,7 +903,7 @@ msgstr "Neue Antwort"
 msgid "Add Reply"
 msgstr "Antwort hinzufügen"
 
-#: solace/templates/kb/unanswered.html:3 solace/views/kb.py:112
+#: solace/templates/kb/unanswered.html:3 solace/views/kb.py:116
 msgid "Unanswered Questions"
 msgstr "Unbeantwortete Fragen"
 
@@ -862,6 +960,47 @@ msgstr ""
 "Wenn du dein Passwort nicht zurücksetzen wolltest ignoriere diese\n"
 "E-Mail einfach."
 
+#: solace/templates/mails/user_banned.txt:2
+#, python-format
+msgid ""
+"Hi %(user)s!\n"
+"\n"
+"We're sorry to inform you, but you were banned from the\n"
+"system for abusing the terms of service.  In order to\n"
+"find out more, please contact an administrator of the\n"
+"system."
+msgstr ""
+"Hallo %(user)s!\n"
+"\n"
+"Uns tut es Leid dich zu informieren, dass du gebannt wurdest\n"
+"weil du die Nutzungsregeln gebrochen hast.  Um mehr herauszufinden\n"
+"kontaktiere bitte den Systemadministrator.\n"
+
+#: solace/templates/mails/user_unbanned.txt:2
+#, python-format
+msgid ""
+"Hi %(user)s!\n"
+"\n"
+"Your ban on %(site)s was lifted.\n"
+"\n"
+"In order to login again you have to follow the following\n"
+"link and pick a new password:\n"
+"\n"
+"%(reset_url)s\n"
+"\n"
+"See you soon on %(site)s"
+msgstr ""
+"Hallo %(user)s!\n"
+"\n"
+"Dein Bann auf %(site)s wurde aufgehoben.\n"
+"\n"
+"Um dich wieder anmelden zu können musst du dem folgenden\n"
+"Link folgen und ein neues Passwort angeben:\n"
+"\n"
+"%(reset_url)s\n"
+"\n"
+"Bis bald auf %(site)s"
+
 #: solace/templates/users/edit_profile.html:3
 msgid "Edit Profile"
 msgstr "Profil bearbeiten"
@@ -895,14 +1034,26 @@ msgid "Ordered by activity, most active first"
 msgstr "Geordnet nach Aktivität, die Höchste zuerst"
 
 #: solace/templates/users/profile.html:36
+msgid "Administrative tasks"
+msgstr "Administrationsaufgaben"
+
+#: solace/templates/users/profile.html:41
+msgid "ban this user"
+msgstr "banne diesen Benutzer"
+
+#: solace/templates/users/profile.html:46
+msgid "This user was banned"
+msgstr "Dieser Benutzer wurde gebannt"
+
+#: solace/templates/users/profile.html:48
 msgid "Reputation"
 msgstr "Ansehen"
 
-#: solace/templates/users/profile.html:63
+#: solace/templates/users/profile.html:75
 msgid "Most Popular Questions"
 msgstr "Die bliebtesten Fragen"
 
-#: solace/templates/users/profile.html:67
+#: solace/templates/users/profile.html:79
 msgid "Most Popular Replies"
 msgstr "Die bliebtesten Antworten"
 
@@ -952,6 +1103,14 @@ msgstr "Nach Sektion Filtern"
 msgid "All"
 msgstr "Alle"
 
+#: solace/utils/admin.py:26
+msgid "User account banned"
+msgstr "Benutzer gebannt"
+
+#: solace/utils/admin.py:45
+msgid "Your ban was lifted"
+msgstr "Dein Bann wurde aufgehoben"
+
 #: solace/utils/api.py:80
 #, python-format
 msgid "Unknown format \"%s\""
@@ -973,21 +1132,21 @@ msgstr "Unbekannte Sprache"
 msgid "Unknown locale"
 msgstr "Unbekannte Locale"
 
-#: solace/utils/forms.py:690
+#: solace/utils/forms.py:689
 msgid "No choices."
 msgstr "Keine Möglichkeiten."
 
-#: solace/utils/forms.py:796
+#: solace/utils/forms.py:795
 msgid "Submit"
 msgstr "Absenden"
 
-#: solace/utils/forms.py:941
+#: solace/utils/forms.py:940
 msgid "This field is required."
 msgstr "Dieses Feld ist erforderlich."
 
-#: solace/utils/forms.py:1103
-msgid "Invalid security token submitted."
-msgstr "Ungültigere Sicherheits-Token übermittelt."
+#: solace/utils/forms.py:1102
+msgid "Form submitted multiple times or session expired.  Try again."
+msgstr "Formular mehrmalig abgesendet oder Sitzung abgelaufen.  Probiere es nochmal."
 
 #: solace/utils/forms.py:1111
 msgid "You entered an invalid captcha."
@@ -1092,30 +1251,48 @@ msgstr "Ton als MP3 herunterladen"
 msgid "Incorrect. Try again."
 msgstr "Falsch, bitte probiere es nochmal"
 
-#: solace/views/core.py:62
+#: solace/views/admin.py:47 solace/views/admin.py:85
+#, python-format
+msgid "The user “%s” was successfully banned and notified."
+msgstr "Der Benutzer “%s” wurde erfolgreich gebannt und benachrichtigt."
+
+#: solace/views/admin.py:65
+msgid "The user is not banned."
+msgstr "Der Benutzer ist nicht gebannt."
+
+#: solace/views/admin.py:68
+#, python-format
+msgid "The user “%s” was successfully unbanned and notified."
+msgstr "Der Benutzer “%s” wurde erfolgreich entbannt und benachrichtigt."
+
+#: solace/views/admin.py:82
+msgid "The user is already banned."
+msgstr "Dieser Benutzer ist bereits gebannt."
+
+#: solace/views/core.py:64
 msgid "You are now logged in."
 msgstr "Du bist nun angemeldet."
 
-#: solace/views/core.py:75
+#: solace/views/core.py:78
 msgid "You were logged out."
 msgstr "Du wurdest abgemeldet."
 
-#: solace/views/core.py:120
+#: solace/views/core.py:123
 msgid "The password-reset key expired or the link was invalid."
 msgstr "Der Schlüssel zum Zurücksetzen des Passwortes war ungültig."
 
-#: solace/views/core.py:134
+#: solace/views/core.py:137
 #, python-format
 msgid "A mail with a link to reset the password was sent to “%s”"
 msgstr ""
 "Eine E-Mail mit dem Link zum Zurücksetzen des Passwortes wurde an „%s“ "
 "gesendet."
 
-#: solace/views/core.py:150
+#: solace/views/core.py:153
 msgid "Your account was activated.  You can log in now."
 msgstr "Dein Konto wurde aktiviert.  Du kannst dich nun anmelden."
 
-#: solace/views/core.py:153
+#: solace/views/core.py:156
 msgid ""
 "User activation failed.  The user is either already activated or you "
 "followed a wrong link."
@@ -1123,7 +1300,7 @@ msgstr ""
 "Benutzerkativierung fehlgeschlagen.  Entweder ist der Benutzer bereits "
 "aktiviert, oder du bist einem falschen Link gefolgt."
 
-#: solace/views/core.py:180
+#: solace/views/core.py:183
 #, python-format
 msgid ""
 "The interface language was set to %s.  You were also forwarded to the "
@@ -1132,83 +1309,90 @@ msgstr ""
 "Die Sprache der Benutzeroberfläche wurde auf %s geändert.  Du wurdest "
 "gleichzeitig zur Hilfesektion dieser Sprache weitergeleitet."
 
-#: solace/views/kb.py:100
+#: solace/views/kb.py:85 solace/views/kb.py:225
+msgid "(deleted)"
+msgstr "(gelöscht)"
+
+#: solace/views/kb.py:104
 msgid "Questions"
 msgstr "Sektionen"
 
-#: solace/views/kb.py:175
+#: solace/views/kb.py:179
 msgid "Your reply was posted."
 msgstr "Deine Antwort wurde abgsendet."
 
-#: solace/views/kb.py:219
+#: solace/views/kb.py:223
 #, python-format
 msgid "Answer by %s"
 msgstr "Antwort von %s"
 
-#: solace/views/kb.py:236
+#: solace/views/kb.py:242
 msgid "Your question was posted."
 msgstr "Die Frage wurde abgesendet."
 
-#: solace/views/kb.py:271
+#: solace/views/kb.py:277
 msgid "The post was edited."
 msgstr "Der Beitrag wurde bearbeitet."
 
-#: solace/views/kb.py:275
+#: solace/views/kb.py:281
 #, python-format
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: solace/views/kb.py:278
+#: solace/views/kb.py:284
 msgid "Current revision"
 msgstr "Aktuelle Revision"
 
-#: solace/views/kb.py:302
+#: solace/views/kb.py:308
 msgid "The post was deleted"
 msgstr "Der Beitrag wurde gelöscht."
 
-#: solace/views/kb.py:326
+#: solace/views/kb.py:332
 msgid "The post was restored"
 msgstr "Der Beitrag wurde wiederhergestellt."
 
-#: solace/views/kb.py:329
+#: solace/views/kb.py:335
 msgid "The revision was restored"
 msgstr "Die Revision wurde wiederhergestellt."
 
-#: solace/views/kb.py:386
+#: solace/views/kb.py:393
 msgid "You cannot vote on deleted posts."
 msgstr "Du kannst nicht für gelöschte Beiträge stimmen."
 
-#: solace/views/kb.py:399
+#: solace/views/kb.py:406
 msgid "You cannot upvote your own post."
 msgstr "Du kannst nicht für deinen eigenen Beitrag stimmen."
 
-#: solace/views/kb.py:407
+#: solace/views/kb.py:414
 #, python-format
 msgid "In order to upvote you need at least %d reputation"
 msgstr "Um upzuvoten musst du zumindest %d Ansehen haben"
 
-#: solace/views/kb.py:420
+#: solace/views/kb.py:427
 #, python-format
 msgid "In order to downvote you need at least %d reputation"
 msgstr "Um downzuvoten musst du mindestens %d Ansehen haben"
 
-#: solace/views/kb.py:456
+#: solace/views/kb.py:463
 msgid "You cannot accept deleted posts as answers"
 msgstr "Du kannst gelöschte Beiträge nicht als Antworten akzeptieren."
 
-#: solace/views/kb.py:468
+#: solace/views/kb.py:475
 msgid "You cannot unaccept this reply as an answer."
 msgstr "Du kannst diese Antwort nicht de-akzeptieren."
 
-#: solace/views/kb.py:481
+#: solace/views/kb.py:488
 msgid "You cannot accept this reply as answer."
 msgstr "Du kannst diese Antwort nicht akzeptieren."
 
-#: solace/views/kb.py:533
+#: solace/views/kb.py:540
 msgid "You cannot submit comments for deleted posts"
 msgstr "Du kannst nicht Kommentare zu gelöschten Posts abgeben."
 
 #: solace/views/users.py:84
 msgid "Your profile was updated"
 msgstr "Dein Profil wurde aktualisiert"
+
+#~ msgid "Invalid security token submitted."
+#~ msgstr "Ungültigere Sicherheits-Token übermittelt."
 
