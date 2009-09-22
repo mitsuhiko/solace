@@ -18,8 +18,8 @@ from solace.forms import BanUserForm
 from solace.settings import describe_settings
 from solace.templating import render_template
 from solace.utils.pagination import Pagination
-from solace.utils.admin import ban_user, unban_user
 from solace.utils.csrf import exchange_token_protected
+from solace.utils import admin as admin_utils
 
 
 @require_admin
@@ -43,8 +43,8 @@ def bans(request):
     pagination = Pagination(request, query, request.args.get('page', type=int))
 
     if request.method == 'POST' and form.validate():
-        ban_user(form.user)
-        request.flash(_(u'The user “%s” was successfully banned.') %
+        admin_utils.ban_user(form.user)
+        request.flash(_(u'The user “%s” was successfully banned and notified.') %
                       form.user.username)
         return form.redirect('admin.bans')
 
@@ -55,7 +55,7 @@ def bans(request):
 
 @exchange_token_protected
 @require_admin
-def unban(request, user):
+def unban_user(request, user):
     """Unbans a given user."""
     user = User.query.filter_by(username=user).first()
     if user is None:
@@ -64,6 +64,24 @@ def unban(request, user):
     if not user.is_banned:
         request.flash(_(u'The user is not banned.'))
         return redirect(next)
-    unban_user(user)
-    request.flash(_(u'The user was unbanned and notified.'))
+    admin_utils.unban_user(user)
+    request.flash(_(u'The user “%s” was successfully unbanned and notified.') %
+                  user.username)
+    return redirect(next)
+
+
+@exchange_token_protected
+@require_admin
+def ban_user(request, user):
+    """Bans a given user."""
+    user = User.query.filter_by(username=user).first()
+    if user is None:
+        raise NotFound()
+    next = request.next_url or url_for('admin.bans')
+    if user.is_banned:
+        request.flash(_(u'The user is already banned.'))
+        return redirect(next)
+    admin_utils.ban_user(user)
+    request.flash(_(u'The user “%s” was successfully banned and notified.') %
+                  user.username)
     return redirect(next)

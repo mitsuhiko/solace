@@ -69,7 +69,8 @@ url_map = Map([
     Rule('/admin/') > 'admin.overview',
     Rule('/admin/status') > 'admin.status',
     Rule('/admin/bans') > 'admin.bans',
-    Rule('/admin/unban/<user>') > 'admin.unban',
+    Rule('/admin/ban/<user>') > 'admin.ban_user',
+    Rule('/admin/unban/<user>') > 'admin.unban_user',
 
     # AJAX
     Rule('/_set_language/<locale>') > 'core.set_language',

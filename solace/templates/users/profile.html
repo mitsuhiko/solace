@@ -32,7 +32,19 @@
         <br><small>{{ _('Ordered by activity, most active first') }}</small>
         {%- endif %}
     {%- endif %}
+    {% if request.is_logged_in and request.user.is_admin %}
+    <dt>{{ _('Administrative tasks') }}
+    <dd>
+      {% if user.is_banned %}
+      <a href="{{ url_for('admin.unban_user', user=user.username) }}">{{ _('lift the ban') }}</a>
+      {% else %}
+      <a href="{{ url_for('admin.ban_user', user=user.username) }}">{{ _('ban this user') }}</a>
+      {% endif %}
+    {% endif %}
   </dl>
+  {% if user.is_banned %}
+  <p><strong>{{ _('This user was banned') }}</strong>
+  {% endif %}
   <h2>{{ _('Reputation') }}</h2>
   <p class="reputation">
     {{ user.reputation|numberformat }}
