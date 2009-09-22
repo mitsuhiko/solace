@@ -1,0 +1,9 @@
+{% extends 'mails/layout.txt' -%}
+{% block body %}{% trans user=user.display_name -%}
+Hi {{ user }}!
+
+We're sorry to inform you, but you were banned from the
+system for abusing the terms of service.  In order to
+find out more, please contact an administrator of the
+system.
+{%- endtrans %}{% endblock %}

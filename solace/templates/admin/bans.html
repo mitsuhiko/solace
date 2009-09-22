@@ -1,0 +1,28 @@
+{% extends 'admin/layout.html' %}
+{% from '_helpers.html' import render_user %}
+{% block admin_body %}
+  <h2>{{ _('Bans') }}</h2>
+  <p>{% trans -%}
+    Ban and unban users.
+  {%- endtrans %}
+  <h3>{{ _('Add a new ban') }}</h3>
+  <p>{% trans -%}
+    In order to ban a user visit his profile and follow the
+    “ban user” link or enter his username into the following field:
+  {%- endtrans %}
+  {% call form() %}
+    {{ form.as_dl() }}
+    <div class="submit">
+      <input type="submit" value="{{ _('Ban user') }}">
+    </div>
+  {% endcall %}
+  {% if banned_users %}
+  <h3>{{ _('Banned Users') }}</h3>
+  <ul class="userlist">
+  {%- for user in banned_users %}
+    <li>{{ render_user(user, avatar_size=26) }}
+  {%- endfor %}
+  </ul>
+  {% endif %}
+  {{ pagination }}
+{% endblock %}

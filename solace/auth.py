@@ -193,12 +193,19 @@ class AuthSystemBase(object):
         request object will call this function for those two attributes.
 
         If the user is not logged in, the return value has to be `None`.
+        This method also has to check if the user was not banned.  If the
+        user is banned, it has to ensure that `None` is returned and
+        should ensure that future requests do not trigger this method.
 
         Most auth systems do not have to implement this method.
         """
         user_id = request.session.get('user_id')
         if user_id is not None:
-            return User.query.get(user_id)
+            user = User.query.get(user_id)
+            if user is not None and user.is_banned:
+                del request.session['user_id']
+            else:
+                return user
 
     def set_user(self, request, user):
         """Can be used by the login function to set the user.  This function

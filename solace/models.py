@@ -94,6 +94,10 @@ class UserQuery(Query):
         return self.filter(User.id.in_(select([ua.user_id],
                                               ua.locale == str(locale))))
 
+    def banned(self):
+        """Returns all the banned users."""
+        return self.filter_by(pw_hash=None)
+
 
 class User(RemoteObject):
     """Represents a user on the system."""

@@ -257,3 +257,13 @@ class CommentForm(forms.Form):
         if user is None:
             user = self.request.user
         return Comment(self.post, user, self['text'])
+
+
+class BanUserForm(forms.Form):
+    """Used to ban new users."""
+    username = forms.TextField(lazy_gettext(u'Username'), required=True)
+
+    def validate_username(self, value):
+        self.user = User.query.filter_by(username=value).first()
+        if self.user is None:
+            raise forms.ValidationError(_(u'No such user.'))
