@@ -176,6 +176,12 @@ REPUTATION_MAP = dict(
     IS_MODERATOR=10000
 )
 
+#: if solace is used behind a proxy, this is better set to true to
+#: let the system know to interpret proxy headers.  For security
+#: reasons you should not set this if you are *not* deploying behind
+#: a proxy.
+IS_BEHIND_PROXY = False
+
 
 def configure(**values):
     """Configuration shortcut."""

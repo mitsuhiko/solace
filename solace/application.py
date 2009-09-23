@@ -36,6 +36,12 @@ class Request(RequestBase):
     _locale = None
     _pulled_flash_messages = None
 
+    #: each request might transmit up to four megs of payload that
+    #: is stored in memory.  If more is transmitted, Werkzeug will
+    #: abort the request with an appropriate status code.  This should
+    #: not happen unless someone really tempers with the data.
+    max_form_memory_size = 4 * 1024 * 1024
+
     def __init__(self, environ):
         RequestBase.__init__(self, environ)
         before_request_init.emit()
@@ -243,6 +249,11 @@ class Request(RequestBase):
         """The active session."""
         return SecureCookie.load_cookie(self, settings.COOKIE_NAME,
                                         settings.SECRET_KEY)
+
+    @property
+    def is_behind_proxy(self):
+        """Are we behind a proxy?  Accessed by Werkzeug when needed."""
+        return settings.IS_BEHIND_PROXY
 
     def list_languages(self):
         """Lists all languages."""
