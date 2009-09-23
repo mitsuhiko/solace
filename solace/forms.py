@@ -286,12 +286,14 @@ class EditUserRedirectForm(forms.Form):
 
 class EditUserForm(ProfileEditForm):
     """Like the profile form."""
+    username = forms.TextField(lazy_gettext(u'Username'))
     is_admin = forms.BooleanField(lazy_gettext(u'Administrator'),
         help_text=lazy_gettext(u'Enable if this user is an admin.'))
 
     def __init__(self, user, initial=None, action=None, request=None):
         if user is not None:
-            initial = forms.fill_dict(initial, is_admin=user.is_admin)
+            initial = forms.fill_dict(initial, username=user.username,
+                                      is_admin=user.is_admin)
         ProfileEditForm.__init__(self, user, initial, action, request)
 
     def validate_is_admin(self, value):
@@ -301,4 +303,5 @@ class EditUserForm(ProfileEditForm):
 
     def apply_changes(self):
         super(EditUserForm, self).apply_changes()
+        self.user.username = self.data['username']
         self.user.is_admin = self.data['is_admin']

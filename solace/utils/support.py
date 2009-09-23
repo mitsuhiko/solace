@@ -174,6 +174,10 @@ class OrderedDict(dict):
         del self._keys[:]
         dict.clear(self)
 
+    def move(self, key, index):
+        self._keys.remove(key)
+        self._keys.insert(index, key)
+
     def copy(self):
         return self.__class__(self)
 

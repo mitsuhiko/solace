@@ -13,7 +13,7 @@
 import re
 import string
 from datetime import datetime
-from itertools import chain
+from itertools import chain, count
 from functools import update_wrapper
 from threading import Lock
 from urlparse import urljoin
@@ -82,15 +82,7 @@ def set_fields(obj, data, *fields):
             setattr(obj, field, value)
 
 
-def _next_position_hint():
-    """Return the next position hint."""
-    global _last_position_hint
-    _position_hint_lock.acquire()
-    try:
-        _last_position_hint += 1
-        return _last_position_hint
-    finally:
-        _position_hint_lock.release()
+_next_position_hint = count().next
 
 
 def _decode(data):

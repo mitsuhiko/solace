@@ -75,6 +75,7 @@ def edit_user(request, user):
     form = EditUserForm(user)
     if request.method == 'POST' and form.validate():
         request.flash(_(u'The user details where changed.'))
+        session.commit()
         return form.redirect('admin.edit_users')
     return render_template('admin/edit_user.html', form=form.as_widget(), user=user)
 
