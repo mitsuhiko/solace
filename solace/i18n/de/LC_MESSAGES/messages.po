@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Solace 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2009-08-14 12:14+0200\n"
-"PO-Revision-Date: 2009-09-22 20:47+0200\n"
+"PO-Revision-Date: 2009-09-23 11:39+0200\n"
 "Last-Translator: Armin Ronacher <armin.ronacher@active-4.com>\n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.4\n"
 
-#: solace/application.py:307 solace/application.py:334
+#: solace/application.py:317 solace/application.py:344
 msgid "You have to login in order to visit this page."
 msgstr "Du musst dich anmelden um diese Seite zu sehen."
 
-#: solace/application.py:318
+#: solace/application.py:328
 msgid "You cannot access this resource."
 msgstr "Du kannst diese Seite nicht ansehen."
 
@@ -372,19 +372,24 @@ msgid ""
 "    “ban user” link or enter his username into the following field:"
 msgstr ""
 "Um einen Benutzer zu bannen besuche sein Profil und folge dem\n"
-"„Banne Benutzer“ Link oder gibt seinen Benutzernamen in das folgende Feld ein:"
+"„Banne Benutzer“ Link oder gibt seinen Benutzernamen in das folgende Feld"
+" ein:"
 
 #: solace/templates/admin/bans.html:16
 msgid "Ban user"
 msgstr "Banne Benutzer"
 
-#: solace/templates/admin/bans.html:20
+#: solace/templates/admin/bans.html:19
 msgid "Banned Users"
 msgstr "Gebannte Benutzer"
 
-#: solace/templates/admin/bans.html:25 solace/templates/users/profile.html:39
+#: solace/templates/admin/bans.html:24 solace/templates/users/profile.html:39
 msgid "lift the ban"
 msgstr "Bann aufheben"
+
+#: solace/templates/admin/bans.html:26
+msgid "No users are currently banned."
+msgstr "Momentan sind keine Benutzer auf der Bannliste."
 
 #: solace/templates/admin/layout.html:7 solace/templates/admin/status.html:3
 msgid "Status"
@@ -473,7 +478,9 @@ msgstr "Fehlerhafte Anfrage"
 
 #: solace/templates/core/bad_request.html:5
 msgid "Your client made a request the server could not understand."
-msgstr "Dein Browser hat ein Anfrage an den Server gestellt, die nicht verarbeitet werden konnte."
+msgstr ""
+"Dein Browser hat ein Anfrage an den Server gestellt, die nicht "
+"verarbeitet werden konnte."
 
 #: solace/templates/core/forbidden.html:2
 #: solace/templates/core/forbidden.html:4
@@ -673,7 +680,7 @@ msgstr "Wiederherstellen"
 msgid "Delete"
 msgstr "Löschen"
 
-#: solace/templates/kb/by_tag.html:3 solace/views/kb.py:141
+#: solace/templates/kb/by_tag.html:3 solace/views/kb.py:142
 #, python-format
 msgid "Questions Tagged “%s”"
 msgstr "Fragen getaggt als „%s“"
@@ -903,7 +910,7 @@ msgstr "Neue Antwort"
 msgid "Add Reply"
 msgstr "Antwort hinzufügen"
 
-#: solace/templates/kb/unanswered.html:3 solace/views/kb.py:116
+#: solace/templates/kb/unanswered.html:3 solace/views/kb.py:117
 msgid "Unanswered Questions"
 msgstr "Unbeantwortete Fragen"
 
@@ -1146,7 +1153,9 @@ msgstr "Dieses Feld ist erforderlich."
 
 #: solace/utils/forms.py:1102
 msgid "Form submitted multiple times or session expired.  Try again."
-msgstr "Formular mehrmalig abgesendet oder Sitzung abgelaufen.  Probiere es nochmal."
+msgstr ""
+"Formular mehrmalig abgesendet oder Sitzung abgelaufen.  Probiere es "
+"nochmal."
 
 #: solace/utils/forms.py:1111
 msgid "You entered an invalid captcha."
@@ -1309,90 +1318,87 @@ msgstr ""
 "Die Sprache der Benutzeroberfläche wurde auf %s geändert.  Du wurdest "
 "gleichzeitig zur Hilfesektion dieser Sprache weitergeleitet."
 
-#: solace/views/kb.py:85 solace/views/kb.py:225
+#: solace/views/kb.py:86 solace/views/kb.py:226
 msgid "(deleted)"
 msgstr "(gelöscht)"
 
-#: solace/views/kb.py:104
+#: solace/views/kb.py:105
 msgid "Questions"
 msgstr "Sektionen"
 
-#: solace/views/kb.py:179
+#: solace/views/kb.py:180
 msgid "Your reply was posted."
 msgstr "Deine Antwort wurde abgsendet."
 
-#: solace/views/kb.py:223
+#: solace/views/kb.py:224
 #, python-format
 msgid "Answer by %s"
 msgstr "Antwort von %s"
 
-#: solace/views/kb.py:242
+#: solace/views/kb.py:243
 msgid "Your question was posted."
 msgstr "Die Frage wurde abgesendet."
 
-#: solace/views/kb.py:277
+#: solace/views/kb.py:278
 msgid "The post was edited."
 msgstr "Der Beitrag wurde bearbeitet."
 
-#: solace/views/kb.py:281
+#: solace/views/kb.py:282
 #, python-format
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: solace/views/kb.py:284
+#: solace/views/kb.py:285
 msgid "Current revision"
 msgstr "Aktuelle Revision"
 
-#: solace/views/kb.py:308
+#: solace/views/kb.py:309
 msgid "The post was deleted"
 msgstr "Der Beitrag wurde gelöscht."
 
-#: solace/views/kb.py:332
+#: solace/views/kb.py:333
 msgid "The post was restored"
 msgstr "Der Beitrag wurde wiederhergestellt."
 
-#: solace/views/kb.py:335
+#: solace/views/kb.py:336
 msgid "The revision was restored"
 msgstr "Die Revision wurde wiederhergestellt."
 
-#: solace/views/kb.py:393
+#: solace/views/kb.py:397
 msgid "You cannot vote on deleted posts."
 msgstr "Du kannst nicht für gelöschte Beiträge stimmen."
 
-#: solace/views/kb.py:406
+#: solace/views/kb.py:410
 msgid "You cannot upvote your own post."
 msgstr "Du kannst nicht für deinen eigenen Beitrag stimmen."
 
-#: solace/views/kb.py:414
+#: solace/views/kb.py:418
 #, python-format
 msgid "In order to upvote you need at least %d reputation"
 msgstr "Um upzuvoten musst du zumindest %d Ansehen haben"
 
-#: solace/views/kb.py:427
+#: solace/views/kb.py:431
 #, python-format
 msgid "In order to downvote you need at least %d reputation"
 msgstr "Um downzuvoten musst du mindestens %d Ansehen haben"
 
-#: solace/views/kb.py:463
+#: solace/views/kb.py:471
 msgid "You cannot accept deleted posts as answers"
 msgstr "Du kannst gelöschte Beiträge nicht als Antworten akzeptieren."
 
-#: solace/views/kb.py:475
+#: solace/views/kb.py:483
 msgid "You cannot unaccept this reply as an answer."
 msgstr "Du kannst diese Antwort nicht de-akzeptieren."
 
-#: solace/views/kb.py:488
+#: solace/views/kb.py:496
 msgid "You cannot accept this reply as answer."
 msgstr "Du kannst diese Antwort nicht akzeptieren."
 
-#: solace/views/kb.py:540
+#: solace/views/kb.py:548
 msgid "You cannot submit comments for deleted posts"
 msgstr "Du kannst nicht Kommentare zu gelöschten Posts abgeben."
 
 #: solace/views/users.py:84
 msgid "Your profile was updated"
 msgstr "Dein Profil wurde aktualisiert"
-
-#~ msgid "Invalid security token submitted."
-#~ msgstr "Ungültigere Sicherheits-Token übermittelt."
 

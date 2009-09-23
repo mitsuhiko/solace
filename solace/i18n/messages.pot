@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Plurk_Solace 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2009-09-22 20:47+0200\n"
+"POT-Creation-Date: 2009-09-23 11:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.4\n"
 
-#: solace/application.py:307 solace/application.py:334
+#: solace/application.py:317 solace/application.py:344
 msgid "You have to login in order to visit this page."
 msgstr ""
 
-#: solace/application.py:318
+#: solace/application.py:328
 msgid "You cannot access this resource."
 msgstr ""
 
@@ -374,12 +374,16 @@ msgstr ""
 msgid "Ban user"
 msgstr ""
 
-#: solace/templates/admin/bans.html:20
+#: solace/templates/admin/bans.html:19
 msgid "Banned Users"
 msgstr ""
 
-#: solace/templates/admin/bans.html:25 solace/templates/users/profile.html:39
+#: solace/templates/admin/bans.html:24 solace/templates/users/profile.html:39
 msgid "lift the ban"
+msgstr ""
+
+#: solace/templates/admin/bans.html:26
+msgid "No users are currently banned."
 msgstr ""
 
 #: solace/templates/admin/layout.html:7 solace/templates/admin/status.html:3
@@ -636,7 +640,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: solace/templates/kb/by_tag.html:3 solace/views/kb.py:141
+#: solace/templates/kb/by_tag.html:3 solace/views/kb.py:142
 #, python-format
 msgid "Questions Tagged “%s”"
 msgstr ""
@@ -819,7 +823,7 @@ msgstr ""
 msgid "Add Reply"
 msgstr ""
 
-#: solace/templates/kb/unanswered.html:3 solace/views/kb.py:116
+#: solace/templates/kb/unanswered.html:3 solace/views/kb.py:117
 msgid "Unanswered Questions"
 msgstr ""
 
@@ -1172,83 +1176,83 @@ msgid ""
 "help section of that language."
 msgstr ""
 
-#: solace/views/kb.py:85 solace/views/kb.py:225
+#: solace/views/kb.py:86 solace/views/kb.py:226
 msgid "(deleted)"
 msgstr ""
 
-#: solace/views/kb.py:104
+#: solace/views/kb.py:105
 msgid "Questions"
 msgstr ""
 
-#: solace/views/kb.py:179
+#: solace/views/kb.py:180
 msgid "Your reply was posted."
 msgstr ""
 
-#: solace/views/kb.py:223
+#: solace/views/kb.py:224
 #, python-format
 msgid "Answer by %s"
 msgstr ""
 
-#: solace/views/kb.py:242
+#: solace/views/kb.py:243
 msgid "Your question was posted."
 msgstr ""
 
-#: solace/views/kb.py:277
+#: solace/views/kb.py:278
 msgid "The post was edited."
 msgstr ""
 
-#: solace/views/kb.py:281
+#: solace/views/kb.py:282
 #, python-format
 msgid "%s (%s)"
 msgstr ""
 
-#: solace/views/kb.py:284
+#: solace/views/kb.py:285
 msgid "Current revision"
 msgstr ""
 
-#: solace/views/kb.py:308
+#: solace/views/kb.py:309
 msgid "The post was deleted"
 msgstr ""
 
-#: solace/views/kb.py:332
+#: solace/views/kb.py:333
 msgid "The post was restored"
 msgstr ""
 
-#: solace/views/kb.py:335
+#: solace/views/kb.py:336
 msgid "The revision was restored"
 msgstr ""
 
-#: solace/views/kb.py:393
+#: solace/views/kb.py:397
 msgid "You cannot vote on deleted posts."
 msgstr ""
 
-#: solace/views/kb.py:406
+#: solace/views/kb.py:410
 msgid "You cannot upvote your own post."
 msgstr ""
 
-#: solace/views/kb.py:414
+#: solace/views/kb.py:418
 #, python-format
 msgid "In order to upvote you need at least %d reputation"
 msgstr ""
 
-#: solace/views/kb.py:427
+#: solace/views/kb.py:431
 #, python-format
 msgid "In order to downvote you need at least %d reputation"
 msgstr ""
 
-#: solace/views/kb.py:463
+#: solace/views/kb.py:471
 msgid "You cannot accept deleted posts as answers"
 msgstr ""
 
-#: solace/views/kb.py:475
+#: solace/views/kb.py:483
 msgid "You cannot unaccept this reply as an answer."
 msgstr ""
 
-#: solace/views/kb.py:488
+#: solace/views/kb.py:496
 msgid "You cannot accept this reply as answer."
 msgstr ""
 
-#: solace/views/kb.py:540
+#: solace/views/kb.py:548
 msgid "You cannot submit comments for deleted posts"
 msgstr ""
 

@@ -16,15 +16,15 @@
       <input type="submit" value="{{ _('Ban user') }}">
     </div>
   {% endcall %}
-  {% if banned_users %}
   <h3>{{ _('Banned Users') }}</h3>
   <ul class="userlist">
   {%- for user in banned_users %}
     <li>{{ render_user(user, avatar_size=26) }}
       <span class="action">[<a href="{{ url_for('admin.unban', user=user.username)
         }}">{{ _('lift the ban') }}</a>]</span>
+  {%- else %}
+    <li>{{ _('No users are currently banned.') }}
   {%- endfor %}
   </ul>
-  {% endif %}
   {{ pagination }}
 {% endblock %}

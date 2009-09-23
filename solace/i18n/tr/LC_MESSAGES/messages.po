@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Solace 0.1\n"
 "Report-Msgid-Bugs-To: muhuk@muhuk.com\n"
 "POT-Creation-Date: 2009-08-31 02:34+0200\n"
-"PO-Revision-Date: 2009-09-22 20:47+0200\n"
+"PO-Revision-Date: 2009-09-23 11:39+0200\n"
 "Last-Translator: Atamert Ölçgen <muhuk@muhuk.com>\n"
 "Language-Team: tr <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.4\n"
 
-#: solace/application.py:307 solace/application.py:334
+#: solace/application.py:317 solace/application.py:344
 msgid "You have to login in order to visit this page."
 msgstr "Bu sayfayı görebilmek için giriş yapmalısınız."
 
-#: solace/application.py:318
+#: solace/application.py:328
 #, fuzzy
 msgid "You cannot access this resource."
 msgstr "Bu yanıtı kabul edemezsiniz."
@@ -375,13 +375,18 @@ msgstr ""
 msgid "Ban user"
 msgstr ""
 
-#: solace/templates/admin/bans.html:20
+#: solace/templates/admin/bans.html:19
 msgid "Banned Users"
 msgstr ""
 
-#: solace/templates/admin/bans.html:25 solace/templates/users/profile.html:39
+#: solace/templates/admin/bans.html:24 solace/templates/users/profile.html:39
 msgid "lift the ban"
 msgstr ""
+
+#: solace/templates/admin/bans.html:26
+#, fuzzy
+msgid "No users are currently banned."
+msgstr "Bu kullanıcı adı kullanımda."
 
 #: solace/templates/admin/layout.html:7 solace/templates/admin/status.html:3
 msgid "Status"
@@ -658,7 +663,7 @@ msgstr "Geri al"
 msgid "Delete"
 msgstr "Sil"
 
-#: solace/templates/kb/by_tag.html:3 solace/views/kb.py:141
+#: solace/templates/kb/by_tag.html:3 solace/views/kb.py:142
 #, python-format
 msgid "Questions Tagged “%s”"
 msgstr "“%s” Etiketli Sorular"
@@ -890,7 +895,7 @@ msgstr "Yeni Yanıt"
 msgid "Add Reply"
 msgstr "Yanıt Ekle"
 
-#: solace/templates/kb/unanswered.html:3 solace/views/kb.py:116
+#: solace/templates/kb/unanswered.html:3 solace/views/kb.py:117
 msgid "Unanswered Questions"
 msgstr "Yanıtlanmamış Sorular"
 
@@ -1288,91 +1293,88 @@ msgstr ""
 "Arabirim dili %s olarak ayarlanmıştı.  Ayrıca aynı dilin yardım bölümüne "
 "yönlendirildiniz."
 
-#: solace/views/kb.py:85 solace/views/kb.py:225
+#: solace/views/kb.py:86 solace/views/kb.py:226
 #, fuzzy
 msgid "(deleted)"
 msgstr "Sil"
 
-#: solace/views/kb.py:104
+#: solace/views/kb.py:105
 msgid "Questions"
 msgstr "Sorular"
 
-#: solace/views/kb.py:179
+#: solace/views/kb.py:180
 msgid "Your reply was posted."
 msgstr "Yanıtınız gönderildi."
 
-#: solace/views/kb.py:223
+#: solace/views/kb.py:224
 #, python-format
 msgid "Answer by %s"
 msgstr "%s tarafından yanıtlandı"
 
-#: solace/views/kb.py:242
+#: solace/views/kb.py:243
 msgid "Your question was posted."
 msgstr "Sorunuz gönderildi."
 
-#: solace/views/kb.py:277
+#: solace/views/kb.py:278
 msgid "The post was edited."
 msgstr "Düzenlemeleriniz kaydedildi."
 
-#: solace/views/kb.py:281
+#: solace/views/kb.py:282
 #, python-format
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: solace/views/kb.py:284
+#: solace/views/kb.py:285
 msgid "Current revision"
 msgstr "Şimdiki hali"
 
-#: solace/views/kb.py:308
+#: solace/views/kb.py:309
 msgid "The post was deleted"
 msgstr "Girdi silindi"
 
-#: solace/views/kb.py:332
+#: solace/views/kb.py:333
 msgid "The post was restored"
 msgstr "Girdi geri alındı"
 
-#: solace/views/kb.py:335
+#: solace/views/kb.py:336
 msgid "The revision was restored"
 msgstr "Düzenlemeye geri dönüldü"
 
-#: solace/views/kb.py:393
+#: solace/views/kb.py:397
 msgid "You cannot vote on deleted posts."
 msgstr "Silinmiş girdileri oylayamazsınız."
 
-#: solace/views/kb.py:406
+#: solace/views/kb.py:410
 msgid "You cannot upvote your own post."
 msgstr "Kendi girdinize puan veremezsiniz."
 
-#: solace/views/kb.py:414
+#: solace/views/kb.py:418
 #, python-format
 msgid "In order to upvote you need at least %d reputation"
 msgstr "Puan vermek için en az %d saygınlığa ihtiyacınız var"
 
-#: solace/views/kb.py:427
+#: solace/views/kb.py:431
 #, python-format
 msgid "In order to downvote you need at least %d reputation"
 msgstr "Puan kırmak için en az %d saygınlığa ihtiyacınız var"
 
-#: solace/views/kb.py:463
+#: solace/views/kb.py:471
 msgid "You cannot accept deleted posts as answers"
 msgstr "Silinmiş yanıtları kabul edemezsiniz"
 
-#: solace/views/kb.py:475
+#: solace/views/kb.py:483
 msgid "You cannot unaccept this reply as an answer."
 msgstr "Bu yanıtın kabulünü geri alamazsınız."
 
-#: solace/views/kb.py:488
+#: solace/views/kb.py:496
 msgid "You cannot accept this reply as answer."
 msgstr "Bu yanıtı kabul edemezsiniz."
 
-#: solace/views/kb.py:540
+#: solace/views/kb.py:548
 msgid "You cannot submit comments for deleted posts"
 msgstr "Silinmiş girdilere yorum ekleyemezsiniz"
 
 #: solace/views/users.py:84
 msgid "Your profile was updated"
 msgstr "Profiliniz güncellendi"
-
-#~ msgid "Invalid security token submitted."
-#~ msgstr "Geçersiz güvenlik kodu gönderildi."
 
