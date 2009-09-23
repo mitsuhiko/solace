@@ -14,7 +14,7 @@ from werkzeug.exceptions import Forbidden, NotFound
 from solace.i18n import _
 from solace.application import require_admin, url_for
 from solace.models import User, session
-from solace.forms import BanUserForm
+from solace.forms import BanUserForm, EditUserRedirectForm, EditUserForm
 from solace.settings import describe_settings
 from solace.templating import render_template
 from solace.utils.pagination import Pagination
@@ -51,6 +51,32 @@ def bans(request):
     return render_template('admin/bans.html', pagination=pagination,
                            banned_users=pagination.get_objects(),
                            form=form.as_widget())
+
+
+@require_admin
+def edit_users(request):
+    """Edit a user."""
+    pagination = Pagination(request, User.query, request.args.get('page', type=int))
+    form = EditUserRedirectForm()
+
+    if request.method == 'POST' and form.validate():
+        return redirect(url_for('admin.edit_user', user=form.user.username))
+
+    return render_template('admin/edit_users.html', pagination=pagination,
+                           users=pagination.get_objects(), form=form.as_widget())
+
+
+@require_admin
+def edit_user(request, user):
+    """Edits a user."""
+    user = User.query.filter_by(username=user).first()
+    if user is None:
+        raise NotFound()
+    form = EditUserForm(user)
+    if request.method == 'POST' and form.validate():
+        request.flash(_(u'The user details where changed.'))
+        return form.redirect('admin.edit_users')
+    return render_template('admin/edit_user.html', form=form.as_widget(), user=user)
 
 
 @exchange_token_protected

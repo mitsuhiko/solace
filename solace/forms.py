@@ -271,3 +271,34 @@ class BanUserForm(forms.Form):
            self.request.user == user:
             raise forms.ValidationError(_(u'You cannot ban yourself.'))
         self.user = user
+
+
+class EditUserRedirectForm(forms.Form):
+    """Redirects to a user edit page."""
+    username = forms.TextField(lazy_gettext(u'Username'), required=True)
+
+    def validate_username(self, value):
+        user = User.query.filter_by(username=value).first()
+        if user is None:
+            raise forms.ValidationError(_(u'No such user.'))
+        self.user = user
+
+
+class EditUserForm(ProfileEditForm):
+    """Like the profile form."""
+    is_admin = forms.BooleanField(lazy_gettext(u'Administrator'),
+        help_text=lazy_gettext(u'Enable if this user is an admin.'))
+
+    def __init__(self, user, initial=None, action=None, request=None):
+        if user is not None:
+            initial = forms.fill_dict(initial, is_admin=user.is_admin)
+        ProfileEditForm.__init__(self, user, initial, action, request)
+
+    def validate_is_admin(self, value):
+        if not value and self.request and self.request.user == self.user:
+            raise forms.ValidationError(u'You cannot remove your own '
+                                        u'admin rights.')
+
+    def apply_changes(self):
+        super(EditUserForm, self).apply_changes()
+        self.user.is_admin = self.data['is_admin']

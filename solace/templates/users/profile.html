@@ -35,10 +35,11 @@
     {% if request.is_logged_in and request.user.is_admin %}
     <dt>{{ _('Administrative tasks') }}
     <dd>
+      <a href="{{ url_for('admin.edit_user', user=user.username) }}">{{ _('Edit User') }}</a> |
       {% if user.is_banned %}
-      <a href="{{ url_for('admin.unban_user', user=user.username) }}">{{ _('lift the ban') }}</a>
+      <a href="{{ url_for('admin.unban_user', user=user.username) }}">{{ _('Lift the Ban') }}</a>
       {% else %}
-      <a href="{{ url_for('admin.ban_user', user=user.username) }}">{{ _('ban this user') }}</a>
+      <a href="{{ url_for('admin.ban_user', user=user.username) }}">{{ _('Ban this User') }}</a>
       {% endif %}
     {% endif %}
   </dl>

@@ -1,0 +1,28 @@
+{% extends 'admin/layout.html' %}
+{% from '_helpers.html' import render_user %}
+{% block admin_body %}
+  <h2>{{ _('Edit Users') }}</h2>
+  <p>{% trans -%}
+    Edit user profiles.
+  {%- endtrans %}
+  <h3>{{ _('Edit a specific user') }}</h3>
+  <p>{% trans -%}
+    In order to edit a user visit his profile and follow the
+    “Edit User” link or enter his username into the following field:
+  {%- endtrans %}
+  {% call form() %}
+    {{ form.as_dl() }}
+    <div class="submit">
+      <input type="submit" value="{{ _('Edit User') }}">
+    </div>
+  {% endcall %}
+  <h3>{{ _('All Users') }}</h3>
+  <ul class="userlist">
+  {%- for user in users %}
+    <li>{{ render_user(user, avatar_size=26) }}
+      <span class="action">[<a href="{{ url_for('admin.edit_user', user=user.username)
+        }}">{{ _('Edit User') }}</a>]</span>
+  {%- endfor %}
+  </ul>
+  {{ pagination }}
+{% endblock %}

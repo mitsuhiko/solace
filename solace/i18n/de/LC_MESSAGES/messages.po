@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Solace 0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2009-08-14 12:14+0200\n"
-"PO-Revision-Date: 2009-09-23 11:39+0200\n"
+"PO-Revision-Date: 2009-09-24 00:14+0200\n"
 "Last-Translator: Armin Ronacher <armin.ronacher@active-4.com>\n"
 "Language-Team: de <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.4\n"
 
-#: solace/application.py:317 solace/application.py:344
+#: solace/application.py:328 solace/application.py:355
 msgid "You have to login in order to visit this page."
 msgstr "Du musst dich anmelden um diese Seite zu sehen."
 
-#: solace/application.py:328
+#: solace/application.py:339
 msgid "You cannot access this resource."
 msgstr "Du kannst diese Seite nicht ansehen."
 
@@ -160,7 +160,7 @@ msgid "The username may not begin or end with a dot."
 msgstr "Der Benutzername darf nicht mit einem Punkt beginnen oder enden."
 
 #: solace/forms.py:40 solace/forms.py:53 solace/forms.py:81 solace/forms.py:264
-#: solace/templates/users/profile.html:22
+#: solace/forms.py:278 solace/templates/users/profile.html:22
 msgid "Username"
 msgstr "Benutzername"
 
@@ -251,13 +251,21 @@ msgstr "Du hast zu viele Tags angegeben.  Maximal sind 10 erlaubt."
 msgid "Write your reply and answer the question"
 msgstr "Schreib deine Rückmeldung und beantworte die Frage"
 
-#: solace/forms.py:269
+#: solace/forms.py:269 solace/forms.py:283
 msgid "No such user."
 msgstr "Kein solcher Benutzer."
 
 #: solace/forms.py:272
 msgid "You cannot ban yourself."
 msgstr "Du kannst dich nicht selbst bannen."
+
+#: solace/forms.py:289
+msgid "Administrator"
+msgstr "Administrator"
+
+#: solace/forms.py:290
+msgid "Enable if this user is an admin."
+msgstr "Aktiviere dies, wenn der Benutzer ein Administrator ist."
 
 #. : i18n support, leave in place for custom settings modules
 #. : the platform we're running on
@@ -346,7 +354,7 @@ msgid "Users"
 msgstr "Benutzer"
 
 #: solace/templates/layout.html:68 solace/templates/badges/show_list.html:3
-#: solace/templates/users/profile.html:65
+#: solace/templates/users/profile.html:66
 msgid "Badges"
 msgstr "Plaketten"
 
@@ -383,13 +391,60 @@ msgstr "Banne Benutzer"
 msgid "Banned Users"
 msgstr "Gebannte Benutzer"
 
-#: solace/templates/admin/bans.html:24 solace/templates/users/profile.html:39
+#: solace/templates/admin/bans.html:24 solace/templates/admin/edit_user.html:11
 msgid "lift the ban"
 msgstr "Bann aufheben"
 
 #: solace/templates/admin/bans.html:26
 msgid "No users are currently banned."
 msgstr "Momentan sind keine Benutzer auf der Bannliste."
+
+#: solace/templates/admin/edit_user.html:5
+#, python-format
+msgid "Edit User “%s”"
+msgstr "Bearbeite Benutzer „%s“"
+
+#: solace/templates/admin/edit_user.html:9
+msgid "Related actions:"
+msgstr "Verwandte Aktionen:"
+
+#: solace/templates/admin/edit_user.html:13
+msgid "ban this user"
+msgstr "banne diesen Benutzer"
+
+#: solace/templates/admin/edit_user.html:16
+#: solace/templates/admin/edit_users.html:16
+#: solace/templates/admin/edit_users.html:24
+#: solace/templates/users/profile.html:38
+msgid "Edit User"
+msgstr "Bearbeite Benutzer"
+
+#: solace/templates/admin/edit_users.html:4
+#: solace/templates/admin/layout.html:9
+msgid "Edit Users"
+msgstr "Bearbeite Benutzer"
+
+#: solace/templates/admin/edit_users.html:5
+msgid "Edit user profiles."
+msgstr "Bearbeiten Benutzer Profile."
+
+#: solace/templates/admin/edit_users.html:8
+msgid "Edit a specific user"
+msgstr "Bearbeite einen bestimmten Benutzer"
+
+#: solace/templates/admin/edit_users.html:9
+msgid ""
+"In order to edit a user visit his profile and follow the\n"
+"    “Edit User” link or enter his username into the following field:"
+msgstr ""
+"Um einen Benutzer zu bearbeiten besuche sein Profil und folge dem\n"
+"„Bearbeite Benutzer“ Link oder gibt seinen Benutzernamen in das folgende "
+"Feld ein:"
+
+#: solace/templates/admin/edit_users.html:19
+#: solace/templates/users/userlist.html:3
+msgid "All Users"
+msgstr "Alle Benutzer"
 
 #: solace/templates/admin/layout.html:7 solace/templates/admin/status.html:3
 msgid "Status"
@@ -604,7 +659,7 @@ msgstr "Neueste"
 msgid "Hot"
 msgstr "Heiß"
 
-#: solace/templates/kb/_boxes.html:47 solace/templates/users/profile.html:51
+#: solace/templates/kb/_boxes.html:47 solace/templates/users/profile.html:52
 msgid "Votes"
 msgstr "Stimmen"
 
@@ -633,13 +688,13 @@ msgstr[1] "Dieser Beitrag wurde %d mal editiert."
 msgid "Show revisions"
 msgstr "Revisionen anzeigen"
 
-#: solace/templates/kb/_boxes.html:100 solace/templates/users/profile.html:54
-#: solace/templates/users/profile.html:59
+#: solace/templates/kb/_boxes.html:100 solace/templates/users/profile.html:55
+#: solace/templates/users/profile.html:60
 msgid "Up"
 msgstr "Hoch"
 
-#: solace/templates/kb/_boxes.html:102 solace/templates/users/profile.html:56
-#: solace/templates/users/profile.html:61
+#: solace/templates/kb/_boxes.html:102 solace/templates/users/profile.html:57
+#: solace/templates/users/profile.html:62
 msgid "Down"
 msgstr "Nieder"
 
@@ -1044,29 +1099,29 @@ msgstr "Geordnet nach Aktivität, die Höchste zuerst"
 msgid "Administrative tasks"
 msgstr "Administrationsaufgaben"
 
-#: solace/templates/users/profile.html:41
-msgid "ban this user"
+#: solace/templates/users/profile.html:40
+msgid "Lift the Ban"
+msgstr "Bann aufheben"
+
+#: solace/templates/users/profile.html:42
+msgid "Ban this User"
 msgstr "banne diesen Benutzer"
 
-#: solace/templates/users/profile.html:46
+#: solace/templates/users/profile.html:47
 msgid "This user was banned"
 msgstr "Dieser Benutzer wurde gebannt"
 
-#: solace/templates/users/profile.html:48
+#: solace/templates/users/profile.html:49
 msgid "Reputation"
 msgstr "Ansehen"
 
-#: solace/templates/users/profile.html:75
+#: solace/templates/users/profile.html:76
 msgid "Most Popular Questions"
 msgstr "Die bliebtesten Fragen"
 
-#: solace/templates/users/profile.html:79
+#: solace/templates/users/profile.html:80
 msgid "Most Popular Replies"
 msgstr "Die bliebtesten Antworten"
-
-#: solace/templates/users/userlist.html:3
-msgid "All Users"
-msgstr "Alle Benutzer"
 
 #: solace/templates/users/userlist.html:4
 #: solace/templates/users/userlist.html:16
@@ -1260,21 +1315,25 @@ msgstr "Ton als MP3 herunterladen"
 msgid "Incorrect. Try again."
 msgstr "Falsch, bitte probiere es nochmal"
 
-#: solace/views/admin.py:47 solace/views/admin.py:85
+#: solace/views/admin.py:47 solace/views/admin.py:111
 #, python-format
 msgid "The user “%s” was successfully banned and notified."
 msgstr "Der Benutzer “%s” wurde erfolgreich gebannt und benachrichtigt."
 
-#: solace/views/admin.py:65
+#: solace/views/admin.py:77
+msgid "The user details where changed."
+msgstr "Die Benutzerdetails wurden verändert."
+
+#: solace/views/admin.py:91
 msgid "The user is not banned."
 msgstr "Der Benutzer ist nicht gebannt."
 
-#: solace/views/admin.py:68
+#: solace/views/admin.py:94
 #, python-format
 msgid "The user “%s” was successfully unbanned and notified."
 msgstr "Der Benutzer “%s” wurde erfolgreich entbannt und benachrichtigt."
 
-#: solace/views/admin.py:82
+#: solace/views/admin.py:108
 msgid "The user is already banned."
 msgstr "Dieser Benutzer ist bereits gebannt."
 

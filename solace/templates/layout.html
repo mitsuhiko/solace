@@ -1,7 +1,7 @@
 <!doctype html>
 {%- from '_helpers.html' import render_user %}
 {%- block html_head %}
-<title>{% block html_head_title %}{% if page_title %}{{ page_title
+<title>{% block html_head_title %}{% if page_title %}{{ page_title|e
   }} | {% endif %}{{ settings.WEBSITE_TITLE|e }}{% endblock %}</title>
 {{ packs.default }}
 <script type="text/javascript" src="{{ url_for('core.get_translations', lang=request.locale) }}"></script>

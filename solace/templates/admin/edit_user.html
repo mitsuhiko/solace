@@ -1,0 +1,19 @@
+{% extends 'admin/layout.html' %}
+{% from '_helpers.html' import render_user %}
+{% set admin_navigation_item = 'admin.edit_users' %}
+{% block admin_body %}
+  <h2>{{ _('Edit User “%s”') % ('<a href="%s">%s</a>' %
+    (url_for(user), user.display_name|e )) }}</h2>
+  {% call form() %}
+    {{ form.as_dl() }}
+    <p>{{ _('Related actions:') }}
+      {% if user.is_banned %}
+      <a href="{{ url_for('admin.unban_user', user=user.username) }}">{{ _('lift the ban') }}</a>
+      {% else %}
+      <a href="{{ url_for('admin.ban_user', user=user.username) }}">{{ _('ban this user') }}</a>
+      {% endif %}
+    <div class="buttons">
+      <input type="submit" value="{{ _('Edit User') }}">
+    </div>
+  {% endcall %}
+{% endblock %}

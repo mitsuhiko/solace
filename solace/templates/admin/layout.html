@@ -5,8 +5,9 @@
     <h1>{{ _('Admin Panel') }}</h1>
     <ul class="admin_navigation">
     {%- for endpoint, title in [('admin.status', _('Status')),
-                                ('admin.bans', _('Bans'))] %}
-      <li{% if endpoint == request.endpoint %} class="active"{%
+                                ('admin.bans', _('Bans')),
+                                ('admin.edit_users', _('Edit Users'))] %}
+      <li{% if endpoint == (admin_navigation_item or request.endpoint) %} class="active"{%
         endif %}><a href="{{ url_for(endpoint) }}">{{ title }}</a>
     {%- endfor %}
     </ul>
