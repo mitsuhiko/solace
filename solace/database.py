@@ -15,6 +15,7 @@ from threading import Lock
 from datetime import datetime
 from babel import Locale
 from sqlalchemy.types import TypeDecorator
+from sqlalchemy.engine.url import make_url
 from sqlalchemy.interfaces import ConnectionProxy
 from sqlalchemy.orm.session import Session
 from sqlalchemy.orm.interfaces import SessionExtension, MapperExtension, \
@@ -44,7 +45,16 @@ def get_engine():
                        'convert_unicode': True}
             if settings.TRACK_QUERIES:
                 options['proxy'] = ConnectionQueryTrackingProxy()
-            _engine = create_engine(settings.DATABASE_URI, **options)
+            uri = make_url(settings.DATABASE_URI)
+
+            # if mysql is the database engine and no connection encoding is
+            # provided we set it to the mysql charset (defaults to utf8)
+            # and set up a mysql friendly pool
+            if uri.drivername == 'mysql':
+                uri.query.setdefault('charset', 'utf8')
+                options['pool_recycle'] = settings.MYSQL_POOL_RECYCLE
+
+            _engine = create_engine(uri, **options)
         return _engine
 
 
@@ -214,7 +224,12 @@ session = orm.scoped_session(SignalTrackingSession)
 def init():
     """Initializes the database."""
     import solace.schema
-    metadata.create_all(bind=get_engine())
+    engine = get_engine()
+    if engine.name == 'mysql':
+        for table in metadata.tables.itervalues():
+            table.kwargs.update(mysql_engine=settings.MYSQL_ENGINE,
+                                mysql_charset=settings.MYSQL_TABLE_CHARSET)
+    metadata.create_all(bind=engine)
 
 
 def drop_tables():

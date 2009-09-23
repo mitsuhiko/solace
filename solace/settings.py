@@ -48,6 +48,15 @@ TRACK_QUERIES = False
 #: if set to True, queries are printed to stderr
 DATABASE_ECHO = False
 
+#: mysql table charset (only relevant for table creation)
+MYSQL_TABLE_CHARSET = 'utf8'
+
+#: mysql engine (only relevant for table creation)
+MYSQL_ENGINE = 'InnoDB'
+
+#: if mysql is enabled, this timeout is used for the pool recycling
+MYSQL_POOL_RECYCLE = 300
+
 #: the cookie name
 COOKIE_NAME = 'session'
 
