@@ -158,19 +158,17 @@ class ProfileEditForm(forms.Form):
     def __init__(self, user, initial=None, action=None, request=None):
         self.user = user
         self.auth_system = get_auth_system()
+        if user is not None:
+            initial = forms.fill_dict(initial, real_name=user.real_name)
+            if self.auth_system.email_managed_external:
+                initial['email'] = user.email
+        forms.Form.__init__(self, initial, action, request)
         if self.auth_system.passwordless or \
            self.auth_system.password_managed_external:
             del self.fields['password']
             del self.fields['password_repeat']
         if self.auth_system.email_managed_external:
             del self.fields['email']
-
-        if user is not None:
-            initial = forms.fill_dict(initial, real_name=user.real_name)
-            if 'email' in self.fields:
-                initial['email'] = user.email
-
-        forms.Form.__init__(self, initial, action, request)
 
     def context_validate(self, data):
         password = data.get('password')
