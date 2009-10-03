@@ -129,10 +129,14 @@ class OpenIDAuth(AuthSystemBase):
         raise NotFound()
 
     def first_login(self, request):
-        identity_url = request.session.pop('openid', None)
+        """Until the openid information is removed from the session, this view
+        will be use to create the user account based on the openid url.
+        """
+        identity_url = request.session.get('openid')
         if identity_url is None:
             return redirect(url_for('core.login'))
         if request.is_logged_in:
+            del request.session['openid']
             return redirect(request.next_url or url_for('kb.overview'))
 
         form = OpenIDRegistrationForm()
@@ -142,6 +146,7 @@ class OpenIDAuth(AuthSystemBase):
             self.after_register(request, user)
             session.commit()
             self.set_user(request, user)
+            del request.session['openid']
             return self.redirect_back(request)
 
         return render_template('core/register_openid.html', form=form.as_widget(),
@@ -176,9 +181,13 @@ class OpenIDAuth(AuthSystemBase):
     def create_or_login(self, request, identity_url):
         q = _OpenIDUserMapping.query.filter_by(identity_url=identity_url)
         um = q.first()
+        # we don't have a user for this openid yet.  What we want to do
+        # now is to remember the openid in the session until we have the
+        # user.  We're using the session because it is signed.
         if um is None:
             request.session['openid'] = identity_url
-            return redirect(url_for('core.login', firstlogin='yes'))
+            return redirect(url_for('core.login', firstlogin='yes',
+                                    next=request.next_url))
         self.set_user(request, um.user)
         return self.redirect_back(request)
 
@@ -189,5 +198,6 @@ class OpenIDAuth(AuthSystemBase):
         except discover.DiscoveryFailure:
             raise LoginUnsucessful(_(u'The OpenID was invalid'))
         trust_root = request.host_url
-        redirect_to = url_for('core.login', openid_complete='yes', _external=True)
+        redirect_to = url_for('core.login', openid_complete='yes',
+                              next=request.next_url, _external=True)
         return redirect(auth_request.redirectURL(trust_root, redirect_to))

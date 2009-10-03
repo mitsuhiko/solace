@@ -792,7 +792,7 @@ class FormWidget(MappingWidget):
         self._attr_setdefault(attrs)
         with_errors = attrs.pop('with_errors', False)
         if method is None:
-            method = self._field.form.default_method
+            method = self._field.form.default_method.lower()
 
         # support jinja's caller
         caller = attrs.pop('caller', None)
