@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+{% set page_title = _('Login with OpenID') %}
+{% block body %}
+  <h1>{{ _('Login with OpenID') }}</h1>
+  <p>{% trans -%}
+    Enter your OpenID URL to login.
+  {%- endtrans %}
+  {% call form() %}
+    <dl>
+      {{ form.identity_url.as_dd(class='openid') }}
+    </dl>
+    <script type="text/javascript">
+      $('input[name=username]').focus();
+    </script>
+    <div class="buttons">
+      <input type="submit" value="{{ _('Login') }}">
+    </div>
+  {% endcall %}
+  {% if auth_system.show_register_link or auth_system.can_reset_password %}
+    {% set join = joiner('|') %}
+    <p>
+    {% if auth_system.show_register_link %}{{ join() }}
+      <a href="{{ url_for('core.register') }}">{{ _('Not yet registered?') }}</a>
+    {% endif %}
+    {% if auth_system.can_reset_password %}{{ join() }}
+      <a href="{{ url_for('core.reset_password') }}">{{
+        _('Forgot your password?') }}</a>
+    {% endif %}
+  {% endif %}
+{% endblock %}

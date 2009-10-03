@@ -33,6 +33,11 @@ ul.choicegroup {
     padding: 0;
 }
 
+input.openid {
+    background: url(openid.png) 0 center no-repeat;
+    padding-left: 26px;
+}
+
 /* defintion datas and divs inside forms may contain ul.errors that are
    styled to float over the control that preceed it. */
 form dd, form div {

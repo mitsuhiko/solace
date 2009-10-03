@@ -26,7 +26,7 @@ from sqlalchemy.exceptions import SQLError
 from werkzeug import redirect
 from werkzeug.exceptions import NotFound
 
-from solace.i18n import _
+from solace.i18n import _, lazy_gettext
 from solace.application import url_for
 from solace.templating import render_template
 from solace.database import get_engine, session
@@ -158,9 +158,6 @@ class OpenIDAuth(AuthSystemBase):
             url_for('core.register')
         ]) or url_for('kb.overview'))
 
-    def get_login_form(self):
-        return OpenIDLoginForm()
-
     def before_login(self, request):
         if request.args.get('openid_complete') == 'yes':
             return self.complete_login(request)
@@ -191,7 +188,7 @@ class OpenIDAuth(AuthSystemBase):
         self.set_user(request, um.user)
         return self.redirect_back(request)
 
-    def login(self, request, identity_url):
+    def perform_login(self, request, identity_url):
         try:
             consumer = Consumer(request.session, SolaceOpenIDStore())
             auth_request = consumer.begin(identity_url)
@@ -201,3 +198,9 @@ class OpenIDAuth(AuthSystemBase):
         redirect_to = url_for('core.login', openid_complete='yes',
                               next=request.next_url, _external=True)
         return redirect(auth_request.redirectURL(trust_root, redirect_to))
+
+    def get_login_form(self):
+        return OpenIDLoginForm()
+
+    def render_login_template(self, form):
+        return render_template('core/login_openid.html', form=form.as_widget())

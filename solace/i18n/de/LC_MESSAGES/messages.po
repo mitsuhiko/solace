@@ -547,8 +547,8 @@ msgid "You don't have permission to access the requested resource."
 msgstr "Dir fehlen die nötigen Rechte, diese Seite zu betrachten."
 
 #: solace/templates/core/login.html:5
-msgid "Enter your username and password to log into Solace:"
-msgstr "Gibt deinen Benutzernamen und dein Passwort ein um dich anzumelden:"
+msgid "Enter your username and password to log into Solace."
+msgstr "Gibt deinen Benutzernamen und dein Passwort ein um dich anzumelden."
 
 #: solace/templates/core/login.html:18
 msgid "Not yet registered?"

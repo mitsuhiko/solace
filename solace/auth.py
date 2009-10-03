@@ -15,6 +15,7 @@ from werkzeug.contrib.securecookie import SecureCookie
 from datetime import datetime
 
 from solace import settings
+from solace.i18n import lazy_gettext
 from solace.application import url_for
 from solace.utils.support import UIException
 from solace.utils.mail import send_email
@@ -82,10 +83,6 @@ class AuthSystemBase(object):
     #: for this auth system, you can disable it here.
     show_register_link = True
 
-    def get_login_form(self):
-        """Returns the login form."""
-        return StandardLoginForm()
-
     @property
     def can_reset_password(self):
         """You can either override this property or leave the default
@@ -117,7 +114,7 @@ class AuthSystemBase(object):
         handling.
         """
 
-    def register(self, request, username, password, email):
+    def register(self, request):
         """Called like a view function with only the request.  Has to do the
         register heavy-lifting.  Auth systems that only use the internal
         database do not have to override this method.  Implementers that
@@ -125,7 +122,7 @@ class AuthSystemBase(object):
         the registration of the new user.  If `before_register` is unnused
         it does not have to be called, otherwise as documented.
         """
-        rv = auth.before_register(request)
+        rv = self.before_register(request)
         if rv is not None:
             return rv
 
@@ -155,43 +152,61 @@ class AuthSystemBase(object):
         else:
             request.flash(_(u'You\'re registered.  You can login now.'))
 
+    def get_login_form(self):
+        """Return the login form to be used by `login`."""
+        return StandardLoginForm()
+
     def before_login(self, request):
         """If this login system uses an external login URL, this function
         has to return a redirect response, otherwise None.  This is called
         before the standard form handling to allow redirecting to an
-        external login URL.
+        external login URL.  This function is called by the default
+        `login` implementation.
 
         If the actual login happens here because of a back-redirect the
         system might raise a `LoginUnsucessful` exception.
         """
 
-    def login(self, request, **form_data):
-        """Has to perform the login.  If the login was successful with
-        the credentials provided, the function has to somehow make sure
-        that the user is remembered.  Internal auth systems may use the
-        `set_user` method.  If logging is is not successful the system
-        has to raise an `LoginUnsucessful` exception.  If the `set_user`
-        method is not used, the auth system has to set the `last_login`
-        attribute of the user.
+    def login(self, request):
+        """Like `register` just for login."""
+        form = self.get_login_form()
 
-        If the auth system needs the help of an external resource for
-        login it may return a response object with a redirect code
-        instead.  The user is then redirected to that page to complete
-        the login.  This page then has to ensure that the user is
-        redirected back to the login page to trigger this function
-        again.  The back-redirect may attach extra argument to the URL
-        which the function might want to used to find out if the login
-        was successful.
+        # some login systems require an external login URL.  For example
+        # the one we use as Plurk.
+        try:
+            rv = self.before_login(request)
+            if rv is not None:
+                return rv
+        except LoginUnsucessful, e:
+            form.add_error(unicode(e))
 
-        If the `activation_key` column and/or `is_active` property of the
-        user object are in use for this authentication system, the register
-        function has to ensure that it's checked before logging in.  If the
-        user is not active, a `LoginUnsucessful` error should be raised.
+        # only validate if the before_login handler did not already cause
+        # an error.  In that case there is not much win in validating
+        # twice, it would clear the error added.
+        if form.is_valid and request.method == 'POST' and form.validate():
+            try:
+                rv = self.perform_login(request, **form.data)
+            except LoginUnsucessful, e:
+                form.add_error(unicode(e))
+            else:
+                session.commit()
+                if rv is not None:
+                    return rv
+                request.flash(_(u'You are now logged in.'))
+                return form.redirect('kb.overview')
 
-        The form data is taken from the login form as returned by the
-        `get_login_form` method.
+        return self.render_login_template(form)
+
+    def perform_login(self, request, **form_data):
+        """If `login` is not overridden, this is called with the submitted
+        form data and might raise `LoginUnsucessful` so signal a login
+        error.
         """
         raise NotImplementedError()
+
+    def render_login_template(self, form):
+        """Renders the login template"""
+        return render_template('core/login.html', form=form.as_widget())
 
     def logout(self, request):
         """This has to logout the user again.  This method must not fail.
@@ -242,7 +257,7 @@ class AuthSystemBase(object):
 class InternalAuth(AuthSystemBase):
     """Authenticate against the internal database."""
 
-    def login(self, request, username, password):
+    def perform_login(self, request, username, password):
         user = User.query.filter_by(username=username).first()
         if user is None:
             raise LoginUnsucessful(_(u'No user named %s') % username)
@@ -266,6 +281,7 @@ except ImportError:
 
 # circular dependencies
 from solace.models import User
+from solace.database import session
 from solace.i18n import _
 from solace.forms import StandardLoginForm, RegistrationForm
 from solace.templating import render_template

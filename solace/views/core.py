@@ -37,35 +37,7 @@ def login(request):
     next_url = request.next_url or url_for('kb.overview')
     if request.is_logged_in:
         return redirect(next_url)
-
-    auth = get_auth_system()
-    form = auth.get_login_form()
-
-    # some login systems require an external login URL.  For example
-    # the one we use as Plurk.
-    try:
-        rv = auth.before_login(request)
-        if rv is not None:
-            return rv
-    except LoginUnsucessful, e:
-        form.add_error(unicode(e))
-
-    # only validate if the before_login handler did not already cause
-    # an error.  In that case there is not much win in validating
-    # twice, it would clear the error added.
-    if form.is_valid and request.method == 'POST' and form.validate():
-        try:
-            rv = auth.login(request, **form.data)
-        except LoginUnsucessful, e:
-            form.add_error(unicode(e))
-        else:
-            session.commit()
-            if rv is not None:
-                return rv
-            request.flash(_(u'You are now logged in.'))
-            return form.redirect('kb.overview')
-
-    return render_template('core/login.html', form=form.as_widget())
+    return get_auth_system().login(request)
 
 
 @exchange_token_protected
@@ -81,8 +53,9 @@ def logout(request):
 
 def register(request):
     """Register a new user."""
-    auth = get_auth_system()
-    return auth.register(request)
+    if request.is_logged_in:
+        return redirect(request.next_url or url_for('kb.overview'))
+    return get_auth_system().register(request)
 
 
 def reset_password(request, email=None, key=None):
