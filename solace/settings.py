@@ -12,7 +12,7 @@ from __future__ import with_statement
 del with_statement
 
 # temporary imports, delete at end of file
-import os, sys, solace
+import os, sys, solace, tempfile
 
 # propagate early.  That way we can import "from solace import settings"
 # when the settings is not yet set up.  This is needed because during
@@ -27,10 +27,7 @@ from solace.i18n import lazy_gettext as _
 PLATFORM = os.name
 
 #: the database URI
-if PLATFORM == 'nt':
-    DATABASE_URI = 'sqlite:///C:/Temp/solace.db'
-else:
-    DATABASE_URI = 'sqlite:////tmp/solace.db'
+DATABASE_URI = 'sqlite:///%s/solace.db' % tempfile.gettempdir()
 
 #: the title of the website
 WEBSITE_TITLE = _(u'Plurk Solace')
@@ -243,4 +240,4 @@ def describe_settings():
 
 if 'SOLACE_SETTINGS_FILE' in os.environ:
     configure_from_file(os.environ['SOLACE_SETTINGS_FILE'])
-del os, sys, solace
+del os, sys, solace, tempfile
