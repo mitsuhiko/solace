@@ -159,6 +159,7 @@ def render_template(template_name, **context):
     template = jinja_env.get_template(template_name)
     context['request'] = Request.current
     context['theme'] = get_theme()
+    context['auth_system'] = get_auth_system()
     return template.render(context)
 
 
@@ -182,6 +183,7 @@ def datetimeformat_filter(obj, html=True, prefixed=True):
 
 from solace import settings
 from solace.application import Request, url_for
+from solace.auth import get_auth_system
 from solace.packs import pack_mgr
 from solace.i18n import gettext, ngettext, format_datetime, format_number, _
 jinja_env.globals.update(

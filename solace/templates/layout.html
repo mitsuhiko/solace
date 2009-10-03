@@ -47,7 +47,9 @@ Solace.notifyUTCOffset();
       {%- endif %}
       <a href="{{ url_for('core.logout') }}">{{ _('Logout') }}</a>
     {%- else %}
+      {% if auth_system.show_register_link %}
       <a href="{{ url_for('core.register') }}">{{ _('Register') }}</a> |
+      {% endif %}
       <a href="{{ url_for('core.login') }}">{{ _('Login') }}</a>
     {%- endif %} |
     <a href="{{ url_for('core.about') }}">{{ _('About Solace') }}</a>

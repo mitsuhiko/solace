@@ -61,7 +61,7 @@ COOKIE_NAME = 'session'
 SECRET_KEY = 'unset'
 
 #: the auth system to use
-AUTH_SYSTEM = 'solace.auth.InternalAuth'
+AUTH_SYSTEM = 'solace.auth.OpenIDAuth'
 
 #: the URL for gravatars.  Usually it does not really make sense
 #: to change this value.

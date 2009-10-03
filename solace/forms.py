@@ -11,7 +11,6 @@
 from solace import settings
 from solace.utils import forms
 from solace.i18n import lazy_gettext, _
-from solace.auth import get_auth_system
 from solace.models import Topic, Post, Comment, User
 
 
@@ -35,7 +34,7 @@ def is_valid_username(form, value):
                                       u'end with a dot.'))
 
 
-class LoginForm(forms.Form):
+class StandardLoginForm(forms.Form):
     """Used to log in users."""
     username = forms.TextField(lazy_gettext(u'Username'), required=True)
     password = forms.TextField(lazy_gettext(u'Password'), required=True,
@@ -46,6 +45,11 @@ class LoginForm(forms.Form):
         self.auth_system = get_auth_system()
         if self.auth_system.passwordless:
             del self.fields['password']
+
+
+class OpenIDLoginForm(forms.Form):
+    """Used to log in users with the OpenID auth system."""
+    identity_url = forms.TextField(lazy_gettext(u'OpenID'), required=True)
 
 
 class RegistrationForm(forms.Form):
@@ -74,6 +78,24 @@ class RegistrationForm(forms.Form):
         password_repeat = data.get('password_repeat')
         if password != password_repeat:
             raise forms.ValidationError(_(u'The two passwords do not match.'))
+
+
+class OpenIDRegistrationForm(forms.Form):
+    """Used to register the user."""
+    username = forms.TextField(lazy_gettext(u'Username'), required=True,
+                               validators=[is_valid_username])
+    email = forms.TextField(lazy_gettext(u'E-Mail'), required=True,
+                            validators=[is_valid_email])
+
+    @property
+    def captcha_protected(self):
+        """We're protected if the config says so."""
+        return settings.RECAPTCHA_ENABLE
+
+    def validate_username(self, value):
+        user = User.query.filter_by(username=value).first()
+        if user is not None:
+            raise forms.ValidationError(_('This username is already in use.'))
 
 
 class ResetPasswordForm(forms.Form):
@@ -305,3 +327,6 @@ class EditUserForm(ProfileEditForm):
         super(EditUserForm, self).apply_changes()
         self.user.username = self.data['username']
         self.user.is_admin = self.data['is_admin']
+
+
+from solace.auth import get_auth_system

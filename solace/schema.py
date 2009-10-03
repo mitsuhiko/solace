@@ -212,3 +212,28 @@ post_revisions = Table('post_revisions', metadata,
     # the text contents of the entry.
     Column('text', Text)
 )
+
+
+# openid support
+openid_association = Table('openid_association', metadata,
+    Column('association_id', Integer, primary_key=True),
+    Column('server_url', String(2048)),
+    Column('handle', String(255)),
+    Column('secret', String(255)),
+    Column('issued', Integer),
+    Column('lifetime', Integer),
+    Column('assoc_type', String(64))
+)
+
+openid_user_nonces = Table('openid_user_nonces', metadata,
+    Column('user_nonce_id', Integer, primary_key=True),
+    Column('server_url', String(2048)),
+    Column('timestamp', Integer),
+    Column('salt', String(40))
+)
+
+openid_user_mapping = Table('openid_user_mapping', metadata,
+    Column('user_mapping_id', Integer, primary_key=True),
+    Column('identity_url', String(2048), unique=True),
+    Column('user_id', Integer, ForeignKey('users.user_id'))
+)

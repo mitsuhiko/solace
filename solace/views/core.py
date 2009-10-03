@@ -17,7 +17,7 @@ from solace.application import url_for, json_response
 from solace.auth import get_auth_system, LoginUnsucessful
 from solace.templating import render_template
 from solace.i18n import _, has_section, get_js_translations
-from solace.forms import LoginForm, RegistrationForm, ResetPasswordForm
+from solace.forms import RegistrationForm, ResetPasswordForm
 from solace.models import User
 from solace.database import session
 from solace.utils.mail import send_email
@@ -39,22 +39,23 @@ def login(request):
         return redirect(next_url)
 
     auth = get_auth_system()
+    form = auth.get_login_form()
 
     # some login systems require an external login URL.  For example
     # the one we use as Plurk.
-    rv = auth.before_login(request)
-    if rv is not None:
-        return rv
+    try:
+        rv = auth.before_login(request)
+        if rv is not None:
+            return rv
+    except LoginUnsucessful, e:
+        form.add_error(unicode(e))
 
-    form = LoginForm()
-    if request.method == 'POST' and form.validate():
-        username = form.data['username']
-
-        # watch out, there might not be a password for
-        # passwordless logins.
-        password = form.data.get('password')
+    # only validate if the before_login handler did not already cause
+    # an error.  In that case there is not much win in validating
+    # twice, it would clear the error added.
+    if form.is_valid and request.method == 'POST' and form.validate():
         try:
-            rv = auth.login(request, username, password)
+            rv = auth.login(request, **form.data)
         except LoginUnsucessful, e:
             form.add_error(unicode(e))
         else:
@@ -64,8 +65,7 @@ def login(request):
             request.flash(_(u'You are now logged in.'))
             return form.redirect('kb.overview')
 
-    return render_template('core/login.html', form=form.as_widget(),
-                           can_reset_password=auth.can_reset_password)
+    return render_template('core/login.html', form=form.as_widget())
 
 
 @exchange_token_protected
@@ -82,20 +82,7 @@ def logout(request):
 def register(request):
     """Register a new user."""
     auth = get_auth_system()
-    rv = auth.before_register(request)
-    if rv is not None:
-        return rv
-
-    form = RegistrationForm()
-    if request.method == 'POST' and form.validate():
-        rv = auth.register(request, form['username'],
-                           form['password'], form['email'])
-        session.commit()
-        if rv is not None:
-            return rv
-        return form.redirect('kb.overview')
-
-    return render_template('core/register.html', form=form.as_widget())
+    return auth.register(request)
 
 
 def reset_password(request, email=None, key=None):

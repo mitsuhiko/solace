@@ -16,7 +16,8 @@ from simplejson import dumps
 
 from babel import UnknownLocaleError, Locale
 from werkzeug import Request as RequestBase, Response, cached_property, \
-     import_string, redirect, SharedDataMiddleware, url_quote
+     import_string, redirect, SharedDataMiddleware, url_quote, \
+     url_decode
 from werkzeug.exceptions import HTTPException, NotFound, BadRequest, Forbidden
 from werkzeug.routing import BuildError, RequestRedirect
 from werkzeug.contrib.securecookie import SecureCookie
@@ -184,7 +185,7 @@ class Request(RequestBase):
     def get_redirect_target(self, invalid_targets=()):
         """Check the request and get the redirect target if possible.
         If not this function returns just `None`.  The return value of this
-        function is suitable to be passed to `redirect`
+        function is suitable to be passed to `redirect`.
         """
         check_target = self.values.get('_redirect_target') or \
                        self.values.get('next') or \
@@ -201,7 +202,18 @@ class Request(RequestBase):
 
         root_url = self.url_root
         root_parts = urlparse(root_url)
+
         check_parts = urlparse(urljoin(root_url, check_target))
+        check_query = url_decode(check_parts[4])
+
+        def url_equals(to_check):
+            if to_check[:4] != check_parts[:4]:
+                return False
+            args = url_decode(to_check[4])
+            for key, value in args.iteritems():
+                if check_query.get(key) != value:
+                    return False
+            return True
 
         # if the jump target is on a different server we probably have
         # a security problem and better try to use the target url.
@@ -217,14 +229,13 @@ class Request(RequestBase):
         # if the jump url is the same url as the current url we've had
         # a bad redirect before and use the target url to not create a
         # infinite redirect.
-        current_parts = urlparse(urljoin(root_url, self.path))
-        if check_parts[:5] == current_parts[:5]:
+        if url_equals(urlparse(self.url)):
             return
 
         # if the `check_target` is one of the invalid targets we also
         # fall back.
         for invalid in invalid_targets:
-            if check_parts[:5] == urlparse(urljoin(root_url, invalid))[:5]:
+            if url_equals(urlparse(urljoin(root_url, invalid))):
                 return
 
         return check_target

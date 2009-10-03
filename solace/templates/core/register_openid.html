@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% set page_title = _('First OpenID Login') %}
+{% block body %}
+  <h1>{{ page_title }}</h1>
+  {% trans openid=identity_url|e %}
+  <p>
+    This is the first time you log in with your <strong>{{ openid }}</strong>
+    account.  Please pick a username that will be associated with you.  This
+    username is unique and cannot be changed later, so pick with care.
+  {% endtrans %}
+  {% call form() %}
+    {{ form.as_dl() }}
+    {{ form.captcha or '' }}
+    <div class="buttons">
+      <input type="submit" value="{{ _('Register') }}">
+    </div>
+  {% endcall %}
+{% endblock %}

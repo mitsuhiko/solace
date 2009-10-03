@@ -32,7 +32,7 @@ from solace.utils.remoting import RemoteObject
 from solace.database import session
 from solace.schema import users, topics, posts, votes, comments, \
      post_revisions, tags, topic_tags, user_activities, user_badges, \
-     user_messages
+     user_messages, openid_user_mapping
 
 
 _paragraph_re = re.compile(r'(?:\r?\n){2,}')
@@ -777,6 +777,16 @@ class _UserActivity(object):
         )
 
 
+class _OpenIDUserMapping(object):
+    """Internal helper for the openid auth system."""
+    query = session.query_property()
+
+    def __init__(self, user, identity_url):
+        self.user = user
+        self.identity_url = identity_url
+        session.add(self)
+
+
 class PostRevision(object):
     """A single entry in the post attic."""
     query = session.query_property()
@@ -962,6 +972,9 @@ mapper(_Vote, votes, properties=dict(
     user=relation(User),
     post=relation(Post)
 ), primary_key=[votes.c.user_id, votes.c.post_id])
+mapper(_OpenIDUserMapping, openid_user_mapping, properties=dict(
+    user=relation(User, lazy=False)
+))
 mapper(PostRevision, post_revisions, properties=dict(
     id=post_revisions.c.revision_id,
     post=relation(Post, backref=backref('revisions', lazy='dynamic')),

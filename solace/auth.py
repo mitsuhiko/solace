@@ -16,7 +16,6 @@ from datetime import datetime
 
 from solace import settings
 from solace.application import url_for
-from solace.templating import render_template
 from solace.utils.support import UIException
 from solace.utils.mail import send_email
 
@@ -75,8 +74,17 @@ class AuthSystemBase(object):
     #: like `email_managed_external` but for the password
     password_managed_external = False
 
-    #: set to True if the form should not have a password entry.
+    #: set to True to indicate that this login system does not use
+    #: a password.  This will also affect the standard login form.
     passwordless = False
+
+    #: if you don't want to see a register link in the user interface
+    #: for this auth system, you can disable it here.
+    show_register_link = True
+
+    def get_login_form(self):
+        """Returns the login form."""
+        return StandardLoginForm()
 
     @property
     def can_reset_password(self):
@@ -102,7 +110,7 @@ class AuthSystemBase(object):
             request.flash(_(u'You\'re registered.  You can login now.'))
 
     def before_register(self, request):
-        """Invoked before teh standard register form processing.  This is
+        """Invoked before the standard register form processing.  This is
         intended to be used to redirect to an external register URL if
         if the syncronization is only one-directional.  If this function
         returns a response object, Solace will abort standard registration
@@ -110,19 +118,27 @@ class AuthSystemBase(object):
         """
 
     def register(self, request, username, password, email):
-        """Called on registration.  Auth systems that only use the internal
-        database do not have to override this method.
-
-        Passwordless systems have to live with `before_register` because we
-        do not provide a standard way to sign up passwordless.
-
-        This method may return a response which is returned *after* the
-        database transaction is comitted but *before* a success message
-        is flashed.
-
-        Have a look at the classes docstring about user registration.
+        """Called like a view function with only the request.  Has to do the
+        register heavy-lifting.  Auth systems that only use the internal
+        database do not have to override this method.  Implementers that
+        override this function *have* to call `after_register` to finish
+        the registration of the new user.  If `before_register` is unnused
+        it does not have to be called, otherwise as documented.
         """
-        self.after_register(request, User(username, email, password))
+        rv = auth.before_register(request)
+        if rv is not None:
+            return rv
+
+        form = RegistrationForm()
+        if request.method == 'POST' and form.validate():
+            user = User(form['username'], form['email'], form['password'])
+            self.after_register(request, user)
+            session.commit()
+            if rv is not None:
+                return rv
+            return form.redirect('kb.overview')
+
+        return render_template('core/register.html', form=form.as_widget())
 
     def after_register(self, request, user):
         """Handles activation."""
@@ -144,11 +160,14 @@ class AuthSystemBase(object):
         has to return a redirect response, otherwise None.  This is called
         before the standard form handling to allow redirecting to an
         external login URL.
+
+        If the actual login happens here because of a back-redirect the
+        system might raise a `LoginUnsucessful` exception.
         """
 
-    def login(self, request, username, password):
+    def login(self, request, **form_data):
         """Has to perform the login.  If the login was successful with
-        the credentials provided the function has to somehow make sure
+        the credentials provided, the function has to somehow make sure
         that the user is remembered.  Internal auth systems may use the
         `set_user` method.  If logging is is not successful the system
         has to raise an `LoginUnsucessful` exception.  If the `set_user`
@@ -169,7 +188,8 @@ class AuthSystemBase(object):
         function has to ensure that it's checked before logging in.  If the
         user is not active, a `LoginUnsucessful` error should be raised.
 
-        For passwordless logins the password will be `None`.
+        The form data is taken from the login form as returned by the
+        `get_login_form` method.
         """
         raise NotImplementedError()
 
@@ -233,6 +253,19 @@ class InternalAuth(AuthSystemBase):
         self.set_user(request, user)
 
 
+# the openid support will be only available if the openid library is installed.
+# otherwise we create a dummy auth system that fails upon usage.
+try:
+    from solace._openid_auth import OpenIDAuth
+except ImportError:
+    class OpenIDAuth(AuthSystemBase):
+        def __init__(self):
+            raise RuntimeError('python-openid library not installed but '
+                               'required for openid support.')
+
+
 # circular dependencies
 from solace.models import User
 from solace.i18n import _
+from solace.forms import StandardLoginForm, RegistrationForm
+from solace.templating import render_template

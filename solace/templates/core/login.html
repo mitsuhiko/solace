@@ -14,10 +14,15 @@
       <input type="submit" value="{{ _('Login') }}">
     </div>
   {% endcall %}
-  <p>
-    <a href="{{ url_for('core.register') }}">{{ _('Not yet registered?') }}</a>
-  {% if can_reset_password %}|
-    <a href="{{ url_for('core.reset_password') }}">{{
-      _('Forgot your password?') }}</a>
+  {% if auth_system.show_register_link or auth_system.can_reset_password %}
+    {% set join = joiner('|') %}
+    <p>
+    {% if auth_system.show_register_link %}{{ join() }}
+      <a href="{{ url_for('core.register') }}">{{ _('Not yet registered?') }}</a>
+    {% endif %}
+    {% if auth_system.can_reset_password %}{{ join() }}
+      <a href="{{ url_for('core.reset_password') }}">{{
+        _('Forgot your password?') }}</a>
+    {% endif %}
   {% endif %}
 {% endblock %}
