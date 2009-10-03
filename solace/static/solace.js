@@ -348,7 +348,7 @@ var Solace = {
 
   /* make selects with the correct class submit forms on select */
   submitOnSelect : function(element) {
-    $('select', element).bind('change', function() {
+    $('select.submit_on_select', element).bind('change', function() {
       this.form.submit();
     });
   },

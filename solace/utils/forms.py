@@ -788,9 +788,11 @@ class FormWidget(MappingWidget):
         attrs.setdefault('class', 'actions')
         return html.div(html.input(type='submit', value=label), **attrs)
 
-    def render(self, method='post', **attrs):
+    def render(self, method=None, **attrs):
         self._attr_setdefault(attrs)
         with_errors = attrs.pop('with_errors', False)
+        if method is None:
+            method = self._field.form.default_method
 
         # support jinja's caller
         caller = attrs.pop('caller', None)
@@ -1721,9 +1723,10 @@ class Form(object):
     """
     __metaclass__ = FormMeta
 
-    csrf_protected = False
+    csrf_protected = None
     redirect_tracking = True
     captcha_protected = False
+    default_method = 'POST'
 
     def __init__(self, initial=None, action=None, request=None):
         if request is None:
@@ -1736,11 +1739,14 @@ class Form(object):
         self.invalid_redirect_targets = set()
 
         if self.request is not None:
-            self.csrf_protected = True
+            if self.csrf_protected is None:
+                self.csrf_protected = True
             if self.action in (None, '', '.'):
                 self.action = request.url
             else:
                 self.action = urljoin(request.url, self.action)
+        elif self.csrf_protected is None:
+            self.csrf_protected = False
 
         self._root_field = _bind(self.__class__._root_field, self, {})
         self.reset()
@@ -1829,15 +1835,27 @@ class Form(object):
             seq = self.errors[field] = ErrorList()
         seq.append(error)
 
+    def autodiscover_data(self):
+        """Called by `validate` if no data is provided.  Finds the
+        matching data from the request object by default depending
+        on the default submit method of the form.
+        """
+        if self.request is None:
+            raise RuntimeError('cannot validate implicitly without '
+                               'form being bound to request')
+        if self.default_method == 'GET':
+            return self.request.args
+        elif self.default_method == 'POST':
+            return self.request.form
+        raise RuntimeError('for unknown methods you have to '
+                           'explicitly provide a data dict')
+
     def validate(self, data=None):
         """Validate the form against the data passed.  If no data is provided
         the form data of the current request is taken.
         """
         if data is None:
-            data = getattr(self.request, 'form', None)
-            if data is None:
-                raise RuntimeError('cannot validate implicitly without '
-                                   'form being bound to request')
+            data = self.autodiscover_data()
         self.raw_data = _decode(data)
 
         # for each field in the root that requires validation on value
@@ -1862,7 +1880,6 @@ class Form(object):
         # was one.
         if self.csrf_protected:
             invalidate_csrf_token(self.request, self.action)
-            self.request.session.pop('csrf_token', None)
 
         if errors:
             return False

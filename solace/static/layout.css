@@ -27,6 +27,12 @@ form {
     position: relative;
 }
 
+ul.choicegroup {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
 /* defintion datas and divs inside forms may contain ul.errors that are
    styled to float over the control that preceed it. */
 form dd, form div {
