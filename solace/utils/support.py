@@ -12,30 +12,19 @@ import re
 import unicodedata
 from itertools import izip, imap
 
-from solace.utils._translit_tab import LONG_TABLE, SHORT_TABLE, SINGLE_TABLE
+# imported for the side effects, registers a codec
+import translitcodec
 
 
 _punctuation_re = re.compile(r'[\t !"#$%&\'()*\-/<=>?@\[\\\]^_`{|},.]+')
 _missing = object()
 
 
-def transliterate(string, table='long'):
-    """Transliterate to 8 bit using one of the tables given.  The table
-    must either be ``'long'``, ``'short'`` or ``'single'``.
-    """
-    table = {
-        'long':     LONG_TABLE,
-        'short':    SHORT_TABLE,
-        'single':   SINGLE_TABLE
-    }[table]
-    return unicodedata.normalize('NFKC', unicode(string)).translate(table)
-
-
 def slugify(text, delim=u'-'):
     """Generates an ASCII-only slug."""
     result = []
     for word in _punctuation_re.split(text.lower()):
-        word = _punctuation_re.sub(u'', transliterate(word))
+        word = _punctuation_re.sub(u'', word.encode('translit/long'))
         if word:
             result.append(word)
     return unicode(delim.join(result))

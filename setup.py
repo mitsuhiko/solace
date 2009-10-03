@@ -73,7 +73,8 @@ setup(
         'SQLAlchemy>=0.5.5',
         'creoleparser',
         'simplejson',
-        'webdepcompress'
+        'webdepcompress',
+        'translitcodec'
     ],
     tests_require=[
         'lxml',
