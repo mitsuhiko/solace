@@ -145,8 +145,8 @@ class OpenIDAuth(AuthSystemBase):
             _OpenIDUserMapping(user, identity_url)
             self.after_register(request, user)
             session.commit()
-            self.set_user(request, user)
             del request.session['openid']
+            self.set_user_checked(request, user)
             return self.redirect_back(request)
 
         return render_template('core/register_openid.html', form=form.as_widget(),
@@ -185,8 +185,16 @@ class OpenIDAuth(AuthSystemBase):
             request.session['openid'] = identity_url
             return redirect(url_for('core.login', firstlogin='yes',
                                     next=request.next_url))
-        self.set_user(request, um.user)
+
+        self.set_user_checked(request, um.user)
         return self.redirect_back(request)
+
+    def set_user_checked(self, request, user):
+        if not user.is_active:
+            raise LoginUnsucessful(_(u'The user is not yet activated.'))
+        if user.is_banned:
+            raise LoginUnsucessful(_(u'The user got banned from the system.'))
+        self.set_user(request, um.user)
 
     def perform_login(self, request, identity_url):
         try:

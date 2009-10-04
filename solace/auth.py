@@ -265,6 +265,8 @@ class InternalAuth(AuthSystemBase):
             raise LoginUnsucessful(_(u'The user is not yet activated.'))
         if not user.check_password(password):
             raise LoginUnsucessful(_(u'Invalid password'))
+        if user.is_banned:
+            raise LoginUnsucessful(_(u'The user got banned from the system.'))
         self.set_user(request, user)
 
 

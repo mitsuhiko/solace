@@ -57,6 +57,7 @@ class SolaceTestCase(unittest.TestCase):
         from solace import database, settings, templating
         from solace.application import application
         self.__old_settings = dict(settings.__dict__)
+        settings.revert_to_default()
         settings.DATABASE_URI = 'sqlite:///' + TEST_DATABASE
         settings.TRACK_QUERIES = True
         settings.DATABASE_ECHO = False
