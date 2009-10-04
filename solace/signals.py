@@ -72,7 +72,7 @@ def SIG(name, args=None):
     frm.f_globals[name] = Signal(name, args, _frm=frm)
 
 
-class Signal(tuple):
+class Signal(object):
     """Represents a signal.  The first argument is the name of the signal
     which should also be the name of the variable in the module the signal is
     stored and the second is a list of named arguments.
@@ -88,18 +88,17 @@ class Signal(tuple):
     errors that are hard to spot when the name of the variable does not
     match the name of the signal.
     """
-    __module__ = property(itemgetter(0))
-    __name__ = property(itemgetter(1))
-    args = property(itemgetter(2))
 
-    def __new__(cls, name, args=None, _frm=None):
+    def __init__(self, name, args=None, _frm=None):
         if _frm is None:
             _frm = currentframe(1)
         if _frm.f_globals is _frm.f_locals:
             mod = _frm.f_globals['__name__']
         else:
             mod = '<temporary>'
-        return tuple.__new__(cls, (mod, name, tuple(args or ())))
+        self.__module__ = mod
+        self.__name__ = name
+        self.args = tuple(args or ())
 
     def connect(self, func):
         """Connect the function to the signal.  The function can be a regular

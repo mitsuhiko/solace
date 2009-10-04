@@ -38,7 +38,7 @@ var Solace = {
           document.location.href = Solace.URL_ROOT + 'login?next='
             + encodeURIComponent(document.location.href);
         else if (response.message)
-          Solace.flash(response.message, 'error');
+          Solace.flash(response.message, true);
       }
       else {
         if (response.message)
@@ -198,9 +198,9 @@ var Solace = {
   },
 
   /* flashes a message from javascript */
-  flash : function(text, type /* = info */) {
+  flash : function(text, error /* = false */) {
     var container = Solace.getFlashContainer();
-    var item = $('<p>').text(text).addClass((type || 'info') + '_message')
+    var item = $('<p>').text(text).addClass((error ? 'error' : 'info') + '_message')
       .appendTo(container);
     Solace.attachFlashTimeouts(item, container);
     Solace.fadeInFlashMessages();
@@ -442,7 +442,7 @@ var Solace = {
       return;
     boxes.each(function() {
       var contents = $('div.inner', $(this).parent()).hide();
-      $(this).addClass('toggler').click(function() {
+      $(this).addClass('toggler').bind('click', function() {
         contents.slideToggle();
       });
     });
@@ -479,7 +479,7 @@ $(function() {
   /* the ajax setup */
   $.ajaxSetup({
     error: function() {
-      Solace.flash(_('Could not contact server.  Connection problems?'));
+      Solace.flash(_('Could not contact server.  Connection problems?'), true);
     }
   });
 
