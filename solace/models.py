@@ -88,6 +88,12 @@ class TextRendererMixin(object):
 class UserQuery(Query):
     """Adds extra query methods for users."""
 
+    def by_openid_login(self, identity_url):
+        """Filters by open id identity URL."""
+        ss = select([openid_user_mapping.c.user_id],
+                    openid_user_mapping.c.identity_url == identity_url)
+        return self.filter(User.id.in_(ss))
+
     def active_in(self, locale):
         """Only return users that are active in the given locale."""
         ua = user_activities.c
@@ -124,6 +130,16 @@ class User(RemoteObject):
         session.add(self)
 
     badges = association_proxy('_badges', 'badge')
+    openid_logins = association_proxy('_openid_logins', 'identity_url')
+
+    def bind_openid_logins(self, logins):
+        """Rebinds the openid logins."""
+        currently_attached = set(self.openid_logins)
+        new_logins = set(logins)
+        self.openid_logins.difference_update(
+            currently_attached.difference(new_logins))
+        self.openid_logins.update(
+            new_logins.difference(currently_attached))
 
     def _get_active(self):
         return self.activation_key is None
@@ -781,8 +797,7 @@ class _OpenIDUserMapping(object):
     """Internal helper for the openid auth system."""
     query = session.query_property()
 
-    def __init__(self, user, identity_url):
-        self.user = user
+    def __init__(self, identity_url):
         self.identity_url = identity_url
         session.add(self)
 
@@ -973,7 +988,8 @@ mapper(_Vote, votes, properties=dict(
     post=relation(Post)
 ), primary_key=[votes.c.user_id, votes.c.post_id])
 mapper(_OpenIDUserMapping, openid_user_mapping, properties=dict(
-    user=relation(User, lazy=False)
+    user=relation(User, lazy=False, backref=backref('_openid_logins', lazy=True,
+                                                    collection_class=set))
 ))
 mapper(PostRevision, post_revisions, properties=dict(
     id=post_revisions.c.revision_id,

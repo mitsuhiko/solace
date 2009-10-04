@@ -60,6 +60,7 @@ def describe_settings():
     """
     import re
     from pprint import pformat
+    from os.path import join, dirname
     assignment_re = re.compile(r'\s*([A-Z_][A-Z0-9_]*)\s*=')
 
     # use items() here instead of iteritems so that if a different
@@ -67,7 +68,7 @@ def describe_settings():
     items = dict((k, (pformat(v).decode('utf-8', 'replace'), u''))
                  for (k, v) in globals().items() if k.isupper())
 
-    with open(__file__.strip('c')) as f:
+    with open(join(dirname(__file__), 'default_settings.cfg')) as f:
         comment_buf = []
         for line in f:
             line = line.rstrip().decode('utf-8')

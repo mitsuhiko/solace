@@ -16,7 +16,6 @@ from datetime import datetime
 
 from solace import settings
 from solace.i18n import lazy_gettext
-from solace.application import url_for
 from solace.utils.support import UIException
 from solace.utils.mail import send_email
 
@@ -39,6 +38,20 @@ def refresh_auth_system():
     global _auth_system
     with _auth_system_lock:
         _auth_system = None
+
+
+def check_used_openids(identity_urls, ignored_owner=None):
+    """Returns a set of all the identity URLs from the list of identity
+    URLs that are already associated on the system.  If a owner is given,
+    items that are owned by the given user will not show up in the result
+    list.
+    """
+    query = _OpenIDUserMapping.query.filter(
+        _OpenIDUserMapping.identity_url.in_(identity_urls)
+    )
+    if ignored_owner:
+        query = query.filter(_OpenIDUserMapping.user != ignored_owner)
+    return set([x.identity_url for x in query.all()])
 
 
 class LoginUnsucessful(UIException):
@@ -76,7 +89,8 @@ class AuthSystemBase(object):
     password_managed_external = False
 
     #: set to True to indicate that this login system does not use
-    #: a password.  This will also affect the standard login form.
+    #: a password.  This will also affect the standard login form
+    #: and the standard profile form.
     passwordless = False
 
     #: if you don't want to see a register link in the user interface
@@ -195,7 +209,7 @@ class AuthSystemBase(object):
                 request.flash(_(u'You are now logged in.'))
                 return form.redirect('kb.overview')
 
-        return self.render_login_template(form)
+        return self.render_login_template(request, form)
 
     def perform_login(self, request, **form_data):
         """If `login` is not overridden, this is called with the submitted
@@ -204,9 +218,30 @@ class AuthSystemBase(object):
         """
         raise NotImplementedError()
 
-    def render_login_template(self, form):
+    def render_login_template(self, request, form):
         """Renders the login template"""
         return render_template('core/login.html', form=form.as_widget())
+
+    def get_edit_profile_form(self, user):
+        """Returns the profile form to be used by the auth system."""
+        return StandardProfileEditForm(user)
+
+    def edit_profile(self, request):
+        """Invoked like a view and does the profile handling."""
+        form = self.get_edit_profile_form(request.user)
+
+        if request.method == 'POST' and form.validate():
+            request.flash(_(u'Your profile was updated'))
+            form.apply_changes()
+            session.commit()
+            return form.redirect(form.user)
+
+        return self.render_edit_profile_template(request, form)
+
+    def render_edit_profile_template(self, request, form):
+        """Renders the template for the profile edit page."""
+        return render_template('users/edit_profile.html',
+                               form=form.as_widget())
 
     def logout(self, request):
         """This has to logout the user again.  This method must not fail.
@@ -275,6 +310,7 @@ class InternalAuth(AuthSystemBase):
 try:
     from solace._openid_auth import OpenIDAuth
 except ImportError:
+    raise
     class OpenIDAuth(AuthSystemBase):
         def __init__(self):
             raise RuntimeError('python-openid library not installed but '
@@ -282,8 +318,10 @@ except ImportError:
 
 
 # circular dependencies
-from solace.models import User
+from solace.application import url_for
+from solace.models import User, _OpenIDUserMapping
 from solace.database import session
 from solace.i18n import _
-from solace.forms import StandardLoginForm, RegistrationForm
+from solace.forms import StandardLoginForm, RegistrationForm, \
+     StandardProfileEditForm
 from solace.templating import render_template

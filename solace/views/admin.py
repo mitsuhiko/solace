@@ -74,6 +74,7 @@ def edit_user(request, user):
         raise NotFound()
     form = EditUserForm(user)
     if request.method == 'POST' and form.validate():
+        form.apply_changes()
         request.flash(_(u'The user details where changed.'))
         session.commit()
         return form.redirect('admin.edit_users')
@@ -107,6 +108,9 @@ def ban_user(request, user):
     next = request.next_url or url_for('admin.bans')
     if user.is_banned:
         request.flash(_(u'The user is already banned.'))
+        return redirect(next)
+    if user == request.user:
+        request.flash(_(u'You cannot ban yourself.'), error=True)
         return redirect(next)
     admin_utils.ban_user(user)
     request.flash(_(u'The user “%s” was successfully banned and notified.') %

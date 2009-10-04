@@ -31,7 +31,7 @@ from solace.application import url_for
 from solace.templating import render_template
 from solace.database import get_engine, session
 from solace.schema import openid_association, openid_user_nonces
-from solace.models import _OpenIDUserMapping, User
+from solace.models import User
 from solace.forms import OpenIDLoginForm, OpenIDRegistrationForm
 from solace.auth import AuthSystemBase, LoginUnsucessful
 
@@ -142,7 +142,7 @@ class OpenIDAuth(AuthSystemBase):
         form = OpenIDRegistrationForm()
         if request.method == 'POST' and form.validate():
             user = User(form['username'], form['email'], '!')
-            _OpenIDUserMapping(user, identity_url)
+            user.openid_logins.add(identity_url)
             self.after_register(request, user)
             session.commit()
             del request.session['openid']
@@ -176,17 +176,16 @@ class OpenIDAuth(AuthSystemBase):
             raise LoginUnsucessful(_(u'OpenID authentication error'))
 
     def create_or_login(self, request, identity_url):
-        q = _OpenIDUserMapping.query.filter_by(identity_url=identity_url)
-        um = q.first()
+        user = User.query.by_openid_login(identity_url).first()
         # we don't have a user for this openid yet.  What we want to do
         # now is to remember the openid in the session until we have the
         # user.  We're using the session because it is signed.
-        if um is None:
+        if user is None:
             request.session['openid'] = identity_url
             return redirect(url_for('core.login', firstlogin='yes',
                                     next=request.next_url))
 
-        self.set_user_checked(request, um.user)
+        self.set_user_checked(request, user)
         return self.redirect_back(request)
 
     def set_user_checked(self, request, user):
@@ -194,7 +193,7 @@ class OpenIDAuth(AuthSystemBase):
             raise LoginUnsucessful(_(u'The user is not yet activated.'))
         if user.is_banned:
             raise LoginUnsucessful(_(u'The user got banned from the system.'))
-        self.set_user(request, um.user)
+        self.set_user(request, user)
 
     def perform_login(self, request, identity_url):
         try:
@@ -210,5 +209,5 @@ class OpenIDAuth(AuthSystemBase):
     def get_login_form(self):
         return OpenIDLoginForm()
 
-    def render_login_template(self, form):
+    def render_login_template(self, request, form):
         return render_template('core/login_openid.html', form=form.as_widget())

@@ -452,9 +452,15 @@ class Widget(_Renderable):
             return ErrorList(chain(*(item[1] for item in items)))
         result = ErrorList()
         for key, value in items:
-            if key == self.name or key.startswith(self.name + '.'):
+            if key == self.name or (key is not None and
+                                    key.startswith(self.name + '.')):
                 result.extend(value)
         return result
+
+    @property
+    def default_display_errors(self):
+        """The errors that should be displayed."""
+        return self.errors
 
     def as_dd(self, **attrs):
         """Return a dt/dd item."""
@@ -475,7 +481,7 @@ class Widget(_Renderable):
 
     def __call__(self, **attrs):
         """The default display is the form + error list as ul if needed."""
-        return self.render(**attrs) + self.errors()
+        return self.render(**attrs) + self.default_display_errors()
 
 
 class Label(_Renderable):
@@ -535,6 +541,14 @@ class HiddenInput(Input):
 class Textarea(Widget):
     """Displays a textarea."""
 
+    @property
+    def default_display_errors(self):
+        """A textarea is often used with multiple, it makes sense to
+        display the errors of all childwidgets then which are not
+        renderable because they are text.
+        """
+        return self.all_errors
+
     def _attr_setdefault(self, attrs):
         Widget._attr_setdefault(self, attrs)
         attrs.setdefault('rows', 8)
@@ -576,7 +590,7 @@ class Checkbox(Widget):
             rv.append(u' ' + self.label())
         if self.help_text:
             rv.append(html.div(self.help_text, class_='explanation'))
-        rv.append(self.errors())
+        rv.append(self.default_display_errors())
         return html.li(u''.join(rv))
 
     def render(self, **attrs):
@@ -809,7 +823,7 @@ class FormWidget(MappingWidget):
             body = '<div style="display: none">%s</div>%s' % (hidden, body)
 
         if with_errors:
-            body = self.errors() + body
+            body = self.default_display_errors() + body
         return html.form(body, action=self._field.form.action,
                          method=method, **attrs)
 
@@ -836,10 +850,7 @@ class ListWidget(Widget):
             return u''
         items = []
         for index in xrange(len(self) + attrs.pop('extra_rows', 1)):
-            items.append(html.li(self[index]()) for item in self)
-        # add an invisible item for the validator
-        if not items:
-            items.append(html.li(style='display: none'))
+            items.append(html.li(self[index]()))
         return factory(*items, **attrs)
 
     def __getitem__(self, index):
@@ -1217,7 +1228,7 @@ class CommaSeparated(Multiple):
         return (self.sep + u' ').join(map(self.field.to_primitive, value))
 
 
-class LineSeparated(CommaSeparated):
+class LineSeparated(Multiple):
     r"""Works like `CommaSeparated` but uses multiple lines:
 
     >>> field = LineSeparated(IntegerField())

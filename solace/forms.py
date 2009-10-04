@@ -8,9 +8,10 @@
     :copyright: (c) 2009 by Plurk Inc., see AUTHORS for more details.
     :license: BSD, see LICENSE for more details.
 """
+import urlparse
 from solace import settings
 from solace.utils import forms
-from solace.i18n import lazy_gettext, _
+from solace.i18n import lazy_gettext, _, ngettext
 from solace.models import Topic, Post, Comment, User
 
 
@@ -32,6 +33,13 @@ def is_valid_username(form, value):
     if value[:1] == '.' or value[-1:] == '.':
         raise forms.ValidationError(_(u'The username may not begin or '
                                       u'end with a dot.'))
+
+
+def is_http_url(form, value):
+    """Checks if the value is a HTTP URL."""
+    scheme, netloc = urlparse.urlparse(value)[:2]
+    if scheme not in ('http', 'https') or not netloc:
+        raise forms.ValidationError(_(u'A valid HTTP URL is required.'))
 
 
 class StandardLoginForm(forms.Form):
@@ -147,28 +155,40 @@ class ResetPasswordForm(forms.Form):
 
 class ProfileEditForm(forms.Form):
     """Used to change profile details."""
-    password = forms.TextField(lazy_gettext(u'Password'),
-                               widget=forms.PasswordInput)
-    password_repeat = forms.TextField(lazy_gettext(u'Password (repeat)'),
-                                      widget=forms.PasswordInput)
+    real_name = forms.TextField(lazy_gettext(u'Real name'))
     email = forms.TextField(lazy_gettext(u'E-Mail'), required=True,
                             validators=[is_valid_email])
-    real_name = forms.TextField(lazy_gettext(u'Real name'))
 
     def __init__(self, user, initial=None, action=None, request=None):
         self.user = user
         self.auth_system = get_auth_system()
         if user is not None:
             initial = forms.fill_dict(initial, real_name=user.real_name)
-            if self.auth_system.email_managed_external:
+            if not self.auth_system.email_managed_external:
                 initial['email'] = user.email
         forms.Form.__init__(self, initial, action, request)
+        if self.auth_system.email_managed_external:
+            del self.fields['email']
+
+    def apply_changes(self):
+        if 'email' in self.data:
+            self.user.email = self.data['email']
+        self.user.real_name = self.data['real_name']
+
+
+class StandardProfileEditForm(ProfileEditForm):
+    """Used to change profile details for the basic auth systems."""
+    password = forms.TextField(lazy_gettext(u'Password'),
+                               widget=forms.PasswordInput)
+    password_repeat = forms.TextField(lazy_gettext(u'Password (repeat)'),
+                                      widget=forms.PasswordInput)
+
+    def __init__(self, user, initial=None, action=None, request=None):
+        ProfileEditForm.__init__(self, user, initial, action, request)
         if self.auth_system.passwordless or \
            self.auth_system.password_managed_external:
             del self.fields['password']
             del self.fields['password_repeat']
-        if self.auth_system.email_managed_external:
-            del self.fields['email']
 
     def context_validate(self, data):
         password = data.get('password')
@@ -177,12 +197,10 @@ class ProfileEditForm(forms.Form):
             raise forms.ValidationError(_(u'The two passwords do not match.'))
 
     def apply_changes(self):
-        if 'email' in self.data:
-            self.user.email = self.data['email']
+        super(StandardProfileEditForm, self).apply_changes()
         password = self.data.get('password')
         if password:
             self.user.set_password(password)
-        self.user.real_name = self.data['real_name']
 
 
 class QuestionForm(forms.Form):
@@ -309,11 +327,14 @@ class EditUserForm(ProfileEditForm):
     username = forms.TextField(lazy_gettext(u'Username'))
     is_admin = forms.BooleanField(lazy_gettext(u'Administrator'),
         help_text=lazy_gettext(u'Enable if this user is an admin.'))
+    openid_logins = forms.LineSeparated(forms.TextField(validators=[is_http_url]),
+                                        lazy_gettext(u'Associated OpenID Identities'))
 
     def __init__(self, user, initial=None, action=None, request=None):
         if user is not None:
             initial = forms.fill_dict(initial, username=user.username,
-                                      is_admin=user.is_admin)
+                                      is_admin=user.is_admin,
+                                      openid_logins=sorted(user.openid_logins))
         ProfileEditForm.__init__(self, user, initial, action, request)
 
     def validate_is_admin(self, value):
@@ -321,10 +342,24 @@ class EditUserForm(ProfileEditForm):
             raise forms.ValidationError(u'You cannot remove your own '
                                         u'admin rights.')
 
+    def validate_openid_logins(self, value):
+        ids_to_check = set(value) - set(self.user.openid_logins)
+        in_use = check_used_openids(ids_to_check, self.user)
+        if in_use:
+            count = len(in_use)
+            message = ngettext(u'The following %(count)d URL is already '
+                               u'associated to a different user: %(urls)s',
+                               u'The following %(count)d URLs are already '
+                               u'associated to different users: %(urls)s',
+                               count) % dict(count=count,
+                                             urls=u', '.join(sorted(in_use)))
+            raise forms.ValidationError(message)
+
     def apply_changes(self):
         super(EditUserForm, self).apply_changes()
         self.user.username = self.data['username']
         self.user.is_admin = self.data['is_admin']
+        self.user.bind_openid_logins(self.data['openid_logins'])
 
 
-from solace.auth import get_auth_system
+from solace.auth import get_auth_system, check_used_openids

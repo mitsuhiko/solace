@@ -15,11 +15,11 @@ from babel import Locale
 
 from solace import settings
 from solace.application import url_for, require_login
+from solace.auth import get_auth_system
 from solace.database import session
 from solace.models import User, Topic, Post
 from solace.templating import render_template
 from solace.utils.pagination import Pagination
-from solace.forms import ProfileEditForm
 from solace.i18n import list_sections, _
 
 
@@ -78,12 +78,4 @@ def profile(request, username):
 @require_login
 def edit_profile(request):
     """Allows the user to change profile information."""
-    form = ProfileEditForm(request.user)
-
-    if request.method == 'POST' and form.validate():
-        request.flash(_(u'Your profile was updated'))
-        form.apply_changes()
-        session.commit()
-        return form.redirect(form.user)
-
-    return render_template('users/edit_profile.html', form=form.as_widget())
+    return get_auth_system().edit_profile(request)
