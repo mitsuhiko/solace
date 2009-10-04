@@ -141,7 +141,7 @@ class OpenIDAuth(AuthSystemBase):
 
         form = OpenIDRegistrationForm()
         if request.method == 'POST' and form.validate():
-            user = User(form['username'], form['email'], '!')
+            user = User(form['username'], form['email'])
             user.openid_logins.add(identity_url)
             self.after_register(request, user)
             session.commit()

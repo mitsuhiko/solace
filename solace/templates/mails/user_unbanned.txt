@@ -4,11 +4,14 @@
 Hi {{ user }}!
 
 Your ban on {{ site }} was lifted.
+{%- endtrans %}
+
+{%- if settings.REQUIRE_NEW_PASSWORD_ON_UNBAN %}{% trans %}
 
 In order to login again you have to follow the following
 link and pick a new password:
 
-{{ reset_url }}
+{{ reset_url }}{% endtrans %}{% endif %}
 
-See you soon on {{ site }}
+{% trans site=settings.WEBSITE_TITLE %}See you soon on {{ site }}
 {%- endtrans %}{% endblock %}

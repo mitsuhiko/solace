@@ -39,7 +39,7 @@ def status(request):
 def bans(request):
     """Manages banned users"""
     form = BanUserForm()
-    query = User.query.banned()
+    query = User.query.filter_by(is_banned=True)
     pagination = Pagination(request, query, request.args.get('page', type=int))
 
     if request.method == 'POST' and form.validate():

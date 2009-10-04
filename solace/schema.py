@@ -28,7 +28,9 @@ users = Table('users', metadata,
     # the email of the user.  If an external auth system is used, the
     # login code should update that information automatically on login
     Column('email', String(200), index=True),
-    # the password hash.  Probably only used for the builtin auth system.
+    # the password hash.  This might not be used by every auth system.
+    # the OpenID auth for example does not use it at all.  But also
+    # external auth systems might not store the password here.
     Column('pw_hash', String(60)),
     # the realname of the user
     Column('real_name', String(200)),
@@ -46,6 +48,8 @@ users = Table('users', metadata,
     Column('platin_badges', Integer, nullable=False),
     # true if the user is an administrator
     Column('is_admin', Boolean, nullable=False),
+    # true if the user is banned
+    Column('is_banned', Boolean, nullable=False),
     # the date of the last login
     Column('last_login', DateTime),
     # the user's activation key.  If this is NULL, the user is already

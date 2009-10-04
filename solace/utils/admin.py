@@ -8,6 +8,7 @@
     :copyright: (c) 2009 by Plurk Inc., see AUTHORS for more details.
     :license: BSD, see LICENSE for more details.
 """
+from solace import settings
 from solace.i18n import _
 from solace.application import url_for
 from solace.templating import render_template
@@ -22,7 +23,7 @@ def ban_user(user):
     if user.is_banned:
         return
 
-    user.pw_hash = None
+    user.is_banned = True
     send_email(_(u'User account banned'),
                render_template('mails/user_banned.txt', user=user),
                user.email)
@@ -37,9 +38,9 @@ def unban_user(user):
     if not user.is_banned:
         return
 
-    # special password value that will never validate but does not
-    # trigger a "user is deativated".
-    user.pw_hash = '!'
+    if settings.REQUIRE_NEW_PASSWORD_ON_UNBAN:
+        user.is_active = False
+    user.is_banned = False
     reset_url = url_for('core.reset_password', email=user.email,
                         key=user.password_reset_key, _external=True)
     send_email(_(u'Your ban was lifted'),

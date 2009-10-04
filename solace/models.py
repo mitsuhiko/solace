@@ -100,10 +100,6 @@ class UserQuery(Query):
         return self.filter(User.id.in_(select([ua.user_id],
                                               ua.locale == str(locale))))
 
-    def banned(self):
-        """Returns all the banned users."""
-        return self.filter_by(pw_hash=None)
-
 
 class User(RemoteObject):
     """Represents a user on the system."""
@@ -124,6 +120,7 @@ class User(RemoteObject):
         self.real_name = u''
         self.is_admin = is_admin
         self.is_active = True
+        self.is_banned = False
         self.last_login = None
         if password is not None:
             self.set_password(password)
@@ -156,11 +153,6 @@ class User(RemoteObject):
         """Does this user have moderation rights?"""
         return self.is_admin or self.reputation >= \
             settings.REPUTATION_MAP['IS_MODERATOR']
-
-    @property
-    def is_banned(self):
-        """If the user does not have a password he's marked as banned."""
-        return self.pw_hash is None
 
     @property
     def display_name(self):

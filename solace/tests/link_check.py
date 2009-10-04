@@ -27,7 +27,9 @@ class LinkCheckTestCase(SolaceTestCase):
         """Make sure that all links are valid"""
         settings.LANGUAGE_SECTIONS = ['en']
         user = models.User('user1', 'user1@example.com', 'default')
-        user.active = True
+        user.is_admin = True
+        banned_user = models.User('user2', 'user2@example.com', 'default')
+        banned_user.is_banned = True
         topic = models.Topic('en', 'This is a test topic', 'Foobar', user)
         post1 = models.Post(topic, user, 'meh1')
         post2 = models.Post(topic, user, 'meh2')
@@ -40,7 +42,9 @@ class LinkCheckTestCase(SolaceTestCase):
             if not url.startswith(BASE_URL) or url in visited_links:
                 return
             visited_links.add(url)
-            path = url.split('/', 3)[-1]
+            path = '/' + url.split('/', 3)[-1]
+            if path.startswith('/logout?'):
+                return
             response = self.client.get(path, follow_redirects=True)
             self.assertEqual(response.status_code, 200)
             for link in response.html.xpath('//a[@href]'):
