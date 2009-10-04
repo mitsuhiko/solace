@@ -605,7 +605,7 @@ msgstr "Mit OpenID Anmelden"
 
 #: solace/templates/core/login_openid.html:5
 msgid "Enter your OpenID URL to login."
-msgstr "Gib deine OpenID URL zum anmelden an."
+msgstr "Gib deine OpenID URL ein um dich anzumelden."
 
 #: solace/templates/core/no_javascript.html:2
 #: solace/templates/core/no_javascript.html:4
