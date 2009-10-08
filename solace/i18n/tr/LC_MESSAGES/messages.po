@@ -1097,6 +1097,11 @@ msgid ""
 "find out more, please contact an administrator of the\n"
 "system."
 msgstr ""
+"Merhaba %(user)s!\n"
+"\n"
+"Üzülerek belirtmeliyiz ki kullanım şartlarına uymadığınız için\n"
+"hesabınız engellenmiştir.  Daha fazla bilgi için sistem\n"
+"yöneticisiyle iletişime geçiniz"
 
 #: solace/templates/mails/user_unbanned.txt:2
 #, python-format
@@ -1105,6 +1110,9 @@ msgid ""
 "\n"
 "Your ban on %(site)s was lifted."
 msgstr ""
+"Merhaba %(user)s!\n"
+"\n"
+"%(site)s için engellemeniz kaldırıldı."
 
 #: solace/templates/mails/user_unbanned.txt:9
 #, fuzzy, python-format
@@ -1116,16 +1124,12 @@ msgid ""
 "\n"
 "%(reset_url)s"
 msgstr ""
-"Merhaba %(user)s!\n"
 "\n"
-"%(site)s için kayıt yaptırdınız fakat hesabınız henüz \n"
-"onaylanmadı.  Aşağıdaki bağlantıyı ziyaret ederek kayıt \n"
-"işlemlerinizi tamamlamanız ve hesabınızı etkinleştirmeniz gerekiyor:\n"
 "\n"
-"%(confirmation_url)s\n"
+"Tekrar giriş yapmak için aşağıdaki bağlantıyı tıklayıp yeni bir\n"
+"şifre belirleyiniz:\n"
 "\n"
-"Saygılarımızla,\n"
-"%(site)s"
+"%(reset_url)s"
 
 #: solace/templates/mails/user_unbanned.txt:16
 #, python-format
