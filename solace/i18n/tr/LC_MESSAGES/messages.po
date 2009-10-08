@@ -346,7 +346,7 @@ msgstr "Bu sayfanın Atom beslemesi"
 
 #: solace/static/solace.js:482
 msgid "Could not contact server.  Connection problems?"
-msgstr "Sunucuya bağlanılamadı. Bağlantı problemini olabilir mi?"
+msgstr "Sunucuya bağlanılamadı.  Bağlantı problemini olabilir mi?"
 
 #: solace/templates/layout.html:32
 msgid "Language"
@@ -538,7 +538,7 @@ msgstr "%s kazandı"
 
 #: solace/templates/badges/show_badge.html:28
 msgid "This badge was not yet awarded.  Be the first"
-msgstr "Bu rozet henüz kimse kazanmadı. İlk olun"
+msgstr "Bu rozet henüz kimse kazanmadı.  İlk olun"
 
 #: solace/templates/badges/show_list.html:7
 msgid ""
@@ -548,7 +548,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Burada kazanabileceğiniz bütün rozetleri görebilirsiniz. Bazılarını\n"
+"    Burada kazanabileceğiniz bütün rozetleri görebilirsiniz.  Bazılarını\n"
 "    birden fazla kereler kazanabilirsiniz.\n"
 "  "
 
@@ -563,7 +563,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Bende fikirler tükendi. Birisi buraya birşeyler yazsın.\n"
+"    Bende fikirler tükendi.  Birisi buraya birşeyler yazsın.\n"
 "  "
 
 #: solace/templates/core/bad_request.html:2
@@ -681,7 +681,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    <p>Şifreniz <code>%(new_password)s</code> olarak sıfırlandı. Lütfen\n"
+"    <p>Şifreniz <code>%(new_password)s</code> olarak sıfırlandı.  Lütfen\n"
 "    en kısa zamanda <a href=\"%(change_url)s\">değiştiriniz</a>.\n"
 "  "
 
@@ -967,7 +967,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Bir sorunuz mu var? Hemen gönderin. Ama doğru bölümde\n"
+"    Bir sorunuz mu var?  Hemen gönderin.  Ama doğru bölümde\n"
 "    yayınladığınızdan emin olun.  Kalın gösterilen muhtemelen\n"
 "    en fazla ilginizi çekecektir:\n"
 "  "
@@ -1130,7 +1130,7 @@ msgstr ""
 #: solace/templates/mails/user_unbanned.txt:16
 #, python-format
 msgid "See you soon on %(site)s"
-msgstr ""
+msgstr "Tekrar görüşmek dileğiyle - %(site)s"
 
 #: solace/templates/users/edit_profile.html:3
 msgid "Edit Profile"
@@ -1166,19 +1166,19 @@ msgstr "Aktiviteye göre sıralanmış, önce en aktif olanlar"
 
 #: solace/templates/users/profile.html:36
 msgid "Administrative tasks"
-msgstr ""
+msgstr "Yönetici görevleri"
 
 #: solace/templates/users/profile.html:40
 msgid "Lift the Ban"
-msgstr ""
+msgstr "Engellemeyi kaldır"
 
 #: solace/templates/users/profile.html:42
 msgid "Ban this User"
-msgstr ""
+msgstr "Bu kullanıcıyı engelle"
 
 #: solace/templates/users/profile.html:47
 msgid "This user was banned"
-msgstr ""
+msgstr "Bu kullanıcı engellenmiş"
 
 #: solace/templates/users/profile.html:49
 msgid "Reputation"
@@ -1235,11 +1235,11 @@ msgstr "Hepsi"
 
 #: solace/utils/admin.py:27
 msgid "User account banned"
-msgstr ""
+msgstr "Hesabınız engellendi"
 
 #: solace/utils/admin.py:46
 msgid "Your ban was lifted"
-msgstr ""
+msgstr "Hesabınızın engeli kaldırıldı"
 
 #: solace/utils/api.py:80
 #, python-format
@@ -1277,6 +1277,8 @@ msgstr "Bu alanın doldurulması gereklidir."
 #: solace/utils/forms.py:1107
 msgid "Form submitted multiple times or session expired.  Try again."
 msgstr ""
+"Form birden fazla kere gönderildi veya oturum sona erdi.  "
+"Tekrar deneyiniz."
 
 #: solace/utils/forms.py:1116
 msgid "You entered an invalid captcha."
@@ -1380,7 +1382,7 @@ msgstr "Yanlış. Tekrar deneyiniz."
 #: solace/views/admin.py:47 solace/views/admin.py:116
 #, python-format
 msgid "The user “%s” was successfully banned and notified."
-msgstr ""
+msgstr "“%s” adlı kullanıcı başarıyla engellendi ve bundan haberdar edildi."
 
 #: solace/views/admin.py:78
 #, fuzzy
@@ -1396,6 +1398,7 @@ msgstr "Bu kullanıcı hesabı henüz onaylanmadı."
 #, python-format
 msgid "The user “%s” was successfully unbanned and notified."
 msgstr ""
+"“%s” adlı kullanıcının engeli başarıyla kaldırıldı ve bundan haberdar edildi."
 
 #: solace/views/admin.py:110
 #, fuzzy
@@ -1419,7 +1422,7 @@ msgstr ""
 
 #: solace/views/core.py:113
 msgid "Your account was activated.  You can log in now."
-msgstr "Hesabınız onaylandı. Giriş yapabilirsiniz."
+msgstr "Hesabınız onaylandı.  Giriş yapabilirsiniz."
 
 #: solace/views/core.py:116
 msgid ""
@@ -1441,7 +1444,7 @@ msgstr ""
 #: solace/views/kb.py:86 solace/views/kb.py:226
 #, fuzzy
 msgid "(deleted)"
-msgstr "Sil"
+msgstr "(silindi)"
 
 #: solace/views/kb.py:105
 msgid "Questions"
