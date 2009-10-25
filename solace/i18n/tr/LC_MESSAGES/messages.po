@@ -24,7 +24,7 @@ msgstr "Girdi silindi"
 
 #: solace/_openid_auth.py:176
 msgid "OpenID authentication error"
-msgstr ""
+msgstr "OpenID doğrulama hatası"
 
 #: solace/_openid_auth.py:193 solace/auth.py:300
 msgid "The user is not yet activated."
@@ -37,7 +37,7 @@ msgstr "Bu kullanıcı hesabı henüz onaylanmadı."
 
 #: solace/_openid_auth.py:203
 msgid "The OpenID was invalid"
-msgstr ""
+msgstr "Verilen OpenID geçersiz"
 
 #: solace/application.py:339 solace/application.py:366
 msgid "You have to login in order to visit this page."
@@ -206,7 +206,7 @@ msgstr "Şifre"
 
 #: solace/forms.py:60
 msgid "OpenID"
-msgstr ""
+msgstr "OpenID"
 
 #: solace/forms.py:69 solace/forms.py:183
 msgid "Password (repeat)"
@@ -290,7 +290,7 @@ msgstr "Yanıtınızı buraya yazın ve soruyu cevaplayın"
 
 #: solace/forms.py:307 solace/forms.py:321
 msgid "No such user."
-msgstr ""
+msgstr "Böyle bir kullanıcı yok."
 
 #: solace/forms.py:310 solace/views/admin.py:113
 #, fuzzy
@@ -299,15 +299,15 @@ msgstr "Kendi girdinize puan veremezsiniz."
 
 #: solace/forms.py:328
 msgid "Administrator"
-msgstr ""
+msgstr "Yönetici"
 
 #: solace/forms.py:329
 msgid "Enable if this user is an admin."
-msgstr ""
+msgstr "Yöneticiler için etkinleştir."
 
 #: solace/forms.py:331
 msgid "Associated OpenID Identities"
-msgstr ""
+msgstr "İlişkilendirilmiş OpenID Kimlikleri"
 
 #: solace/forms.py:350
 #, python-format
@@ -346,7 +346,7 @@ msgstr "Bu sayfanın Atom beslemesi"
 
 #: solace/static/solace.js:482
 msgid "Could not contact server.  Connection problems?"
-msgstr "Sunucuya bağlanılamadı. Bağlantı problemini olabilir mi?"
+msgstr "Sunucuya bağlanılamadı.  Bağlantı problemini olabilir mi?"
 
 #: solace/templates/layout.html:32
 msgid "Language"
@@ -355,7 +355,7 @@ msgstr "Dil"
 #: solace/templates/layout.html:46 solace/templates/admin/layout.html:2
 #: solace/templates/admin/layout.html:5
 msgid "Admin Panel"
-msgstr ""
+msgstr "Yönetici Ekranı"
 
 #: solace/templates/layout.html:48
 msgid "Logout"
@@ -403,33 +403,35 @@ msgstr "Bölüm"
 
 #: solace/templates/admin/bans.html:4 solace/templates/admin/layout.html:8
 msgid "Bans"
-msgstr ""
+msgstr "Engellemeler"
 
 #: solace/templates/admin/bans.html:5
 msgid "Ban and unban users."
-msgstr ""
+msgstr "Buradan kullanıcı engellemelerini düzenleyebilirsiniz."
 
 #: solace/templates/admin/bans.html:8
 msgid "Add a new ban"
-msgstr ""
+msgstr "Engelleme ekle"
 
 #: solace/templates/admin/bans.html:9
 msgid ""
 "In order to ban a user visit his profile and follow the\n"
 "    “ban user” link or enter his username into the following field:"
 msgstr ""
+"Bir kullanıcıyı engellemek için profiline gidip\n"
+"    “engelle” bağlantısına tıklayın veya aşağıdaki alana kullanıcı adını girin:"
 
 #: solace/templates/admin/bans.html:16
 msgid "Ban user"
-msgstr ""
+msgstr "Engelle"
 
 #: solace/templates/admin/bans.html:19
 msgid "Banned Users"
-msgstr ""
+msgstr "Engellenen Kullanıcılar"
 
 #: solace/templates/admin/bans.html:24 solace/templates/admin/edit_user.html:11
 msgid "lift the ban"
-msgstr ""
+msgstr "engellemeyi kaldır"
 
 #: solace/templates/admin/bans.html:26
 #, fuzzy
@@ -443,23 +445,23 @@ msgstr "“%s” Düzenleniyor"
 
 #: solace/templates/admin/edit_user.html:9
 msgid "Related actions:"
-msgstr ""
+msgstr "Diğer işlemler:"
 
 #: solace/templates/admin/edit_user.html:13
 msgid "ban this user"
-msgstr ""
+msgstr "bu kullanıcıyı engelle"
 
 #: solace/templates/admin/edit_user.html:16
 #: solace/templates/admin/edit_users.html:16
 #: solace/templates/admin/edit_users.html:24
 #: solace/templates/users/profile.html:38
 msgid "Edit User"
-msgstr ""
+msgstr "Kullanıcı Düzenle"
 
 #: solace/templates/admin/edit_users.html:4
 #: solace/templates/admin/layout.html:9
 msgid "Edit Users"
-msgstr ""
+msgstr "Kullanıcı Düzenleme"
 
 #: solace/templates/admin/edit_users.html:5
 #, fuzzy
@@ -468,13 +470,16 @@ msgstr "Profili düzenle"
 
 #: solace/templates/admin/edit_users.html:8
 msgid "Edit a specific user"
-msgstr ""
+msgstr "Kullanıcı düzenlemek için"
 
 #: solace/templates/admin/edit_users.html:9
 msgid ""
 "In order to edit a user visit his profile and follow the\n"
 "    “Edit User” link or enter his username into the following field:"
 msgstr ""
+"Bir kullanıcıyı düzenlemek için profiline gidip\n"
+"    “Kullanıcı Düzenle” bağlantısına tıklayın veya aşağıdaki alana kullanıcı"
+" adını girin:"
 
 #: solace/templates/admin/edit_users.html:19
 #: solace/templates/users/userlist.html:3
@@ -483,11 +488,11 @@ msgstr "Tüm Kullanıcılar"
 
 #: solace/templates/admin/layout.html:7 solace/templates/admin/status.html:3
 msgid "Status"
-msgstr ""
+msgstr "Durum"
 
 #: solace/templates/admin/status.html:4
 msgid "Monitor the current system status."
-msgstr ""
+msgstr "Sistemin şu anki durumunu izleyin."
 
 #: solace/templates/admin/status.html:7
 #, fuzzy
@@ -500,10 +505,13 @@ msgid ""
 "    if available.  In order to change these settings you have to modify\n"
 "    the configuration file or the WSGI script that sets these values."
 msgstr ""
+"Etkin ayarlar ve anahtarların açıklamaları listelenmektedir.\n"
+"    Bu ayarları değiştirmek için yapılandırma dosyasını\n"
+"    veya WSGI betiğini düzenlemeniz gerekiyor."
 
 #: solace/templates/admin/status.html:16
 msgid "Key"
-msgstr ""
+msgstr "Anahtar"
 
 #: solace/templates/admin/status.html:17
 #, fuzzy
@@ -530,7 +538,7 @@ msgstr "%s kazandı"
 
 #: solace/templates/badges/show_badge.html:28
 msgid "This badge was not yet awarded.  Be the first"
-msgstr "Bu rozet henüz kimse kazanmadı. İlk olun"
+msgstr "Bu rozet henüz kimse kazanmadı.  İlk olun"
 
 #: solace/templates/badges/show_list.html:7
 msgid ""
@@ -540,7 +548,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Burada kazanabileceğiniz bütün rozetleri görebilirsiniz. Bazılarını\n"
+"    Burada kazanabileceğiniz bütün rozetleri görebilirsiniz.  Bazılarını\n"
 "    birden fazla kereler kazanabilirsiniz.\n"
 "  "
 
@@ -555,26 +563,26 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Bende fikirler tükendi. Birisi buraya birşeyler yazsın.\n"
+"    Bende fikirler tükendi.  Birisi buraya birşeyler yazsın.\n"
 "  "
 
 #: solace/templates/core/bad_request.html:2
 #: solace/templates/core/bad_request.html:4
 msgid "Bad Request"
-msgstr ""
+msgstr "Kusurlu İstek"
 
 #: solace/templates/core/bad_request.html:5
 msgid "Your client made a request the server could not understand."
-msgstr ""
+msgstr "İstemciniz sunucunun anlayamayacağı bir istekte bulundu."
 
 #: solace/templates/core/forbidden.html:2
 #: solace/templates/core/forbidden.html:4
 msgid "Forbidden"
-msgstr ""
+msgstr "Yasak"
 
 #: solace/templates/core/forbidden.html:5
 msgid "You don't have permission to access the requested resource."
-msgstr ""
+msgstr "Bu kaynağa erişmek için yeterli yetkiniz yok."
 
 #: solace/templates/core/login.html:5
 msgid "Enter your username and password to log into Solace:"
@@ -593,11 +601,11 @@ msgstr "Şifrenizi mi unuttunuz?"
 #: solace/templates/core/login_openid.html:2
 #: solace/templates/core/login_openid.html:4
 msgid "Login with OpenID"
-msgstr ""
+msgstr "OpenID ile giriş"
 
 #: solace/templates/core/login_openid.html:5
 msgid "Enter your OpenID URL to login."
-msgstr ""
+msgstr "Giriş yapmak için OpenID URL'inizi yazınız."
 
 #: solace/templates/core/no_javascript.html:2
 #: solace/templates/core/no_javascript.html:4
@@ -637,7 +645,7 @@ msgstr "Yeni Kayıt"
 
 #: solace/templates/core/register_openid.html:2
 msgid "First OpenID Login"
-msgstr ""
+msgstr "OpenID İle İlk Giriş"
 
 #: solace/templates/core/register_openid.html:5
 #, python-format
@@ -651,6 +659,12 @@ msgid ""
 "    username is unique and cannot be changed later, so pick with care.\n"
 "  "
 msgstr ""
+"\n"
+"  <p>\n"
+"    <strong>%(openid)s</strong> hesabınız ile ilk girişiniz.\n"
+"    Lütfen kendinize bir kullanıcı adı seçiniz.  Bu kullanıcı adı\n"
+"    özgündür ve daha sonradan değiştirilemez, dikkatli seçiniz.\n"
+"  "
 
 #: solace/templates/core/reset_password.html:2
 #: solace/templates/core/reset_password.html:20 solace/views/core.py:94
@@ -667,7 +681,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    <p>Şifreniz <code>%(new_password)s</code> olarak sıfırlandı. Lütfen\n"
+"    <p>Şifreniz <code>%(new_password)s</code> olarak sıfırlandı.  Lütfen\n"
 "    en kısa zamanda <a href=\"%(change_url)s\">değiştiriniz</a>.\n"
 "  "
 
@@ -953,7 +967,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Bir sorunuz mu var? Hemen gönderin. Ama doğru bölümde\n"
+"    Bir sorunuz mu var?  Hemen gönderin.  Ama doğru bölümde\n"
 "    yayınladığınızdan emin olun.  Kalın gösterilen muhtemelen\n"
 "    en fazla ilginizi çekecektir:\n"
 "  "
@@ -1083,6 +1097,11 @@ msgid ""
 "find out more, please contact an administrator of the\n"
 "system."
 msgstr ""
+"Merhaba %(user)s!\n"
+"\n"
+"Üzülerek belirtmeliyiz ki kullanım şartlarına uymadığınız için\n"
+"hesabınız engellenmiştir.  Daha fazla bilgi için sistem\n"
+"yöneticisiyle iletişime geçiniz"
 
 #: solace/templates/mails/user_unbanned.txt:2
 #, python-format
@@ -1091,6 +1110,9 @@ msgid ""
 "\n"
 "Your ban on %(site)s was lifted."
 msgstr ""
+"Merhaba %(user)s!\n"
+"\n"
+"%(site)s için engellemeniz kaldırıldı."
 
 #: solace/templates/mails/user_unbanned.txt:9
 #, fuzzy, python-format
@@ -1102,21 +1124,17 @@ msgid ""
 "\n"
 "%(reset_url)s"
 msgstr ""
-"Merhaba %(user)s!\n"
 "\n"
-"%(site)s için kayıt yaptırdınız fakat hesabınız henüz \n"
-"onaylanmadı.  Aşağıdaki bağlantıyı ziyaret ederek kayıt \n"
-"işlemlerinizi tamamlamanız ve hesabınızı etkinleştirmeniz gerekiyor:\n"
 "\n"
-"%(confirmation_url)s\n"
+"Tekrar giriş yapmak için aşağıdaki bağlantıyı tıklayıp yeni bir\n"
+"şifre belirleyiniz:\n"
 "\n"
-"Saygılarımızla,\n"
-"%(site)s"
+"%(reset_url)s"
 
 #: solace/templates/mails/user_unbanned.txt:16
 #, python-format
 msgid "See you soon on %(site)s"
-msgstr ""
+msgstr "Tekrar görüşmek dileğiyle - %(site)s"
 
 #: solace/templates/users/edit_profile.html:3
 msgid "Edit Profile"
@@ -1152,19 +1170,19 @@ msgstr "Aktiviteye göre sıralanmış, önce en aktif olanlar"
 
 #: solace/templates/users/profile.html:36
 msgid "Administrative tasks"
-msgstr ""
+msgstr "Yönetici görevleri"
 
 #: solace/templates/users/profile.html:40
 msgid "Lift the Ban"
-msgstr ""
+msgstr "Engellemeyi kaldır"
 
 #: solace/templates/users/profile.html:42
 msgid "Ban this User"
-msgstr ""
+msgstr "Bu kullanıcıyı engelle"
 
 #: solace/templates/users/profile.html:47
 msgid "This user was banned"
-msgstr ""
+msgstr "Bu kullanıcı engellenmiş"
 
 #: solace/templates/users/profile.html:49
 msgid "Reputation"
@@ -1221,11 +1239,11 @@ msgstr "Hepsi"
 
 #: solace/utils/admin.py:27
 msgid "User account banned"
-msgstr ""
+msgstr "Hesabınız engellendi"
 
 #: solace/utils/admin.py:46
 msgid "Your ban was lifted"
-msgstr ""
+msgstr "Hesabınızın engeli kaldırıldı"
 
 #: solace/utils/api.py:80
 #, python-format
@@ -1263,6 +1281,8 @@ msgstr "Bu alanın doldurulması gereklidir."
 #: solace/utils/forms.py:1107
 msgid "Form submitted multiple times or session expired.  Try again."
 msgstr ""
+"Form birden fazla kere gönderildi veya oturum sona erdi.  "
+"Tekrar deneyiniz."
 
 #: solace/utils/forms.py:1116
 msgid "You entered an invalid captcha."
@@ -1366,7 +1386,7 @@ msgstr "Yanlış. Tekrar deneyiniz."
 #: solace/views/admin.py:47 solace/views/admin.py:116
 #, python-format
 msgid "The user “%s” was successfully banned and notified."
-msgstr ""
+msgstr "“%s” adlı kullanıcı başarıyla engellendi ve bundan haberdar edildi."
 
 #: solace/views/admin.py:78
 #, fuzzy
@@ -1382,6 +1402,7 @@ msgstr "Bu kullanıcı hesabı henüz onaylanmadı."
 #, python-format
 msgid "The user “%s” was successfully unbanned and notified."
 msgstr ""
+"“%s” adlı kullanıcının engeli başarıyla kaldırıldı ve bundan haberdar edildi."
 
 #: solace/views/admin.py:110
 #, fuzzy
@@ -1405,7 +1426,7 @@ msgstr ""
 
 #: solace/views/core.py:113
 msgid "Your account was activated.  You can log in now."
-msgstr "Hesabınız onaylandı. Giriş yapabilirsiniz."
+msgstr "Hesabınız onaylandı.  Giriş yapabilirsiniz."
 
 #: solace/views/core.py:116
 msgid ""
@@ -1427,7 +1448,7 @@ msgstr ""
 #: solace/views/kb.py:86 solace/views/kb.py:226
 #, fuzzy
 msgid "(deleted)"
-msgstr "Sil"
+msgstr "(silindi)"
 
 #: solace/views/kb.py:105
 msgid "Questions"
