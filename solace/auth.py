@@ -310,7 +310,6 @@ class InternalAuth(AuthSystemBase):
 try:
     from solace._openid_auth import OpenIDAuth
 except ImportError:
-    raise
     class OpenIDAuth(AuthSystemBase):
         def __init__(self):
             raise RuntimeError('python-openid library not installed but '
