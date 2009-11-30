@@ -163,7 +163,7 @@ class StreamDiffer(object):
                     self.diff_text(pos, old_event[1], new_text)
                 # for all other stuff we ignore the old event
                 else:
-                    self.append(new_event)
+                    self.append(*new_event)
 
             # ob boy, now the ugly stuff starts.  Let's handle the
             # easy one first.  If the old event was text and the
