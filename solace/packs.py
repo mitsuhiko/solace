@@ -9,7 +9,7 @@
     :license: BSD, see LICENSE for more details.
 """
 import os
-from webdepcompress import PackManager
+from webdepcompress.manager import PackManager
 
 
 def _url_for(*args, **kwargs):
