@@ -40,7 +40,7 @@ def format_creole_diff(old, new):
     """Renders a creole diff for two texts."""
     differ = StreamDiffer(_parser.generate(old),
                           _parser.generate(new))
-    return differ.get_diff_stream().render('html')
+    return differ.get_diff_stream().render('html', encoding=None)
 
 
 def longzip(a, b):
