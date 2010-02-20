@@ -4,6 +4,7 @@
 <title>{% block html_head_title %}{% if page_title %}{{ page_title|e
   }} | {% endif %}{{ settings.WEBSITE_TITLE|e }}{% endblock %}</title>
 {{ packs.default }}
+{% block extra_header %}{% endblock %}
 <script type="text/javascript" src="{{ url_for('core.get_translations', lang=request.locale) }}"></script>
 <!--[if IE]><link rel="stylesheet" type="text/css" href="{{ url_for('static', file='ie.css') }}"><![endif]-->
 <!--[if lt IE 7]><link rel="stylesheet" type="text/css" href="{{ url_for('static', file='ie6.css') }}"><![endif]-->

@@ -166,10 +166,12 @@ class OpenIDAuth(AuthSystemBase):
 
     def complete_login(self, request):
         consumer = Consumer(request.session, SolaceOpenIDStore())
+        print ' request.args.to_dict() = %r' % (request.args.to_dict(),)
         openid_response = consumer.complete(request.args.to_dict(),
                                             url_for('core.login', _external=True))
+        print ' openid_response.openid_identifier = %r' % (openid_response.openid_identifier,)
         if openid_response.status == SUCCESS:
-            return self.create_or_login(request, openid_response.identity_url)
+            return self.create_or_login(request, openid_response.openid_identifier)
         elif openid_response.status == CANCEL:
             raise LoginUnsucessful(_(u'The request was cancelled'))
         else:
