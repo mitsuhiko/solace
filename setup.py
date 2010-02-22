@@ -38,8 +38,6 @@ try:
 except ImportError:
     pass
 else:
-    from kerntrace import inject_builtins
-    inject_builtins()
     extra['cmdclass'] = {
         'runserver':        scripts.RunserverCommand,
         'initdb':           scripts.InitDatabaseCommand,
