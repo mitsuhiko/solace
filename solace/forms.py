@@ -57,7 +57,7 @@ class StandardLoginForm(forms.Form):
 
 class OpenIDLoginForm(forms.Form):
     """Used to log in users with the OpenID auth system."""
-    identity_url = forms.TextField(lazy_gettext(u'OpenID'), required=True)
+    openid_identifier = forms.TextField(lazy_gettext(u'OpenID'), required=True)
 
 
 class RegistrationForm(forms.Form):
