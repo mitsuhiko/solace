@@ -33,6 +33,9 @@ def is_valid_username(form, value):
     if value[:1] == '.' or value[-1:] == '.':
         raise forms.ValidationError(_(u'The username may not begin or '
                                       u'end with a dot.'))
+    if ' ' in value:
+        raise forms.ValidationError(_(u'The username may not contain '
+                                      u'spaces.'))
 
 
 def is_http_url(form, value):
