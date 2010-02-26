@@ -34,6 +34,7 @@ from solace.schema import openid_association, openid_user_nonces
 from solace.models import User
 from solace.forms import OpenIDLoginForm, OpenIDRegistrationForm
 from solace.auth import AuthSystemBase, LoginUnsucessful
+from solace import settings
 
 
 class SolaceOpenIDStore(OpenIDStore):
