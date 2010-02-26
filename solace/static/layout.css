@@ -473,6 +473,10 @@ div.post_form div.text div.help {
     font-family: 'Consolas', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Monaco', 'Courier New', monospace;
 }
 
+div.post_form div.tags span.help {
+    color: #777;
+}
+
 /* get rid of safari's blue boxes */
 div.post_form div.title input:focus,
 div.post_form div.text textarea:focus {
