@@ -8,36 +8,56 @@
 {% block body %}
   <h1>{{ _('Login with OpenID') }}</h1>
   <p>{% trans -%}
-    Enter your OpenID URL to login.
+    <a href="http://openid.net/">OpenID</a> is a way to share a single login
+    between different websites. Chances are, you are already using a web service
+    that provides you with an OpenID. If you do, click its button below or enter
+    the URL of your OpenID if you know it. If you don’t already have an OpenID,
+    <a href="http://openid.net/get-an-openid/">find out how to get one for free
+      here</a>. After you have submitted your OpenID, you will be redirected to
+    your provider’s site for authentication and then returned here.
   {%- endtrans %}
   {% call form(class="openid") %}
-  <div><ul class="providers"> 
-          <li class="openid" title="OpenID"><img src="{{ url_for('static', file='images/openidW.png') }}" alt="icon" /> 
-  <span><strong>http://{your-openid-url}</strong></span></li> 
-  <li class="direct" title="Google"> 
-		<img src="{{ url_for('static', file='images/googleW.png') }}" alt="icon" /><span>https://www.google.com/accounts/o8/id</span></li> 
-  <li class="direct" title="Yahoo"> 
-		<img src="{{ url_for('static', file='images/yahooW.png') }}" alt="icon" /><span>http://yahoo.com/</span></li> 
-  <li class="username" title="AOL screen name"> 
-		<img src="{{ url_for('static', file='images/aolW.png') }}" alt="icon" /><span>http://openid.aol.com/<strong>username</strong></span></li> 
-  <li class="username" title="MyOpenID user name"> 
-		<img src="{{ url_for('static', file='images/myopenid.png') }}" alt="icon" /><span>http://<strong>username</strong>.myopenid.com/</span></li> 
-  <li class="username" title="Flickr user name"> 
-		<img src="{{ url_for('static', file='images/flickr.png') }}" alt="icon" /><span>http://flickr.com/<strong>username</strong>/</span></li> 
-  <li class="username" title="Technorati user name"> 
-		<img src="{{ url_for('static', file='images/technorati.png') }}" alt="icon" /><span>http://technorati.com/people/technorati/<strong>username</strong>/</span></li> 
-  <li class="username" title="Wordpress blog name"> 
-		<img src="{{ url_for('static', file='images/wordpress.png') }}" alt="icon" /><span>http://<strong>username</strong>.wordpress.com</span></li> 
-  <li class="username" title="Blogger blog name"> 
-		<img src="{{ url_for('static', file='images/blogger.png') }}" alt="icon" /><span>http://<strong>username</strong>.blogspot.com/</span></li> 
-  <li class="username" title="LiveJournal blog name"> 
-		<img src="{{ url_for('static', file='images/livejournal.png') }}" alt="icon" /><span>http://<strong>username</strong>.livejournal.com</span></li> 
-  <li class="username" title="ClaimID user name"> 
-		<img src="{{ url_for('static', file='images/claimid.png') }}" alt="icon" /><span>http://claimid.com/<strong>username</strong></span></li> 
-  <li class="username" title="Vidoop user name"> 
-		<img src="{{ url_for('static', file='images/vidoop.png') }}" alt="icon" /><span>http://<strong>username</strong>.myvidoop.com/</span></li> 
-  <li class="username" title="Verisign user name"> 
-		<img src="{{ url_for('static', file='images/verisign.png') }}" alt="icon" /><span>http://<strong>username</strong>.pip.verisignlabs.com/</span></li> 
+  <div>
+  <ul class="providers"> 
+    <li class="openid" title="OpenID">
+      <img src="{{ url_for('static', file='images/openidW.png') }}" alt="icon" /> 
+      <span><strong>http://{your-openid-url}</strong></span></li> 
+    <li class="direct" title="Google"> 
+      <img src="{{ url_for('static', file='images/googleW.png') }}" alt="icon" />
+      <span>https://www.google.com/accounts/o8/id</span></li> 
+    <li class="direct" title="Yahoo"> 
+      <img src="{{ url_for('static', file='images/yahooW.png') }}" alt="icon" />
+      <span>http://yahoo.com/</span></li> 
+    <li class="username" title="AOL screen name"> 
+      <img src="{{ url_for('static', file='images/aolW.png') }}" alt="icon" />
+      <span>http://openid.aol.com/<strong>username</strong></span></li> 
+    <li class="username" title="MyOpenID user name"> 
+      <img src="{{ url_for('static', file='images/myopenid.png') }}" alt="icon" />
+      <span>http://<strong>username</strong>.myopenid.com/</span></li> 
+    <li class="username" title="Flickr user name"> 
+      <img src="{{ url_for('static', file='images/flickr.png') }}" alt="icon" />
+      <span>http://flickr.com/<strong>username</strong>/</span></li> 
+    <li class="username" title="Technorati user name"> 
+      <img src="{{ url_for('static', file='images/technorati.png') }}" alt="icon" />
+      <span>http://technorati.com/people/technorati/<strong>username</strong>/</span></li> 
+    <li class="username" title="Wordpress blog name"> 
+      <img src="{{ url_for('static', file='images/wordpress.png') }}" alt="icon" />
+      <span>http://<strong>username</strong>.wordpress.com</span></li> 
+    <li class="username" title="Blogger blog name"> 
+      <img src="{{ url_for('static', file='images/blogger.png') }}" alt="icon" />
+      <span>http://<strong>username</strong>.blogspot.com/</span></li> 
+    <li class="username" title="LiveJournal blog name"> 
+      <img src="{{ url_for('static', file='images/livejournal.png') }}" alt="icon" />
+      <span>http://<strong>username</strong>.livejournal.com</span></li> 
+    <li class="username" title="ClaimID user name"> 
+      <img src="{{ url_for('static', file='images/claimid.png') }}" alt="icon" />
+      <span>http://claimid.com/<strong>username</strong></span></li> 
+    <li class="username" title="Vidoop user name"> 
+      <img src="{{ url_for('static', file='images/vidoop.png') }}" alt="icon" />
+      <span>http://<strong>username</strong>.myvidoop.com/</span></li> 
+    <li class="username" title="Verisign user name"> 
+      <img src="{{ url_for('static', file='images/verisign.png') }}" alt="icon" />
+      <span>http://<strong>username</strong>.pip.verisignlabs.com/</span></li> 
   </ul></div> 
 
   <fieldset> 

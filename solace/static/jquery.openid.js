@@ -33,10 +33,8 @@ $.fn.openid = function() {
     $idfs.fadeOut();
 
     $this.unbind('submit').submit(function() {
-        console.log($this.find("li.highlight span").text());
-      $id.val($this.find("li.highlight span").text());
+      $id.val($this.find("ul.providers li.highlight span span").text());
     });
-    console.log($this);
     $this.submit();
     return false;
   };
@@ -66,9 +64,9 @@ $.fn.openid = function() {
     return false;
   };
 
-  $this.find('li.direct').click(direct);
-  $this.find('li.openid').click(openid);
-  $this.find('li.username').click(username);
+  $this.find('ul.providers li.direct').click(direct);
+  $this.find('ul.providers li.openid').click(openid);
+  $this.find('ul.providers li.username').click(username);
   $id.keypress(function(e) {
     if ((e.which && e.which == 13) || (e.keyCode && e.keyCode == 13)) {
       return submitid();
@@ -79,8 +77,8 @@ $.fn.openid = function() {
       return submitusr();
     }
   });
-  $this.find('li span').hide();
-  $this.find('li').css('line-height', 0).css('cursor', 'pointer');
-  $this.find('li:eq(0)').click();
+  $this.find('ul.providers li span').hide();
+  $this.find('ul.providers li').css('line-height', 0).css('cursor', 'pointer');
+  $this.find('ul.providers li:eq(0)').click();
   return this;
 };
