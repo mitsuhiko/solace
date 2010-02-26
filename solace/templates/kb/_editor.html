@@ -17,7 +17,7 @@
       </div>
       {%- if form.tags %}
       <div class="tags">
-        {{ _('Tags') }}: {{ form.tags(size=30) }}
+          {{ _('Tags') }}: {{ form.tags(size=30) }} {{ _('(use commas to separate tags)') }}
       </div>
       {%- endif %}
       <div class="submit">
