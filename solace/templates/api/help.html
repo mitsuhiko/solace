@@ -10,7 +10,7 @@
     <p>
       The Solace API is accessed via HTTP on the API URL (the URL of the page
       you're looking at right now).  The method you want to access is then
-      appended to the URL.  For example to use the <code>get_user</code>
+      appended to the URL.  For example, to use the <code>get_user</code>
       method you would open a connection to the following URL:
     <pre>{{ request.url }}users/username</pre>
     <p>
@@ -44,15 +44,15 @@
       following rules:
     <ul>
       <li>If a resource URL is documented with a trailing slash you
-          <strong>must</strong> connect to it with a trailing slash
+          <strong>must</strong> connect to it with a trailing slash.
       <li>For valid requests the server will never return a redirect
           you have to handle.
       <li>All data returned, except for data that is HTML, is not
-          preprocessed.  If you intend to embedd it on a webpage make
+          preprocessed.  If you intend to embed it on a webpage, make
           sure to properly escape the data!
       <li>Rendered HTML is only valid in HTML 4 and HTML 5, not in
           any version of XHTML!  If you are using XHTML and want to
-          embedd rendered data you <strong>must</strong> parse it as
+          embed rendered data, you <strong>must</strong> parse it as
           HTML and dump into XML.
       <li>The encoding used for requests and responses to and from
           Solace are always utf-8.
@@ -61,8 +61,8 @@
     </ul>
     <h2>XML Format</h2>
     <p>
-      If you don't want (or can) use the JSON format which is strongly
-      recommended you can also use our XML representation of the data.
+      If you don't want (or cannot) use the JSON format which is strongly
+      recommended, you can also use our XML representation of the data.
     <p>
       The following rules apply for the XML format:
     <ul>
