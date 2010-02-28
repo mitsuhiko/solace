@@ -778,6 +778,12 @@ div.text pre {
     border: 1px dashed;
 }
 
+blockquote {
+    border-left: 2px solid #8080CF;
+    margin: 5px 15px 5px 5px;
+    padding-left: 5px;
+}
+
 /* :::: SECTION LIST :::: */
 ul.sections {
     list-style: none;
