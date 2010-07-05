@@ -293,7 +293,7 @@ class Request(RequestBase):
                 msgs.append((msg.type, msg.text))
                 to_delete.add(msg.id)
             if to_delete:
-                UserMessage.query.filter(UserMessage.id.in_(to_delete)).delete()
+                UserMessage.query.filter(UserMessage.id.in_(to_delete)).delete(synchronize_session='fetch')
                 session.commit()
         if 'flashes' in self.session:
             msgs += self.session.pop('flashes')
