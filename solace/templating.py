@@ -13,7 +13,7 @@ from os import path
 from itertools import chain
 from threading import Lock
 from werkzeug import escape
-from webdepcompress import PackManager
+from webdepcompress.manager import PackManager
 from werkzeug.exceptions import NotFound
 from jinja2 import Environment, PackageLoader, BaseLoader, TemplateNotFound
 from solace.utils.ini import parse_ini
