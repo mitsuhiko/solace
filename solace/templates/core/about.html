@@ -3,6 +3,32 @@
 {% block body %}
   <h1>{{ page_title }}</h1>
   <p>{% trans %}
-    I'm out of ideas.  Someone come up with something.
+    Solace is an BSD licensed, open source, clone of the software
+    running at stackoverflow.  It's not a 1:1 copy, but has some
+    changes over the original software, especially regarding
+    support for multiple languages.
+  {% endtrans %}
+  <h3>{{ 'History' }}</h3>
+  <p>{% trans %}
+    Solace was originally developed for the support website of
+    <a href="http://plurk.com/">Plurk</a> but was never deployed
+    in action.  Development then stalled and the project had some
+    more or less inactive forks on bitbucket.
+  {% endtrans %}
+  <p>{% trans %}
+    In Summer 2010 the project was moved to github
+    (<a href="http://github.com/mitsuhiko/solace">project site</a>)
+    by Armin Ronacher of the <a href="http://dev.pocoo.org/"
+    >Pocoo Team</a>.  It was updated to the latest version of the libraries
+    used.  It still lacks a fundamental search feature but otherwise it works
+    fine.
+  {% endtrans %}
+  <h3>{{ 'Development' }}</h3>
+  <p>{% trans %}
+    If you are eager to help out, join the <code>#pocoo</code> IRC
+    channel on irc.freenode.net.  We are happy to recieve any help
+    offered because we (the Pocoo Team) already maintain a lot of
+    libraries and applications and would need support to keep this
+    project alive.
   {% endtrans %}
 {% endblock %}
