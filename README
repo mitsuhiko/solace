@@ -27,7 +27,7 @@
             -   Babel
             -   creoleparser
             -   simplejson
-	    -	webdepcompress
+            -   webdepcompress
 
         If you want to hack on Solace on your own the best way to get
         started is using the all-mygthy `setup.py` script in a virtual
@@ -130,7 +130,7 @@
         - Postgres
 
         We recommend sqlite3 for testing (which incidentally is the
-        defualt) and Postgres for production.
+        default) and Postgres for production.
 
         To initialize the database make sure to have the database
         URI set in a config, the `SOLACE_SETTINGS_FILE` environment
