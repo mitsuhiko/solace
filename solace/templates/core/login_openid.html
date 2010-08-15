@@ -1,10 +1,15 @@
 {% extends 'layout.html' %}
 {% set page_title = _('Login with OpenID') %}
 {% block extra_header %}
-<script type="text/javascript" src="{{ url_for('static', file='jquery.openid.js') }}"></script>
-<script type="text/javascript">  $(function() { $("form.openid:eq(0)").openid(); });</script>
+<script type="text/javascript" src="{{ url_for('static', file='openid.js') }}"></script>
 <link rel="stylesheet" type="text/css" media="screen" href="{{ url_for('static', file='openid.css') }}" />
 {% endblock %}
+{% macro provider(title, icon, pattern, mode='username') -%}
+  <div class={{ mode }}>
+    <span class=icon><img src="{{ url_for('static', file='images/' ~ icon) }}" alt="{{ title }}" title="{{ title }}"></span>
+    <span class=pattern>{{ pattern.replace('{', '<strong>').replace('}', '</strong>') }}</span>
+  </div>
+{%- endmacro %}
 {% block body %}
   <h1>{{ _('Login with OpenID') }}</h1>
   <p>{% trans -%}
@@ -16,67 +21,32 @@
       here</a>. After you have submitted your OpenID, you will be redirected to
     your provider’s site for authentication and then returned here.
   {%- endtrans %}
-  {% call form(class="openid") %}
-  <div>
-  <ul class="providers"> 
-    <li class="openid" title="OpenID">
-      <img src="{{ url_for('static', file='images/openidW.png') }}" alt="icon" /> 
-      <span><strong>http://{your-openid-url}</strong></span></li> 
-    <li class="direct" title="Google"> 
-      <img src="{{ url_for('static', file='images/googleW.png') }}" alt="icon" />
-      <span>https://www.google.com/accounts/o8/id</span></li> 
-    <li class="direct" title="Yahoo"> 
-      <img src="{{ url_for('static', file='images/yahooW.png') }}" alt="icon" />
-      <span>http://yahoo.com/</span></li> 
-    <li class="username" title="AOL screen name"> 
-      <img src="{{ url_for('static', file='images/aolW.png') }}" alt="icon" />
-      <span>http://openid.aol.com/<strong>username</strong></span></li> 
-    <li class="username" title="MyOpenID user name"> 
-      <img src="{{ url_for('static', file='images/myopenid.png') }}" alt="icon" />
-      <span>http://<strong>username</strong>.myopenid.com/</span></li> 
-    <li class="username" title="Flickr user name"> 
-      <img src="{{ url_for('static', file='images/flickr.png') }}" alt="icon" />
-      <span>http://flickr.com/<strong>username</strong>/</span></li> 
-    <li class="username" title="Technorati user name"> 
-      <img src="{{ url_for('static', file='images/technorati.png') }}" alt="icon" />
-      <span>http://technorati.com/people/technorati/<strong>username</strong>/</span></li> 
-    <li class="username" title="Wordpress blog name"> 
-      <img src="{{ url_for('static', file='images/wordpress.png') }}" alt="icon" />
-      <span>http://<strong>username</strong>.wordpress.com</span></li> 
-    <li class="username" title="Blogger blog name"> 
-      <img src="{{ url_for('static', file='images/blogger.png') }}" alt="icon" />
-      <span>http://<strong>username</strong>.blogspot.com/</span></li> 
-    <li class="username" title="LiveJournal blog name"> 
-      <img src="{{ url_for('static', file='images/livejournal.png') }}" alt="icon" />
-      <span>http://<strong>username</strong>.livejournal.com</span></li> 
-    <li class="username" title="ClaimID user name"> 
-      <img src="{{ url_for('static', file='images/claimid.png') }}" alt="icon" />
-      <span>http://claimid.com/<strong>username</strong></span></li> 
-    <li class="username" title="Vidoop user name"> 
-      <img src="{{ url_for('static', file='images/vidoop.png') }}" alt="icon" />
-      <span>http://<strong>username</strong>.myvidoop.com/</span></li> 
-    <li class="username" title="Verisign user name"> 
-      <img src="{{ url_for('static', file='images/verisign.png') }}" alt="icon" />
-      <span>http://<strong>username</strong>.pip.verisignlabs.com/</span></li> 
-  </ul></div> 
+  {% call form(class='openid') %}
+  <div class="providers">
+    <h2>Common Providers</h2>
+    <ul>
+      <li>{{ provider('OpenID', 'openidW.png', 'http://{your-openid-url}', 'openid') }}
+      <li>{{ provider('Google', 'googleW.png', 'http://www.google.com/accounts/o8/id', 'direct') }}
+      <li>{{ provider('Yahoo', 'yahooW.png', 'http://yahoo.com/', 'direct') }}
+      <li>{{ provider('AOL', 'aolW.png', 'http://openid.aol.com/{username}') }}
+      <li>{{ provider('MyOpenID', 'myopenid.png', 'http://{username}.myopenid.com/') }}
+      <li>{{ provider('Flickr', 'flickr.png', 'http://flickr.com/{username}/') }}
+      <li>{{ provider('Technorati', 'technorati.png', 'http://technorati.com/people/technorati/{username}/') }}
+      <li>{{ provider('Wordpress', 'wordpress.png', 'http://{username}.wordpress.com/') }}
+      <li>{{ provider('Blogger', 'blogger.png', 'http://{username}.blogspot.com/') }}
+      <li>{{ provider('LiveJournal', 'livejournal.png', 'http://{username}.livejournal.com/') }}
+      <li>{{ provider('ClaimID', 'claimid.png', 'http://claimid.com/{username}') }}
+      <li>{{ provider('Vidoop', 'vidoop.png', 'http://{username}.myvidoop.com/') }}
+      <li>{{ provider('Verisign', 'verisign.png', 'http://{username}.pip.verisignlabs.com/') }}
+    </ul>
+  </div> 
 
-  <fieldset> 
-  <label for="openid_username">Enter your <span>Provider user name</span></label> 
-  <div><span></span><input type="text" name="openid_username" /><span></span> 
-      <div class="buttons">
-        <input type="submit" value="{{ _('Login') }}" />
-      </div>
-  </div>
-  </fieldset> 
-
-  <fieldset> 
-  <label for="openid_identifier">Enter your <a class="openid_logo" href="http://openid.net">OpenID</a></label> 
-  <div><input type="text" name="openid_identifier" /> 
-      <div class="buttons">
-        <input type="submit" value="{{ _('Login') }}" />
-      </div>
-  </div>
-  </fieldset> 
-  
+  <dl class="openid_signin">
+    <dt><label for="openid_identifier">Enter your <a href="http://openid.net/">OpenID</a>:</label>
+    <dd><div class="login_line">
+      <input type="text" name="openid_identifier" class="openid_identifier">
+      <input type="submit" value="{{ _('Login') }}">
+    </div>
+  </dl>
   {% endcall %}
 {% endblock %}
