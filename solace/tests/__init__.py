@@ -38,6 +38,12 @@ TEST_DATABASE = tempfile.mktemp(prefix='solace-test-db')
 html_parser = HTMLParser(tree=getTreeBuilder('lxml'))
 
 
+def html_xpath(element, expr):
+    return element.xpath(expr, namespaces={
+        'html':     'http://www.w3.org/1999/xhtml'
+    })
+
+
 class TestResponse(Response):
     """Responses for the test client."""
 
@@ -95,10 +101,10 @@ class SolaceTestCase(unittest.TestCase):
     def submit_form(self, path, data, follow_redirects=False):
         response = self.client.get(path)
         try:
-            form = response.html.xpath('//form')[0]
+            form = html_xpath(response.html, '//html:form')[0]
         except IndexError:
             raise RuntimeError('no form on page')
-        csrf_token = form.xpath('//input[@name="_csrf_token"]')[0]
+        csrf_token = html_xpath(form, '//html:input[@name="_csrf_token"]')[0]
         data['_csrf_token'] = csrf_token.attrib['value']
         action = self.normalize_local_path(form.attrib['action'])
         return self.client.post(action, method=form.attrib['method'].upper(),

@@ -207,7 +207,7 @@ ul.badges li.earned         { background-image: url(badge_earned.png); }
 
 /* badge rendering */
 span.badge a                { background-color: #333; color: white; }
-span.badge a:hover          { background-color: #222; color: #aaa; }
+span.badge a:hover          { background-color: #222; color: #ddd; }
 
 /* autocomplete */
 .ac_results                 { border-color: #2c6c7b; background-color: white; }

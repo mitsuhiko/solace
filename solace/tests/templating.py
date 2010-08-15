@@ -25,7 +25,7 @@ class TemplatingTestCase(SolaceTestCase):
                                         confirmation_url='MEH')
         self.assert_('Hi me!' in rv)
         self.assert_('MEH' in rv)
-        self.assert_('See you soon on Plurk Solace' in rv)
+        self.assert_('See you soon on Solace' in rv)
 
     def test_theme_switches(self):
         """Theme based template switches."""

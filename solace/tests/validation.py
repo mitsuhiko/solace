@@ -15,7 +15,7 @@ import unittest
 from simplejson import loads
 from urllib2 import urlopen, Request, URLError
 from urlparse import urljoin
-from solace.tests import SolaceTestCase
+from solace.tests import SolaceTestCase, html_xpath
 
 from solace import models, settings
 from solace.database import session
@@ -68,7 +68,7 @@ class ValidatorTestCase(SolaceTestCase):
             content_type = response.headers['Content-Type']
             if content_type.split(';')[0].strip() == 'text/html':
                 self.doExternalValidation(url, response.data, content_type)
-            for link in response.html.xpath('//a[@href]'):
+            for link in html_xpath(response.html, '//html:a[@href]'):
                 visit(link.attrib['href'])
 
         self.login('user1', 'default')

@@ -9,7 +9,7 @@
     :license: BSD, see LICENSE for more details.
 """
 import unittest
-from solace.tests import SolaceTestCase
+from solace.tests import SolaceTestCase, html_xpath
 
 from solace import models, settings
 from solace.database import session
@@ -35,34 +35,34 @@ class KBViewsTestCase(SolaceTestCase):
         # capture it!
         topic_url = '/' + response.headers['Location'].split('/', 3)[-1]
         response = self.client.get(topic_url)
-        q = response.html.xpath
+        q = lambda x: html_xpath(response.html, x)
 
         # we have a headline
-        self.assertEqual(q('//h1')[0].text, 'Hello World')
+        self.assertEqual(q('//html:h1')[0].text, 'Hello World')
 
         # and all the tags
-        tags = sorted(x.text for x in q('//p[@class="tags"]/a'))
+        tags = sorted(x.text for x in q('//html:p[@class="tags"]/html:a'))
         self.assertEqual(tags, ['bar', 'baz', 'foo'])
 
         # and the text is present and parsed
-        pars = q('//div[@class="text"]/p')
+        pars = q('//html:div[@class="text"]/html:p')
         self.assertEqual(len(pars), 2)
         self.assertEqual(pars[0].text, 'This is just a small test')
-        self.assertEqual(pars[1][0].tag, 'strong')
+        self.assertEqual(pars[1][0].tag, '{http://www.w3.org/1999/xhtml}strong')
         self.assertEqual(pars[1][0].text, 'test')
 
         # now try to submit a reply
         response = self.submit_form(topic_url, {
             'text':     'This is a reply\n\nwith //text//'
         }, follow_redirects=True)
-        q = response.html.xpath
+        q = lambda x: html_xpath(response.html, x)
 
         # do we have the text?
-        pars = q('//div[@class="replies"]//div[@class="text"]/p')
+        pars = q('//html:div[@class="replies"]//html:div[@class="text"]/html:p')
         self.assertEqual(len(pars), 2)
         self.assertEqual(pars[0].text, 'This is a reply')
         self.assertEqual(pars[1].text, 'with ')
-        self.assertEqual(pars[1][0].tag, 'em')
+        self.assertEqual(pars[1][0].tag, '{http://www.w3.org/1999/xhtml}em')
         self.assertEqual(pars[1][0].text, 'text')
 
     def test_voting(self):
@@ -77,7 +77,7 @@ class KBViewsTestCase(SolaceTestCase):
         tquid = topic.question.id
 
         def get_vote_count(response):
-            el = response.html.xpath('//div[@class="votebox"]/h4')
+            el = html_xpath(response.html, '//html:div[@class="votebox"]/html:h4')
             return int(el[0].text)
 
         vote_url = '/_vote/%s?val=%%d&_xt=%s' % (tquid, self.get_exchange_token())

@@ -30,6 +30,6 @@ def show_badge(request, identifier):
         raise NotFound()
 
     user_badges = UserBadge.query.filter_by(badge=badge) \
-        .order_by([UserBadge.awarded.desc()]).limit(20).all()
+        .order_by(UserBadge.awarded.desc()).limit(20).all()
     return render_template('badges/show_badge.html', badge=badge,
                            user_badges=user_badges)

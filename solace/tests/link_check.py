@@ -11,7 +11,7 @@
 import re
 import unittest
 from urlparse import urljoin
-from solace.tests import SolaceTestCase
+from solace.tests import SolaceTestCase, html_xpath
 
 from solace import models, settings
 from solace.database import session
@@ -47,7 +47,7 @@ class LinkCheckTestCase(SolaceTestCase):
                 return
             response = self.client.get(path, follow_redirects=True)
             self.assertEqual(response.status_code, 200)
-            for link in response.html.xpath('//a[@href]'):
+            for link in html_xpath(response.html, '//html:a[@href]'):
                 visit(link.attrib['href'])
 
         # logged out

@@ -570,7 +570,7 @@ def get_tags(request):
     q = request.args.get('q')
     if q:
         query = query.filter(Tag.name.like('%%%s%%' % q))
-    query = query.order_by([Tag.tagged.desc(), Tag.name])
+    query = query.order_by(Tag.tagged.desc(), Tag.name)
     return json_response(tags=[(tag.name, tag.tagged)
                                for tag in query.limit(limit).all()])
 
