@@ -140,9 +140,9 @@ class Pack(object):
         return '\n'.join(x.encode('utf-8') for x in self)
 
 
-def default_link_func(*args, **kwargs):
+def default_link_func(fn, ext):
     from solace.application import url_for
-    return url_for(*args, **kwargs)
+    return url_for('static', file=fn)
 
 
 class PackManager(object):
