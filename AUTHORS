@@ -19,7 +19,3 @@ Some parts of the code are taken from existing projects:
     From the Sphinx documentation tool:
 
     - solace.scripts
-
-    From Jason Kirtland's translit tab:
-
-    - solace.utils._translit_tab
