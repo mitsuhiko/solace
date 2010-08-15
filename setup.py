@@ -54,12 +54,11 @@ else:
     extra['webdepcompress_manager'] = 'solace.packs.pack_mgr'
 
 setup(
-    name='Plurk_Solace',
-    version='0.1',
-    url='http://opensource.plurk.com/solace/',
+    name='Solace',
+    version='0.2',
     license='BSD',
-    author='Plurk Inc.',
-    author_email='opensource@plurk.com',
+    author='Armin Ronacher',
+    author_email='armin.ronacher@active-4.com',
     description='Multilangual User Support Platform',
     long_description=__doc__,
     packages=['solace', 'solace.views', 'solace.i18n', 'solace.utils'],
