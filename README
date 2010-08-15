@@ -27,7 +27,7 @@
             -   Babel
             -   creoleparser
             -   simplejson
-	    -	webdepcompress
+            -   webdepcompress
 
         If you want to hack on Solace on your own the best way to get
         started is using the all-mygthy `setup.py` script in a virtual
