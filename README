@@ -54,11 +54,20 @@
 
             $ python setup.py develop
 
+        If you have pip, you can also use the editable install
+        switch to accomplish the same:
+
+            $ pip install --editable .
+
         If you want to install it into a virtual environment (or
         system wide, which we however do not recommend) you can use
         the `install` command
 
             $ python setup.py install
+
+        Or again also pip is possible:
+
+            $ pip install .
 
         Both `develop` and `install` will take care of dependencies
         for you.
