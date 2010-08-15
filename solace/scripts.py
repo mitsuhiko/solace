@@ -90,7 +90,7 @@ class InitDatabaseCommand(Command):
         print 'created database tables'
 
 
-class ResetDatabase(Command):
+class ResetDatabaseCommand(Command):
     description = 'like initdb, but creates an admin:default user'
     user_options = [
         ('username', 'u', 'the admin username'),
@@ -120,7 +120,7 @@ class ResetDatabase(Command):
                                       self.email)
 
 
-class MakeTestData(Command):
+class MakeTestDataCommand(Command):
     description = 'adds tons of test data into the database'
     user_options = [
         ('data-set-size', 's', 'the size of the dataset '
@@ -311,7 +311,7 @@ class MakeTestData(Command):
         session.commit()
 
 
-class CompileCatalogEx(compile_catalog):
+class CompileCatalogExCommand(compile_catalog):
     """Extends the standard catalog compiler to one that also creates
     .js files for the strings that are needed in JavaScript.
     """
@@ -383,3 +383,29 @@ class CompileCatalogEx(compile_catalog):
                 outfile.write(');\n')
             finally:
                 outfile.close()
+
+
+class CompressDependenciesCommand(Command):
+    """A distutils command for dep compression."""
+
+    description = 'Compresses web dependencies'
+    user_options = [
+        ('clean', None, 'removes the compressed files'),
+        ('compressor', 'c', 'the compressor to use (defaults to auto)')
+    ]
+    boolean_options = ['clean']
+
+    def initialize_options(self):
+        self.clean = False
+        self.compressor = 'auto'
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        from solace.packs import pack_mgr
+        if self.clean:
+            print 'Remove compressed files'
+            pack_mgr.remove_compressed()
+        else:
+            pack_mgr.compress(log=log)

@@ -41,17 +41,11 @@ else:
     extra['cmdclass'] = {
         'runserver':        scripts.RunserverCommand,
         'initdb':           scripts.InitDatabaseCommand,
-        'reset':            scripts.ResetDatabase,
-        'make_testdata':    scripts.MakeTestData,
-        'compile_catalog':  scripts.CompileCatalogEx
+        'reset':            scripts.ResetDatabaseCommand,
+        'make_testdata':    scripts.MakeTestDataCommand,
+        'compile_catalog':  scripts.CompileCatalogExCommand,
+        'compress_deps':    scripts.CompressDependenciesCommand
     }
-
-try:
-    import webdepcompress
-except ImportError:
-    pass
-else:
-    extra['webdepcompress_manager'] = 'solace.packs.pack_mgr'
 
 setup(
     name='Solace',
@@ -72,7 +66,6 @@ setup(
         'SQLAlchemy>=0.5.5',
         'creoleparser',
         'simplejson',
-        'webdepcompress',
         'translitcodec'
     ],
     tests_require=[
