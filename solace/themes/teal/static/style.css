@@ -171,7 +171,11 @@ div.text pre                { color: #10404B; background: #E9F7FA; border-color:
 
 /* tags */
 a.tag, p.tags a, ul.tagcloud li a
-                            { color: #2c6c7b; background: #F3FBFC; text-decoration: none; }
+                            { color: #2c6c7b; background: #F3FBFC; text-decoration: none;
+                              border: 1px solid #B5DBE6; border-right-color: #A0CDDA;
+                              border-bottom-color: #A0CDDA; padding: 1px 2px;
+                              border-radius: 1px; -moz-border-radius: 1px;
+                              -webkit-border-radius: 1px; }
 a.tag:hover, p.tags a:hover, ul.tagcloud li a:hover
                             { background: #e1edf0; color: #174752; }
 

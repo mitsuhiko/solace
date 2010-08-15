@@ -13,7 +13,7 @@
     anything from the rest of the solace system themselves that may depend on
     the i18n or application modules.
 
-    :copyright: (c) 2009 by Plurk Inc.
+    :copyright: (c) 2010 by the Solace Team, see AUTHORS for more details.
                 (c) 2009 by the Zine Team, see AUTHORS for more details.
     :license: BSD, see LICENSE for more details.
 """

@@ -7,7 +7,7 @@
     useful for others.  It's heavily inspired by support forums such as PHPBB
     and the stackoverflow system.
 
-    :copyright: (c) 2009 by Plurk Inc., see AUTHORS for more details.
+    :copyright: (c) 2010 by the Solace Team, see AUTHORS for more details.
     :license: BSD, see LICENSE for more details.
 """
 # note on imports: This __init__ file must not import anything in order fo

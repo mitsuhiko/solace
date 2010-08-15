@@ -347,6 +347,9 @@ div.topic div.votes,
 div.topic div.answered,
 div.topic div.unanswered {
     border: 1px solid;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
 }
 
 div.topic div.votes h4,
@@ -995,8 +998,7 @@ div.this_is_you p.meta {
 
 div.badgedisplay {
     margin: 10px 0;
-    height: 30px;
-    padding: 10px 0 0 8px;
+    padding: 10px 8px;
     border: 1px solid;
     border-left: none;
     border-right: none;
@@ -1016,11 +1018,12 @@ ul.badges {
 ul.badges li {
     margin: 11px 0;
     padding: 0;
+    line-height: 18px;
 }
 
 ul.badges li span.badge,
 div.badgedisplay div.badge span.badge {
-    font-size: 15px;
+    font-size: 13px;
     padding: 4px 8px;
 }
 

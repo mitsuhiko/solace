@@ -6,7 +6,7 @@
     This module implements the core views.  These are usually language
     independent view functions such as the overall index page.
 
-    :copyright: (c) 2009 by Plurk Inc., see AUTHORS for more details.
+    :copyright: (c) 2010 by the Solace Team, see AUTHORS for more details.
     :license: BSD, see LICENSE for more details.
 """
 from werkzeug import redirect, Response

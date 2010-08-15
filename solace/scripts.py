@@ -6,7 +6,7 @@
     Provides some setup.py commands.  The js-translation compiler is taken
     from Sphinx, the Python documentation tool.
 
-    :copyright: (c) 2009 by Plurk Inc.
+    :copyright: (c) 2010 by the Solace Team, see AUTHORS for more details.
                 (c) 2009 by the Sphinx Team, see AUTHORS for more details.
     :license: BSD, see LICENSE for more details.
 """

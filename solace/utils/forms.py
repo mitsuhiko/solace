@@ -6,7 +6,7 @@
     Implements the form handling.  The code here largely comes from the
     Zine form handling system, without the Zine dependency.
 
-    :copyright: (c) 2009 by the Zine Team,
+    :copyright: (c) 2010 by the Solace Team, see AUTHORS for more details.
                 (c) 2009 by Plurk Inc., see AUTHORS for more details.
     :license: BSD, see LICENSE for more details.
 """

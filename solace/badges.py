@@ -5,7 +5,7 @@
 
     This module implements the badge system.
 
-    :copyright: (c) 2009 by Plurk Inc., see AUTHORS for more details.
+    :copyright: (c) 2010 by the Solace Team, see AUTHORS for more details.
     :license: BSD, see LICENSE for more details.
 """
 from operator import attrgetter
