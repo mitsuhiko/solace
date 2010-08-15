@@ -130,13 +130,13 @@ div.metanavigation {
     width: 740px;
     top: 35px;
     height: 28px;
-            line-height: 28px;
-            text-align: right;
+    line-height: 28px;
+    text-align: right;
 }
 
 div.metanavigation p {
-margin: 0;
-        font-size: 11px;
+    margin: 0;
+    font-size: 11px;
 }
 
 div.metanavigation span.user span.badge {
@@ -144,40 +144,40 @@ div.metanavigation span.user span.badge {
 }
 
 ul.language_selection {
-position: absolute;
-right: 10px;
-top: 10px;
-margin: 0;
-        list-style: none;
-width: 120px;
-padding: 0;
-border: 1px solid;
-        text-align: center;
-        z-index: 20;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    margin: 0;
+    list-style: none;
+    width: 120px;
+    padding: 0;
+    border: 1px solid;
+    text-align: center;
+    z-index: 20;
 }
 
 ul.language_selection li {
-display: none;
+    display: none;
 }
 
 ul.language_selection li a,
-    ul.language_selection li.title {
-display: block;
-padding: 0 7px;
-         line-height: 22px;
-height: 22px;
-    }
+ul.language_selection li.title {
+    display: block;
+    padding: 0 7px;
+    line-height: 22px;
+    height: 22px;
+}
 
 ul.language_selection li.title {
-display: block;
-         font-weight: bold;
-cursor: pointer;
+    display: block;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 ul.css_language_selection:hover li,
-    ul.language_selection.hovered li {
-display: block;
-    }
+ul.language_selection.hovered li {
+    display: block;
+}
 
 ul.language_selection li a {
     text-decoration: none;
@@ -190,95 +190,95 @@ ul.language_selection li.active a {
 }
 
 ul.css_language_selection:hover li.title,
-    ul.language_selection.hovered li.title {
-        border-bottom: 1px solid;
-    }
+ul.language_selection.hovered li.title {
+    border-bottom: 1px solid;
+}
 
 /* :::: NAVIGATION :::: */
 
 ul.navigation {
-width: 760px;
-margin: 0 auto;
-padding: 0;
-         list-style: none;
-height: 30px;
-        line-height: 30px;
-border: 1px solid;
+    width: 760px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid;
 }
 
 ul.navigation li {
-display: block;
-float: left;
+    display: block;
+    float: left;
 }
 
 ul.navigation li a {
-display: block;
-float: left; /* this one is needed for ie6 */
-height: 30px;
-        line-height: 30px;
-padding: 0 10px;
-         text-decoration: none;
-         font-weight: bold;
-         font-size: 10px;
+    display: block;
+    float: left; /* this one is needed for ie6 */
+    height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 10px;
 }
 
 ul.navigation li.active a {
 border: 1px solid;
-        border-bottom: none;
-        border-top: none;
-padding: 0 9px;
-height: 31px;
+    border-bottom: none;
+    border-top: none;
+    padding: 0 9px;
+    height: 31px;
 }
 
 ul.navigation li.view_lang {
-float: right;
-       text-align: center;
+    float: right;
+    text-align: center;
 }
 
 ul.navigation li.view_lang a {
     line-height: 1;
-padding: 0 15px;
+    padding: 0 15px;
 }
 
 ul.navigation li.view_lang a small {
     padding-top: 4px;
-display: block;
-         font-size: 10px;
-         font-weight: normal;
+    display: block;
+    font-size: 10px;
+    font-weight: normal;
 }
 
 ul.navigation li.view_lang a strong {
     margin-top: -2px;
-display: block;
-         font-size: 13px;
+    display: block;
+    font-size: 13px;
 }
 
 /* :::: CONTENTS :::: */
 
 div.contents {
-width: 740px;
-margin: 0 auto;
-padding: 10px;
-line-height: 1.5em;
-border: 1px solid;
-        border-top: none;
-        border-bottom: none;
+    width: 740px;
+    margin: 0 auto;
+    padding: 10px;
+    line-height: 1.4;
+    border: 1px solid;
+    border-top: none;
+    border-bottom: none;
 }
 
 div.footer {
-width: 740px;
-margin: 0 auto;
-padding: 4px 10px;
-border: 1px solid;
-        border-top: none;
-        font-size: 10px;
-        text-align: right;
+    width: 740px;
+    margin: 0 auto;
+    padding: 4px 10px;
+    border: 1px solid;
+    border-top: none;
+    font-size: 10px;
+    text-align: right;
 }
 
 div.contents h1 {
-margin: -10px -10px 10px -10px;
-padding: 7px 10px;
-         font-size: 24px;
+    margin: -10px -10px 10px -10px;
+    padding: 3px 10px;
+    font-size: 24px;
 }
 
 #flash_message {
