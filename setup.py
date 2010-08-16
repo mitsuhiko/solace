@@ -61,7 +61,7 @@ setup(
     test_suite='solace.tests.suite',
     install_requires=[
         'Werkzeug>=0.5.1',
-        'Jinja2',
+        'Jinja2>=2.4',
         'Babel',
         'SQLAlchemy>=0.5.5',
         'creoleparser',

@@ -150,8 +150,17 @@ class SolaceThemeLoader(PackageLoader):
         return PackageLoader.get_source(self, environment, template)
 
 
+def shall_use_autoescape(template_name):
+    if template_name is None or '.' not in template_name:
+        return False
+    ext = template_name.rsplit('.', 1)[1]
+    return ext == 'html'
+
+
 jinja_env = Environment(loader=SolaceThemeLoader(),
-                        extensions=['jinja2.ext.i18n'])
+                        autoescape=shall_use_autoescape,
+                        extensions=['jinja2.ext.i18n',
+                                    'jinja2.ext.autoescape'])
 
 
 def render_template(template_name, **context):
