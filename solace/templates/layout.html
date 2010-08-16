@@ -1,9 +1,9 @@
 <!doctype html>
 {%- from '_helpers.html' import render_user %}
 {%- block html_head %}
-<title>{% block html_head_title %}{% if page_title %}{{ page_title|e
-  }} | {% endif %}{{ settings.WEBSITE_TITLE|e }}{% endblock %}</title>
-{{ packs.default }}
+<title>{% block html_head_title %}{% if page_title %}{{ page_title
+  }} | {% endif %}{{ settings.WEBSITE_TITLE }}{% endblock %}</title>
+{% autoescape false %}{{ packs.default }}{% endautoescape %}
 {% block extra_header %}{% endblock %}
 <script type="text/javascript" src="{{ url_for('core.get_translations', lang=request.locale) }}"></script>
 <!--[if IE]><link rel="stylesheet" type="text/css" href="{{ url_for('static', file='ie.css') }}"><![endif]-->
@@ -24,8 +24,8 @@ Solace.notifyUTCOffset();
 <div class="header">
 {%- block header %}
   {%- block header_text %}
-  <p class="title"><strong>{{ settings.WEBSITE_TITLE|e }}</strong>
-  <p class="subtitle"><small>{{ settings.WEBSITE_TAGLINE|e }}</small>
+  <p class="title"><strong>{{ settings.WEBSITE_TITLE }}</strong>
+  <p class="subtitle"><small>{{ settings.WEBSITE_TAGLINE }}</small>
   {%- endblock %}
   {%- block header_language_selection %}
   {%- if settings.LANGUAGE_SECTIONS|length > 1 %}
@@ -33,7 +33,7 @@ Solace.notifyUTCOffset();
     <li class="title">{{ _('Language') }}
   {%- for lang in request.list_languages() %}
     <li class="lang_{{ lang.key }}{% if lang.selected %} active{% endif
-      %}"><a href="{{ lang.select_url }}">{{ lang.name|e }}</a>
+      %}"><a href="{{ lang.select_url }}">{{ lang.name }}</a>
   {%- endfor %}
   </ul>
   {%- endif %}
