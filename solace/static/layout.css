@@ -14,7 +14,8 @@ body {
 }
 
 pre {
-    font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono', monospace;
+    font-family: 'Consolas', 'Deja Vu Sans Mono', 'Bitstream Vera Sans Mono',
+                 monospace;
     font-size: 13px;
 }
 
@@ -53,7 +54,8 @@ h2 {
 }
 
 pre {
-    font-family: 'Consolas', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Monaco', 'Courier New', monospace;
+    font-family: 'Consolas', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono',
+                 'Monaco', 'Courier New', monospace;
     font-size: 13px;
     white-space: pre-wrap;       /* css-3 should we be so lucky... */
     white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
@@ -65,7 +67,8 @@ pre {
 }
 
 code {
-    font-family: 'Consolas', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Monaco', 'Courier New', monospace;
+    font-family: 'Consolas', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono',
+                 'Monaco', 'Courier New', monospace;
 }
 
 /* :::: FORMS :::: */
@@ -474,7 +477,8 @@ div.post_form textarea {
 
 div.post_form div.text textarea,
 div.post_form div.text div.help {
-    font-family: 'Consolas', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Monaco', 'Courier New', monospace;
+    font-family: 'Consolas', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono',
+                 'Monaco', 'Courier New', monospace;
 }
 
 div.post_form div.tags span.help {
