@@ -1,5 +1,5 @@
 {% extends "!layout.html" %}
 {% block html_head %}
 {{- super() }}
-{% autoescape false %}{{ theme.packs.style }}{% endautoescape %}
+{{ theme.packs.style|safe }}
 {%- endblock %}
