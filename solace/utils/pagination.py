@@ -11,6 +11,7 @@
 import math
 from werkzeug import url_encode
 from werkzeug.exceptions import NotFound
+from jinja2 import Markup
 from solace.i18n import _
 
 
@@ -47,7 +48,7 @@ class Pagination(object):
     def __unicode__(self):
         if not self.necessary:
             return u''
-        return u'<div class="pagination">%s</div>' % self.generate()
+        return Markup(u'<div class="pagination">%s</div>' % self.generate())
 
     def get_objects(self, raise_not_found=True):
         """Returns the objects for the page."""
