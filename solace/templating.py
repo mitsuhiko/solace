@@ -14,7 +14,8 @@ from itertools import chain
 from threading import Lock
 from werkzeug import escape
 from werkzeug.exceptions import NotFound
-from jinja2 import Environment, PackageLoader, BaseLoader, TemplateNotFound
+from jinja2 import Environment, PackageLoader, BaseLoader, TemplateNotFound, \
+                   Markup
 from solace.utils.ini import parse_ini
 from solace.utils.packs import PackManager
 
@@ -187,7 +188,7 @@ def datetimeformat_filter(obj, html=True, prefixed=True):
             obj.strftime('%Y-%m-%dT%H:%M:%SZ'),
             escape(rv)
         )
-    return rv
+    return Markup(rv)
 
 
 from solace import settings
