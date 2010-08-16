@@ -11,6 +11,7 @@
 import urllib2
 from simplejson import dumps
 from werkzeug import url_encode
+from jinja2 import Markup
 
 from solace import settings
 from solace.i18n import _
@@ -28,7 +29,7 @@ def get_recaptcha_html(error=None):
     if error is not None:
         options['error'] = unicode(error)
     query = url_encode(options)
-    return u'''
+    return Markup(u'''
     <script type="text/javascript">var RecaptchaOptions = %(options)s;</script>
     <script type="text/javascript" src="%(script_url)s"></script>
     <noscript>
@@ -36,7 +37,7 @@ def get_recaptcha_html(error=None):
       <div><textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
       <input type="hidden" name="recaptcha_response_field" value="manual_challenge"></div>
     </noscript>
-    ''' % dict(
+    ''') % dict(
         script_url='%schallenge?%s' % (server, query),
         frame_url='%snoscript?%s' % (server, query),
         options=dumps({
