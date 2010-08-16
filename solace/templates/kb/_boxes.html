@@ -22,7 +22,7 @@
     <div class="text">
       <h2><a href="{{ url_for(topic) }}">{{ topic.title|e }}</a></h2>
       <p class="meta">
-        {{ _("By %s") % render_user(topic.author) }},
+        {{ (_("By %s") % render_user(topic.author))|safe }},
         {{ topic.date|datetimeformat }}
       {{ render_tags(topic.tags) }}
     </div>
