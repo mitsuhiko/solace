@@ -18,7 +18,7 @@ var Solace = {
   TRANSLATIONS : (new babel.Translations).install(),
 
   /* flash container enhanced? */
-  _flash_container_enhanced : false,  
+  _flash_container_enhanced : false,
 
   /* called by generated code if the UTC offset is not yet
      known to the server code */
