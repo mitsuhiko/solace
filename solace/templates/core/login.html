@@ -6,7 +6,7 @@
     Enter your username and password to log into Solace:
   {%- endtrans %}
   {% call form() %}
-    {% autoescape false %}{{ form.as_dl() }}{% endautoescape %}
+    {{ form.as_dl() }}
     <script type="text/javascript">
       $('input[name=username]').focus();
     </script>
