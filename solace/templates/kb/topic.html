@@ -10,11 +10,11 @@
 <link rel="alternate" href="{{ url_for(topic, action='feed') }}" type="application/atom+xml">
 {%- endblock %}
 {% block body %}
-  <h1>{{ topic.title|e }}</h1>
+  <h1>{{ topic.title }}</h1>
   <div class="question{% if topic.is_deleted %} deleted_question{% endif %}">
     {{ render_vote_box(topic.question, request.user) }}
     <div class="text">
-      {{ topic.question.rendered_text }}
+      {{ topic.question.rendered_text|safe }}
     </div>
     {{ render_tags(topic.tags) }}
     {{ render_actions_box(topic.question, request.user) }}
