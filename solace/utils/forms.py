@@ -409,7 +409,7 @@ class Widget(_Renderable):
                 _add_field(name, value)
 
         _to_hidden(self.value, self.name)
-        return u'\n'.join(fields)
+        return Markup(u'\n'.join(fields))
 
     @property
     def localname(self):
@@ -474,7 +474,7 @@ class Widget(_Renderable):
         rv.append(html.dd(self(**attrs)))
         if self.help_text:
             rv.append(html.dd(self.help_text, class_='explanation'))
-        return u''.join(rv)
+        return Markup(u''.join(rv))
 
     def _attr_setdefault(self, attrs):
         """Add an ID to the attrs if there is none."""
@@ -649,8 +649,9 @@ class _InputGroupMember(InternalWidget):
 
     def render(self, **attrs):
         self._attr_setdefault(attrs)
-        return Markup(html.input(type=self.type, name=self.name, value=self.value,
-                                 checked=self.checked, **attrs))
+        return Markup(html.input(type=self.type, name=self.name,
+                                 value=self.value, checked=self.checked,
+                                 **attrs))
 
 
 class RadioButton(_InputGroupMember):
@@ -709,10 +710,10 @@ class _InputGroup(Widget):
     def as_table(self, **attrs):
         """Render the radio buttons widget as <table>"""
         self._attr_setdefault(attrs)
-        return list_type(*[u'<tr><td>%s</td><td>%s</td></tr>' % (
+        return Markup(list_type(*[u'<tr><td>%s</td><td>%s</td></tr>' % (
             choice,
             choice.label
-        ) for choice in self.choices], **attrs)
+        ) for choice in self.choices], **attrs))
 
     def render(self, **attrs):
         return self.as_ul(**attrs)
@@ -777,8 +778,8 @@ class FormWidget(MappingWidget):
     @property
     def hidden_fields(self):
         """The hidden fields as string."""
-        return u''.join(html.input(type='hidden', name=name, value=value)
-                        for name, value in self.get_hidden_fields())
+        return Markup(u''.join(html.input(type='hidden', name=name, value=value)
+                               for name, value in self.get_hidden_fields()))
 
     @cached_property
     def captcha(self):
@@ -898,7 +899,8 @@ class ErrorList(_Renderable, list):
     def _as_list(self, factory, attrs):
         if attrs.pop('hide_empty', False) and not self:
             return u''
-        return Markup(factory(*(html.li(item) for item in self), **attrs))
+        # Returning Markup causes escaping in some cases
+        return factory(*(html.li(item) for item in self), **attrs)
 
     def __call__(self, **attrs):
         attrs.setdefault('class', attrs.pop('class_', 'errors'))
