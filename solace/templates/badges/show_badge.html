@@ -20,8 +20,8 @@
   <ul class="userlist">
   {%- for user_badge in user_badges %}
     <li>{{ render_user(user_badge.user, avatar_size=26) }}
-        <span class="awarded">{{ _('awarded %s') %
-          user_badge.awarded|datetimeformat }}</span>
+    	{% autoescape false %}<span class="awarded">{{ _('awarded %s') %
+        user_badge.awarded|datetimeformat }}</span>{% endautoescape %}
   {%- endfor %}
   </ul>
   {% else %}
