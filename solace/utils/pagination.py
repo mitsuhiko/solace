@@ -48,7 +48,10 @@ class Pagination(object):
     def __unicode__(self):
         if not self.necessary:
             return u''
-        return Markup(u'<div class="pagination">%s</div>' % self.generate())
+        return u'<div class="pagination">%s</div>' % self.generate()
+
+    def __html__(self):
+        return Markup(unicode(self))
 
     def get_objects(self, raise_not_found=True):
         """Returns the objects for the page."""
