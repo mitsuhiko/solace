@@ -17,6 +17,8 @@ from itertools import chain
 from genshi.core import Stream, QName, Attrs, START, END, TEXT
 from contextlib import contextmanager
 
+from jinja2 import Markup
+
 
 _leading_space_re = re.compile(r'^(\s+)(?u)')
 _diff_split_re = re.compile(r'(\s+)(?u)')
@@ -33,14 +35,14 @@ def format_creole(text, inline=False):
     kwargs = {}
     if inline:
         kwargs['context'] = 'inline'
-    return _parser.render(text, encoding=None, **kwargs)
+    return Markup(_parser.render(text, encoding=None, **kwargs))
 
 
 def format_creole_diff(old, new):
     """Renders a creole diff for two texts."""
     differ = StreamDiffer(_parser.generate(old),
                           _parser.generate(new))
-    return differ.get_diff_stream().render('html', encoding=None)
+    return Markup(differ.get_diff_stream().render('html', encoding=None))
 
 
 def longzip(a, b):
