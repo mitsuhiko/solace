@@ -13,6 +13,8 @@ import re
 from weakref import ref as weakref
 from operator import itemgetter
 
+from jinja2 import Markup
+
 
 CSS_TEMPLATE = '<link rel="stylesheet" type="text/css" href="%s">'
 JS_TEMPLATE = '<script type="text/javascript" src="%s"></script>'
@@ -138,6 +140,9 @@ class Pack(object):
 
     def __str__(self):
         return '\n'.join(x.encode('utf-8') for x in self)
+
+    def __html__(self):
+        return Markup(unicode(self))
 
 
 def default_link_func(fn, ext):
