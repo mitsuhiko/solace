@@ -142,7 +142,7 @@
 {% macro render_comment(comment) %}
   <div class="comment">
     <div class="text">
-      {{ comment.rendered_text }}
+      {{ comment.rendered_text|safe }}
       <span class="meta">
         — {{ render_user(comment.author) }} &nbsp;
         {{ comment.date|datetimeformat }}
