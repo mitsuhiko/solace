@@ -1,8 +1,9 @@
 {% extends 'layout.html' %}
 {% from '_helpers.html' import render_user %}
 {% set page_title = _('All Users') if not locale
-  else (_('Users active in Section “%s”') % locale.display_name|e) %}
+  else (_('Users active in Section “%s”') % locale.display_name|safe) %}
 {% block body %}
+  {% autoescape false %}
   {% if not locale %}
     <h1>{{ page_title }}</h1>
     {% trans %}
@@ -12,7 +13,7 @@
   {% else %}
     {% set locale_link='<a href="%s">%s</a>' % (
       url_for('kb.overview', lang_code=locale),
-      locale.display_name|e) %}
+      locale.display_name) %}
     <h1>{{ _('Users active in Section “%s”') % locale_link }}</h1>
     {% trans %}
     <p>
@@ -20,12 +21,13 @@
       the “{{ locale_link }}” section of the Solace.
     {% endtrans %}
   {% endif %}
+  {% endautoescape %}
   {% if settings.LANGUAGE_SECTIONS|length > 1 %}
   <p class="userfilter">{{ _('Filter by section') }}:
     <a href="{{ url_for('users.userlist') }}">{{ _('All') }}</a>
     {% for key, locale in sections %}
       | <a href="{{ url_for('kb.userlist', lang_code=key)
-        }}">{{ locale.display_name|e }}</a>
+        }}">{{ locale.display_name }}</a>
     {% endfor %}
   {% endif %}
   <ul class="userlist">
@@ -33,5 +35,5 @@
     <li>{{ render_user(user, avatar_size=26) }}
   {%- endfor %}
   </ul>
-  {{ pagination }}
+  {{ pagination|safe }}
 {% endblock %}
