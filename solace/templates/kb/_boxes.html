@@ -61,7 +61,7 @@
     {{ render_accept_box(post, user) }}
     {{ render_vote_box(post, user) }}
     <div class="text">
-      {{ post.rendered_text }}
+      {{ post.rendered_text|safe }}
     </div>
     {{ render_actions_box(post, user) }}
     {{ render_plain_comment_box(post) }}
