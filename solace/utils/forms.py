@@ -1284,7 +1284,7 @@ class TextField(Field):
         if self.required:
             if not value:
                 raise ValidationError(self.messages['required'])
-        elif value:
+        if value:
             if self.min_length is not None and len(value) < self.min_length:
                 message = self.messages['too_short']
                 if message is None:
