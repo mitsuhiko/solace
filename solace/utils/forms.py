@@ -823,7 +823,7 @@ class FormWidget(MappingWidget):
             # if there are hidden fields we put an invisible div around
             # it.  the HTML standard doesn't allow input fields as direct
             # childs of a <form> tag...
-            body = '<div style="display: none">%s</div>%s' % (hidden, body)
+            body = Markup('<div style="display: none">%s</div>%s') % (hidden, body)
 
         if with_errors:
             body = self.default_display_errors() + body
@@ -899,8 +899,7 @@ class ErrorList(_Renderable, list):
     def _as_list(self, factory, attrs):
         if attrs.pop('hide_empty', False) and not self:
             return u''
-        # Returning Markup causes escaping in some cases
-        return factory(*(html.li(item) for item in self), **attrs)
+        return Markup(factory(*(html.li(item) for item in self), **attrs))
 
     def __call__(self, **attrs):
         attrs.setdefault('class', attrs.pop('class_', 'errors'))
