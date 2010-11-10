@@ -62,7 +62,7 @@ class RunserverCommand(Command):
         import sys
         sys.argv.insert(1, '-q')
 
-        run_simple(self.host, self.port, wsgi_app,
+        run_simple(self.host, int(self.port), wsgi_app,
                    use_reloader=not self.no_reloader,
                    use_debugger=not self.no_debugger)
 
