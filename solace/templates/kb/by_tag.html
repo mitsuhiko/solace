@@ -10,10 +10,10 @@
 {% block body %}
   <h1>{{ page_title }}</h1>
   <div class="explanation">
-    <p>{% trans tag='<a class="tag" href="%s">%s</a>' % (url_for(tag), tag.name|e)-%}
+    <p>{% trans tag=tag.name|e,tag_url=url_for(tag)-%}
       Questions are grouped and flagged by tags. By using the right tags you
       make it easier for others to find questions again. The following topics
-      are topics tagged {{ tag }}.
+      are topics tagged <a class="tag" href="{{ tag_url }}">{{ tag }}</a>.
     {%- endtrans %}
   </div>
   {{ render_topic_tabs('kb.by_tag', order_by, {'name': tag.name}) }}

@@ -769,7 +769,7 @@ msgid ""
 "Questions are grouped and flagged by tags. By using the right tags you\n"
 "      make it easier for others to find questions again. The following "
 "topics\n"
-"      are topics tagged %(tag)s."
+"      are topics tagged <a class=\"tag\" href=\"%(tag_url)s\">%(tag)s</a>."
 msgstr ""
 
 #: solace/templates/kb/delete_post.html:3
@@ -947,7 +947,7 @@ msgstr ""
 
 #: solace/templates/kb/unanswered.html:12
 msgid ""
-"Topics posted here do not have a decent answer yet. Help a plurker finds "
+"Topics posted here do not have a decent answer yet. Help a Pythonista finds "
 "his/her way :)."
 msgstr ""
 

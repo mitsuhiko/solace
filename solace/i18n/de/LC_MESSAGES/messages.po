@@ -819,11 +819,11 @@ msgid ""
 "Questions are grouped and flagged by tags. By using the right tags you\n"
 "      make it easier for others to find questions again. The following "
 "topics\n"
-"      are topics tagged %(tag)s."
+"      are topics tagged <a class=\"tag\" href=\"%(tag_url)s\">%(tag)s</a>."
 msgstr ""
 "Fragen sind nach Tags gruppiert. Wenn du die richtigen Tags benutzt\n"
 "      machst du es anderen Leuten einfacher Fragen wiederzufinden. Die "
-"folgenden Beiträge sind markiert %(tag)s."
+"folgenden Beiträge sind markiert <a class=\"tag\" href=\"%(tag_url)s\">%(tag)s</a>."
 
 #: solace/templates/kb/delete_post.html:3
 msgid "Delete Post"
